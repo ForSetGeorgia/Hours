@@ -1,0 +1,34 @@
+<%= form_for @timestamp, :html => { :class => 'form-horizontal' } do |f| %>
+  <div class="form-group">
+    <%= f.label :project_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.collection_select(:project_id, Project.all, :id, :name, prompt: true) %>
+    </div>
+  </div>
+  
+
+  <div class="form-group">
+    <%= f.label :diff_level, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :diff_level, :class => 'form-control' %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :duration, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.number_field :duration, :class => 'form-control' %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :notes, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_area :notes, :class => 'form-control' %>
+    </div>
+  </div>
+
+  
+  <%= f.submit nil, :class => 'btn btn-primary' %>
+  <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+            timestamps_path, :class => 'btn btn-default' %>
+ 
+<% end %>
