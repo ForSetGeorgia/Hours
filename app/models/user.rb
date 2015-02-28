@@ -9,9 +9,11 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me, :role,
                   :provider, :uid, :nickname, :avatar
 
+  has_many :timestamps
+
   validates :role, :presence => true
 
-  ROLES = {:user => 0, :admin => 99}
+  ROLES = {:user => 0, :staff => 1, :admin => 99}
 
   def self.no_admins
     where("role != ?", ROLES[:admin])
