@@ -1,6 +1,6 @@
 <%- model_class = Timestamp -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %> as <%= current_user.role %></h1>
+  <h1>My <%=t '.title', :default => model_class.model_name.human.pluralize.titleize %> as <%= current_user.role %></h1>
 </div>
 
 <%= render :partial => 'form' %>
@@ -13,7 +13,7 @@
       <th><%= model_class.human_attribute_name(:nickname) %></th>
       <th>Timestamp</th>
       <th><%= model_class.human_attribute_name(:project_id) %></th>
-      <th><%= model_class.human_attribute_name(:diff_level) %></th>
+      <th>Difficulty Level</th>
       <th><%= model_class.human_attribute_name(:duration) %></th>
       <th><%= model_class.human_attribute_name(:notes) %></th>
       
@@ -40,7 +40,11 @@
                 <h4 class="modal-title" id="myModalLabel">Timestamp Notes</h4>
               </div>
               <div class="modal-body">
-                <%= timestamp.notes %>
+                <% unless timestamp.notes.empty? %>
+                  <%= timestamp.notes %>
+                <% else %>
+                  <p>There are no notes.</p>
+                <% end %>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
