@@ -20,7 +20,7 @@ BootstrapStarter::Application.routes.draw do
 		end
 
 
-		root :to => 'root#index'
+		root :to => 'timestamps#index'
 	  match "*path", :to => redirect("/#{I18n.default_locale}") # handles /en/fake/path/whatever
 	end
 

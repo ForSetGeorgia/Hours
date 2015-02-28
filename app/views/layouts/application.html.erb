@@ -56,12 +56,10 @@
 									</li>
 			          </ul>
 			        </li>
+            <% else %>
+              <li><%= link_to t('helpers.links.sign_in2'), new_user_session_path %></li>
+
 	          <% end %>
-						<% I18n.available_locales.each do |locale| %>
-							<% if locale != I18n.locale %>
-								<li><%= link_to t("app.language.#{locale}"), params.merge(:locale => locale) %></li>
-							<% end %>
-						<% end %>
           </ul>
         </div><!--/.nav-collapse -->
       </div><!-- /.container-fluid -->
