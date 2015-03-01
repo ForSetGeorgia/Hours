@@ -20,7 +20,6 @@ class TimestampsController < ApplicationController
 
   def edit
     @timestamp = Timestamp.find(params[:id])
-
   end
 
   def create

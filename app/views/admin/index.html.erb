@@ -2,7 +2,7 @@
 
   <% if current_user.role? User::ROLES[:admin] %>
    <div class="col-sm-4">
- 		<ul class="standard">
+ 		<ul class="standard admin-list">
  			<li>
        <%= link_to t('.users'), admin_users_path %>
       </li>
