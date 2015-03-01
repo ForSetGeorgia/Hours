@@ -6,7 +6,7 @@
 <%= render :partial => 'timestamps/form' %>
 
 <h2>
-  Today's Timestamps
+  Today's Timestamps (<%= current_user.id %>)
   <%= link_to 'View All My Timestamps', timestamps_path,
 :class => 'btn btn-info' %>
 </h2>

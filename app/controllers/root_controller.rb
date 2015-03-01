@@ -5,7 +5,7 @@ class RootController < ApplicationController
   end
 
   def index
-    if current_user.role == 99
+    if current_user.role?(User::ROLES[:admin])
       @timestamps = Timestamp.stamps_today
     else
       @timestamps = current_user.timestamps.stamps_today
