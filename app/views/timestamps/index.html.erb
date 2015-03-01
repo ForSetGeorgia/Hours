@@ -1,6 +1,9 @@
 <%- model_class = Timestamp -%>
 <div class="page-header">
-  <h1>All My <%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+  <h1>
+    All My <%=t '.title', :default => model_class.model_name.human.pluralize.titleize %>
+    <%= link_to 'Back to Home', root_path, :class => 'btn btn-info' %>
+  </h1>
 </div>
 
 <table class="table table-striped">

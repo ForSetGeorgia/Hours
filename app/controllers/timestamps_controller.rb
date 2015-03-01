@@ -5,7 +5,7 @@ class TimestampsController < ApplicationController
   end
 
   def index
-    if current_user.role == 99
+    if current_user.role?(User::ROLES[:admin]
       @timestamps = Timestamp.all
     else
       @timestamps = current_user.timestamps.all
