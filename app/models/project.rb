@@ -4,10 +4,10 @@ class Project < ActiveRecord::Base
   belongs_to :organization
   has_many :timestamps
 
-  scope :valid?, where(:valid => true)
+  scope :active?, where(active: true)
 
   def name_with_proj
-    "#{organization.short_name}: #{name}" 
+    "#{organization.short_name}: #{name}"
   end
   	
 end
