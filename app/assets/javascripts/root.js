@@ -4,7 +4,7 @@ $(function () {
             type: 'bar'
         },
         title: {
-            text: "Today's Projects"
+            text: ""
         },
         xAxis: {
             categories: ['']
@@ -12,7 +12,7 @@ $(function () {
         yAxis: {
             min: 0,
             title: {
-                text: 'Minutes'
+                text: "Today's Projects' Hours"
             }
         },
         legend: {

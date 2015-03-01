@@ -18,7 +18,7 @@ class RootController < ApplicationController
     end
     gon.projects = []
     projects.each do |k,v|
-      gon.projects << {name: k, data: [v]}
+      gon.projects << {name: k, data: [v.to_f/60]}
     end
 
     @timestamp = Timestamp.new
