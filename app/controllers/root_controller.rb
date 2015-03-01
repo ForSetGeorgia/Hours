@@ -28,7 +28,7 @@ class RootController < ApplicationController
 
     respond_to do |format|
       if @timestamp.save
-        format.html { redirect_to timestamps_url, notice: 'Timestamp was successfully created.' }
+        format.html { redirect_to root_url, notice: 'Timestamp was successfully created.' }
       else
         format.html { render action: "new" }
       end
