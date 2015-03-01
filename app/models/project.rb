@@ -3,4 +3,11 @@ class Project < ActiveRecord::Base
 
   belongs_to :organization
   has_many :timestamps
+
+  scope :valid?, where(:valid => true)
+
+  def name_with_proj
+    "#{organization.short_name}: #{name}" 
+  end
+  	
 end

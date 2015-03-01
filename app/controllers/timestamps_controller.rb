@@ -6,11 +6,11 @@ class TimestampsController < ApplicationController
 
   def index
     if current_user.role == 99
-      @timestamps = Timestamp.stamps_today if current_user.role
+      @timestamps = Timestamp.stamps_today
     else
       @timestamps = current_user.timestamps.stamps_today
     end
-    
+
     @timestamp = Timestamp.new
   end
  
