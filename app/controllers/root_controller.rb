@@ -10,6 +10,16 @@ class RootController < ApplicationController
     else
       @timestamps = current_user.timestamps.stamps_today
     end
+    
+    # for daily chart
+    projects = Hash.new(0)
+    @timestamps.each do |t|
+      projects[t.project.name] += t.duration
+    end
+    gon.projects = []
+    projects.each do |k,v|
+      gon.projects << {name: k, data: [v]}
+    end
 
     @timestamp = Timestamp.new
   end
