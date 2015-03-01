@@ -1,17 +1,15 @@
 class TimestampsController < ApplicationController
   before_filter :authenticate_user!
   before_filter do |controller_instance|
-    controller_instance.send(:valid_role?, User::ROLES[:staff])
+    controller_instance.send(:valid_role?, User::ROLES[:admin])
   end
 
   def index
     if current_user.role == 99
-      @timestamps = Timestamp.stamps_today
+      @timestamps = Timestamp.all
     else
-      @timestamps = current_user.timestamps.stamps_today
+      @timestamps = current_user.timestamps.all
     end
-
-    @timestamp = Timestamp.new
   end
  
   def new

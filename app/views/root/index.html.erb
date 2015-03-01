@@ -1,17 +1,71 @@
-<% title "JumpStart's Rails Bootstrap Starter Template" %>
+<%- model_class = Timestamp -%>
+<div class="page-header">
+  <h1>My <%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+</div>
 
-<% if @about.present? %>
-  <%= simple_format_no_tags(@about.content, {}, {sanitize: false}) %>
-<% else %>
-  <p>
-    Welcome to JumpStart's Rails Bootstrap Starter Template project. To get started, please run the following at the command line: 
-  </p>
-  <ul>
-    <li>rake db:migrate</li>
-    <li>rake db:seed</li>
-  </ul>
-  <p>
-    After you have run those two commands please reload this page.
-  </p>
-<% end %>
+<%= render :partial => 'timestamps/form' %>
 
+<h2>
+  Today's Timestamps
+  <%= link_to 'View All My Timestamps', timestamps_path,
+:class => 'btn btn-default' %>
+</h2>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= model_class.human_attribute_name(:nickname) %></th>
+      <th>Timestamp</th>
+      <th><%= model_class.human_attribute_name(:project_id) %></th>
+      <th>Difficulty Level</th>
+      <th><%= model_class.human_attribute_name(:duration) %></th>
+      <th><%= model_class.human_attribute_name(:notes) %></th>
+      
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @timestamps.each do |timestamp| %>
+      <tr>
+        <td><%= timestamp.user.nickname %></td>
+        <td><%=l timestamp.created_at %></td>
+        <td><%= timestamp.project.organization.short_name %>: <%= timestamp.project.name %></td>
+        <td><%= timestamp.diff_level %></td>
+        <td><%= timestamp.duration %></td>
+        <td>
+          <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#notes-<%= timestamp.id %>">
+            Notes
+          </button>
+          <div class="modal fade" id="notes-<%= timestamp.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Timestamp Notes</h4>
+              </div>
+              <div class="modal-body">
+                <% unless timestamp.notes.empty? %>
+                  <%= timestamp.notes %>
+                <% else %>
+                  <p>There are no notes.</p>
+                <% end %>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        </td>
+        <td>
+          <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                      edit_timestamp_path(timestamp), :class => 'btn btn-default btn-xs' %>
+          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      timestamp_path(timestamp),
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :class => 'btn btn-xs btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
