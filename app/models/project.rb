@@ -2,7 +2,7 @@ class Project < ActiveRecord::Base
   attr_accessible :name, :organization_id, :active
 
   belongs_to :organization
-  has_many :timestamps
+  has_many :timestamps, dependent: :destroy
 
   scope :active?, where(active: true)
 

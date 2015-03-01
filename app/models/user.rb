@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me, :role,
                   :provider, :uid, :nickname, :avatar
 
-  has_many :timestamps
+  has_many :timestamps, dependent: :destroy
 
   validates :role, :presence => true
 
