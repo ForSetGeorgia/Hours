@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150228232001) do
+ActiveRecord::Schema.define(:version => 20150302131659) do
 
   create_table "organizations", :force => true do |t|
     t.string   "long_name"
@@ -19,6 +19,9 @@ ActiveRecord::Schema.define(:version => 20150228232001) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  add_index "organizations", ["long_name"], :name => "index_organizations_on_long_name"
+  add_index "organizations", ["short_name"], :name => "index_organizations_on_short_name"
 
   create_table "page_translations", :force => true do |t|
     t.integer  "page_id"
@@ -40,15 +43,36 @@ ActiveRecord::Schema.define(:version => 20150228232001) do
 
   add_index "pages", ["name"], :name => "index_pages_on_name"
 
+  create_table "project_types", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "project_types", ["name"], :name => "index_project_types_on_name"
+
   create_table "projects", :force => true do |t|
     t.integer  "organization_id"
     t.string   "name"
     t.boolean  "active"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
+    t.integer  "project_type_id"
   end
 
+  add_index "projects", ["active"], :name => "index_projects_on_active"
+  add_index "projects", ["name"], :name => "index_projects_on_name"
   add_index "projects", ["organization_id"], :name => "index_projects_on_organization_id"
+  add_index "projects", ["project_type_id"], :name => "index_projects_on_project_type_id"
+
+  create_table "scopes", :force => true do |t|
+    t.string   "name"
+    t.integer  "sort_order", :default => 0
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
+  end
+
+  add_index "scopes", ["sort_order", "name"], :name => "index_scopes_on_sort_order_and_name"
 
   create_table "timestamps", :force => true do |t|
     t.integer  "project_id"
@@ -58,9 +82,11 @@ ActiveRecord::Schema.define(:version => 20150228232001) do
     t.text     "notes"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "scope_id"
   end
 
   add_index "timestamps", ["project_id"], :name => "index_timestamps_on_project_id"
+  add_index "timestamps", ["scope_id"], :name => "index_timestamps_on_scope_id"
   add_index "timestamps", ["user_id"], :name => "index_timestamps_on_user_id"
 
   create_table "users", :force => true do |t|

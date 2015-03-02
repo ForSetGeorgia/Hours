@@ -16,9 +16,9 @@
   <thead>
     <tr>
       <th><%= model_class.human_attribute_name(:nickname) %></th>
-      <th>Timestamp</th>
+      <th><%= model_class.human_attribute_name(:created_at) %></th>
       <th><%= model_class.human_attribute_name(:project_id) %></th>
-      <th>Difficulty Level</th>
+      <th><%= model_class.human_attribute_name(:diff_level) %></th>
       <th><%= model_class.human_attribute_name(:duration) %></th>
       <th><%= model_class.human_attribute_name(:notes) %></th>
       
@@ -29,7 +29,7 @@
     <% @timestamps.each do |timestamp| %>
       <tr>
         <td><%= timestamp.user.nickname %></td>
-        <td><%=l timestamp.created_at %></td>
+        <td><%= l timestamp.created_at, format: :no_time %></td>
         <td><%= timestamp.project.organization.short_name %>: <%= timestamp.project.name %></td>
         <td><%= timestamp.diff_level %></td>
         <td><%= timestamp.duration %></td>

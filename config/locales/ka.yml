@@ -4,6 +4,11 @@ ka:
     models:
       user: მომხმარებელი
       page: ტექსტი გვერდებისთვის
+      organization: Organization
+      project: Project
+      project_type: Project Type
+      scope: Scope
+      timestamp: Timestamp
     attributes:
       user:
         email: ელ.ფოსტა
@@ -20,6 +25,26 @@ ka:
       page_translation:
         title: სათაური, რომელიც გამოჩნდება კონტენტის ზემოთ
         content: კონტენტი
+      organization:
+        long_name: Long Name
+        short_name: Abbreviated Name
+      project: 
+        organization_id: Organization
+        project_type_id: Project Type
+        name: Name
+        active: Is Active?
+      project_type:
+        name: Name
+      scope:
+        name: Name
+        sort_order: Sort Order
+      timestamp:
+        project_id: Project
+        user_id: User
+        diff_level: Difficulty Level
+        duration: Duration (minutes)
+        notes: Notes
+        created_at: Date
     errors:
       messages:
         required_field: "სავალდებულო ველი"

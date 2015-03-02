@@ -1,0 +1,14 @@
+<%= semantic_form_for [:admin, @organization] do |f| %>
+
+  <%= f.inputs do %>
+    <%= f.input :long_name %>
+    <%= f.input :short_name %>
+  <% end %>
+
+  <%= f.actions do %>
+    <%= f.action :submit, :as => :input %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+              admin_organizations_path, :class => 'btn btn-default' %>
+  <% end %>
+ 
+<% end %>

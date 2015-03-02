@@ -1,0 +1,11 @@
+<%= semantic_form_for [:admin, @project_type] do |f| %>
+  <%= f.inputs do %>
+    <%= f.input :name %>
+  <% end %>
+
+  <%= f.actions do %>
+    <%= f.action :submit, :as => :input %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+              admin_project_types_path, :class => 'btn btn-default' %>
+  <% end %>
+<% end %>

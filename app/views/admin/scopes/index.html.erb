@@ -1,38 +1,39 @@
-<%- model_class = Project -%>
+<%- model_class = Scope -%>
+
 <div class="page-header">
   <h1>
     <%=t '.title', :default => model_class.model_name.human.pluralize.titleize %>
     <%= link_to t('.new', :default => t("helpers.links.new")),
-      new_project_path,
+      new_admin_scope_path,
       :class => 'btn btn-primary' %>
-      <%= link_to 'Admin', admin_path, :class => 'btn btn-info' %>
+    <%= link_to t('helpers.links.admin'), admin_path, :class => 'btn btn-info' %>
   </h1>
 </div>
+
 <table class="table table-striped">
   <thead>
     <tr>
-      <th><%= model_class.human_attribute_name(:organization_id) %></th>
+      <th><%= model_class.human_attribute_name(:sort_order) %></th>
       <th><%= model_class.human_attribute_name(:name) %></th>
-      <th><%= model_class.human_attribute_name(:active) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
   <tbody>
-    <% @projects.each do |project| %>
+    <% @scopes.each do |scope| %>
       <tr>
-        <td><%= project.organization.short_name %></td>
-        <td><%= project.name %></td>
-        <td><%= project.active %></td>
+        <td><%= scope.sort_order %></td>
+        <td><%= scope.name %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                      edit_project_path(project), :class => 'btn btn-default btn-xs' %>
+                      edit_admin_scope_path(scope), :class => 'btn btn-default btn-xs' %>
           <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                      project_path(project),
+                      admin_scope_path(scope),
                       :method => :delete,
                       :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
                       :class => 'btn btn-xs btn-danger' %>
         </td>
       </tr>
     <% end %>
-  </tbody>
+  </tbody>  
 </table>
+

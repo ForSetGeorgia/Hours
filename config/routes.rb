@@ -1,5 +1,4 @@
 BootstrapStarter::Application.routes.draw do
-
 	#--------------------------------
 	# all resources should be within the scope block below
 	#--------------------------------
@@ -9,15 +8,17 @@ BootstrapStarter::Application.routes.draw do
 		devise_for :users, :path_names => {:sign_in => 'login', :sign_out => 'logout'},
 											 :controllers => {:omniauth_callbacks => "omniauth_callbacks"}
 
-    resources :organizations
-    resources :projects
-    resources :timestamps
-    
 
 		namespace :admin do  
+      resources :organizations
+      resources :projects
+      resources :scopes
+      resources :project_types
       resources :pages
 			resources :users
 		end
+
+    resources :timestamps
 
 
 		root :to => 'root#index'
