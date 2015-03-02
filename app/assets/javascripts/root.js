@@ -23,6 +23,9 @@ $(function () {
                 stacking: 'normal'
             }
         },
+        tooltip: {
+            enabled: false
+        },
         series: gon.projects
     });
 });
