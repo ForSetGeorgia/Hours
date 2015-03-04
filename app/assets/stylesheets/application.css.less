@@ -140,3 +140,46 @@ div#form-ka {
   top:3px;
   font-size:80%
 }
+
+/* make so pretty lists do not get hidden in forms */
+.formtastic .input, .formtastic .inputs
+{
+  overflow:visible;
+}
+.formtastic .select {
+  label{
+    display: block;
+  }
+  select 
+  {
+    max-width: 72%;
+  }
+}
+
+.bootstrap-select.btn-group
+{
+  margin:0px !important;
+  padding:0px !important;  
+  .btn
+  {
+    margin:0px;
+    padding:0px;
+  }
+  .dropdown-toggle
+  {
+     margin:0px !important;
+     padding: 0px 7px !important; 
+    .filter-option
+    {
+      padding:4px 7px;
+    }
+  }
+}
+
+/* fix padding in bootstrap dropdown-menu that is made big by formtastic */
+.dropdown-menu input{
+  padding: 0 0 0 5px !important;
+}
+.dropdown-menu .bootstrap-select-searchbox input{
+  padding: 0px !important;
+}
