@@ -1,4 +1,4 @@
-<%= semantic_form_for [:admin, @scope] do |f| %>
+<%= semantic_form_for [:admin, @stage] do |f| %>
   <%= f.inputs do %>
     <%= f.input :name %>
     <%= f.input :sort_order, as: :number %>
@@ -7,6 +7,6 @@
   <%= f.actions do %>
     <%= f.action :submit, :as => :input %>
     <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-              admin_scopes_path, :class => 'btn btn-default' %>
+              admin_stages_path, :class => 'btn btn-default' %>
   <% end %>
 <% end %>

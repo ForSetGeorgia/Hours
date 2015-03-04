@@ -4,8 +4,17 @@
 
 form {
 	margin: 2em 0em 2em 0em;
+  &.timestamp{
+    fieldset.form-actions{
+      display: inline-block;
+    }
+    div#timestamp_notes_input label{
+      display: block;
+    }
+  }
 }
 
 input.inline {
 	margin: 1.4em 0em 0em 0em;
 }
+

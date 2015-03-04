@@ -7,7 +7,7 @@ en:
       organization: Organization
       project: Project
       project_type: Project Type
-      scope: Scope
+      stage: Stage
       timestamp: Timestamp
     attributes:
       user:
@@ -35,7 +35,7 @@ en:
         active: Is Active?
       project_type:
         name: Name
-      scope:
+      stage:
         name: Name
         sort_order: Sort Order
       timestamp:

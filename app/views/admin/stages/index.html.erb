@@ -1,10 +1,10 @@
-<%- model_class = Scope -%>
+<%- model_class = Stage -%>
 
 <div class="page-header">
   <h1>
     <%=t '.title', :default => model_class.model_name.human.pluralize.titleize %>
     <%= link_to t('.new', :default => t("helpers.links.new")),
-      new_admin_scope_path,
+      new_admin_stage_path,
       :class => 'btn btn-primary' %>
     <%= link_to t('helpers.links.admin'), admin_path, :class => 'btn btn-info' %>
   </h1>
@@ -19,15 +19,15 @@
     </tr>
   </thead>
   <tbody>
-    <% @scopes.each do |scope| %>
+    <% @stages.each do |stage| %>
       <tr>
-        <td><%= scope.sort_order %></td>
-        <td><%= scope.name %></td>
+        <td><%= stage.sort_order %></td>
+        <td><%= stage.name %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                      edit_admin_scope_path(scope), :class => 'btn btn-default btn-xs' %>
+                      edit_admin_stage_path(stage), :class => 'btn btn-default btn-xs' %>
           <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                      admin_scope_path(scope),
+                      admin_stage_path(stage),
                       :method => :delete,
                       :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
                       :class => 'btn btn-xs btn-danger' %>

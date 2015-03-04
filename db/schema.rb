@@ -65,14 +65,14 @@ ActiveRecord::Schema.define(:version => 20150302131659) do
   add_index "projects", ["organization_id"], :name => "index_projects_on_organization_id"
   add_index "projects", ["project_type_id"], :name => "index_projects_on_project_type_id"
 
-  create_table "scopes", :force => true do |t|
+  create_table "stages", :force => true do |t|
     t.string   "name"
     t.integer  "sort_order", :default => 0
     t.datetime "created_at",                :null => false
     t.datetime "updated_at",                :null => false
   end
 
-  add_index "scopes", ["sort_order", "name"], :name => "index_scopes_on_sort_order_and_name"
+  add_index "stages", ["sort_order", "name"], :name => "index_stages_on_sort_order_and_name"
 
   create_table "timestamps", :force => true do |t|
     t.integer  "project_id"
@@ -82,11 +82,11 @@ ActiveRecord::Schema.define(:version => 20150302131659) do
     t.text     "notes"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
-    t.integer  "scope_id"
+    t.integer  "stage_id"
   end
 
   add_index "timestamps", ["project_id"], :name => "index_timestamps_on_project_id"
-  add_index "timestamps", ["scope_id"], :name => "index_timestamps_on_scope_id"
+  add_index "timestamps", ["stage_id"], :name => "index_timestamps_on_stage_id"
   add_index "timestamps", ["user_id"], :name => "index_timestamps_on_user_id"
 
   create_table "users", :force => true do |t|

@@ -26,7 +26,7 @@ class TimestampsController < ApplicationController
 
     respond_to do |format|
       if @timestamp.save
-        format.html { redirect_to root_url, notice: 'Timestamp was successfully created.' }
+        format.html { redirect_to root_url, notice: t('app.msgs.success_created', :obj => t('activerecord.models.timestamp')) }
       else
         format.html { render action: "new" }
       end
@@ -38,7 +38,7 @@ class TimestampsController < ApplicationController
 
     respond_to do |format|
       if @timestamp.update_attributes(params[:timestamp])
-        format.html { redirect_to timestamps_url, notice: 'Timestamp was successfully updated.' }
+        format.html { redirect_to timestamps_url, notice: t('app.msgs.success_updated', :obj => t('activerecord.models.timestamp')) }
       else
         format.html { render action: "edit" }
       end

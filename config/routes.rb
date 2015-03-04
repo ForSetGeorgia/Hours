@@ -12,7 +12,7 @@ BootstrapStarter::Application.routes.draw do
 		namespace :admin do  
       resources :organizations
       resources :projects
-      resources :scopes
+      resources :stages
       resources :project_types
       resources :pages
 			resources :users

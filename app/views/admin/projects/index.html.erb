@@ -13,6 +13,7 @@
   <thead>
     <tr>
       <th><%= model_class.human_attribute_name(:organization_id) %></th>
+      <th><%= model_class.human_attribute_name(:project_type) %></th>
       <th><%= model_class.human_attribute_name(:name) %></th>
       <th><%= model_class.human_attribute_name(:active) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
@@ -22,6 +23,7 @@
     <% @projects.each do |project| %>
       <tr>
         <td><%= project.organization.short_name %></td>
+        <td><%= project.project_type.name %></td>
         <td><%= project.name %></td>
         <td><%= project.active %></td>
         <td>

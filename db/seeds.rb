@@ -24,16 +24,15 @@ ProjectType.create(:id => 8, :name => 'Conference')
 ProjectType.create(:id => 9, :name => 'Comic')
 
 #####################
-## Scopes
+## Stage
 #####################
-puts "Loading Scopes"
-Scope.delete_all
-Scope.create(:id => 1, :sort_order => 1, :name => 'Pre-concept')
-Scope.create(:id => 2, :sort_order => 2, :name => 'Concept/Planning/Research')
-Scope.create(:id => 3, :sort_order => 3, :name => 'Infographic')
-Scope.create(:id => 4, :sort_order => 4, :name => 'Implementation')
-Scope.create(:id => 5, :sort_order => 5, :name => 'Feedback/Changes')
-Scope.create(:id => 6, :sort_order => 6, :name => 'Post Implementation Activities')
+puts "Loading Stages"
+Stage.delete_all
+Stage.create(:id => 1, :sort_order => 1, :name => 'Pre-concept')
+Stage.create(:id => 2, :sort_order => 2, :name => 'Concept/Planning/Research')
+Stage.create(:id => 4, :sort_order => 3, :name => 'Implementation')
+Stage.create(:id => 5, :sort_order => 4, :name => 'Feedback/Changes')
+Stage.create(:id => 6, :sort_order => 5, :name => 'Post Implementation Activities')
 
 
 #####################
@@ -51,6 +50,18 @@ Organization.create(id: 7, long_name: 'United Nations Development Fund', short_n
 Organization.create(id: 8, long_name: 'United Nations Population Fund', short_name: 'UNFPA')
 
   
+#####################
+## Projects
+#####################
+puts "Loading Projects"
+Project.delete_all
+Project.create(id: 1, name: 'The Hours', organization_id: 1, project_type_id: 1, active: true)
+Project.create(id: 2, name: 'Choosing Male', organization_id: 3, project_type_id: 4, active: true)
+Project.create(id: 3, name: 'Website', organization_id: 3, project_type_id: 1, active: true)
+Project.create(id: 4, name: 'Data Portal', organization_id: 6, project_type_id: 1, active: true)
+Project.create(id: 5, name: 'Ethnic Minorities in S. Causasus', organization_id: 3 , project_type_id: 3, active: true)
+
+
 
 # #####################
 # ## Pages
