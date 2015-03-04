@@ -5,11 +5,7 @@ class RootController < ApplicationController
   end
 
   def index
-    if current_user.role?(User::ROLES[:admin])
-      @timestamps = Timestamp.stamps_today
-    else
-      @timestamps = current_user.timestamps.stamps_today
-    end
+    @timestamps = current_user.timestamps.stamps_today.sorted
     
     # for daily chart
     projects = Hash.new(0)

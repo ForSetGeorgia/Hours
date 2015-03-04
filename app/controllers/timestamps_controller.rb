@@ -5,10 +5,10 @@ class TimestampsController < ApplicationController
   end
 
   def index
-    if current_user.role?(User::ROLES[:admin])
-      @timestamps = Timestamp.all
+    if current_user.role?(User::ROLES[:admin]) && (params[:everyone].present? && params[:everyone].to_bool == true)
+      @timestamps = Timestamp.sorted
     else
-      @timestamps = current_user.timestamps.all
+      @timestamps = current_user.timestamps.sorted
     end
   end
  

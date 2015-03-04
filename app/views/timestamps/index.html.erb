@@ -2,7 +2,13 @@
 <div class="page-header">
   <h1>
     All My <%=t '.title', :default => model_class.model_name.human.pluralize.titleize %>
-    <%= link_to 'Back to Home', root_path, :class => 'btn btn-info' %>
+    <% if current_user.role?(User::ROLES[:admin]) %>
+      <% if params[:everyone].present? && params[:everyone].to_bool == true %>
+        <%= link_to "View Your Timestamps", params.merge(everyone: nil), :class => 'btn btn-info' %>
+      <% else %>
+        <%= link_to "View Everyone's Timestamps", params.merge(everyone: true), :class => 'btn btn-info' %>
+      <% end %>
+    <% end %>
   </h1>
 </div>
 
