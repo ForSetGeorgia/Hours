@@ -60,6 +60,8 @@ Project.create(id: 2, name: 'Choosing Male', organization_id: 3, project_type_id
 Project.create(id: 3, name: 'Website', organization_id: 3, project_type_id: 1, active: true)
 Project.create(id: 4, name: 'Data Portal', organization_id: 6, project_type_id: 1, active: true)
 Project.create(id: 5, name: 'Ethnic Minorities in S. Causasus', organization_id: 3 , project_type_id: 3, active: true)
+Project.create(id: 6, name: 'feradi.info', organization_id: 4 , project_type_id: 1, active: true)
+Project.create(id: 7, name: 'Azerbaijan Jailed Journalists', organization_id: 1 , project_type_id: 1, active: true)
 
 
 
