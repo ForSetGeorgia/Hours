@@ -9,6 +9,17 @@
 
 
 #####################
+## Stage
+#####################
+puts "Loading Stages"
+Stage.delete_all
+Stage.create(:id => 1, :sort_order => 1, :name => 'Pre-concept')
+Stage.create(:id => 2, :sort_order => 2, :name => 'Concept/Planning/Research')
+Stage.create(:id => 4, :sort_order => 3, :name => 'Implementation')
+Stage.create(:id => 5, :sort_order => 4, :name => 'Feedback/Changes')
+Stage.create(:id => 6, :sort_order => 5, :name => 'Post Implementation Activities')
+
+#####################
 ## Project Types
 #####################
 puts "Loading Project Types"
@@ -22,17 +33,6 @@ ProjectType.create(:id => 6, :name => 'Workshop')
 ProjectType.create(:id => 7, :name => 'Training')
 ProjectType.create(:id => 8, :name => 'Conference')
 ProjectType.create(:id => 9, :name => 'Comic')
-
-#####################
-## Stage
-#####################
-puts "Loading Stages"
-Stage.delete_all
-Stage.create(:id => 1, :sort_order => 1, :name => 'Pre-concept')
-Stage.create(:id => 2, :sort_order => 2, :name => 'Concept/Planning/Research')
-Stage.create(:id => 4, :sort_order => 3, :name => 'Implementation')
-Stage.create(:id => 5, :sort_order => 4, :name => 'Feedback/Changes')
-Stage.create(:id => 6, :sort_order => 5, :name => 'Post Implementation Activities')
 
 
 #####################
@@ -59,9 +59,17 @@ Project.create(id: 1, name: 'The Hours', organization_id: 1, project_type_id: 1,
 Project.create(id: 2, name: 'Choosing Male', organization_id: 3, project_type_id: 4, active: true)
 Project.create(id: 3, name: 'Website', organization_id: 3, project_type_id: 1, active: true)
 Project.create(id: 4, name: 'Data Portal', organization_id: 6, project_type_id: 1, active: true)
-Project.create(id: 5, name: 'Ethnic Minorities in S. Causasus', organization_id: 3 , project_type_id: 3, active: true)
+Project.create(id: 5, name: 'Ethnic Minorities in S. Causasus', organization_id: 3 , project_type_id: 3, active: false)
 Project.create(id: 6, name: 'feradi.info', organization_id: 4 , project_type_id: 1, active: true)
 Project.create(id: 7, name: 'Azerbaijan Jailed Journalists', organization_id: 1 , project_type_id: 1, active: true)
+Project.create(id: 8, name: 'Urbanism ', organization_id: 3 , project_type_id: 4, active: true)
+Project.create(id: 9, name: "Children's year", organization_id: 6 , project_type_id: 3, active: true)
+Project.create(id: 10, name: 'Gender Economic Empowerment', organization_id: 7 , project_type_id: 3, active: true)
+Project.create(id: 11, name: 'Sex-selective abortions', organization_id: 8 , project_type_id: 3, active: true)
+Project.create(id: 12, name: 'Gender_III', organization_id: 2 , project_type_id: 3, active: true)
+Project.create(id: 13, name: 'Crime map', organization_id: 1 , project_type_id: 4, active: true)
+Project.create(id: 14, name: 'Lari Currency Rate', organization_id: 1 , project_type_id: 1, active: true)
+Project.create(id: 15, name: 'Lari Belts', organization_id: 1 , project_type_id: 9, active: true)
 
 
 
