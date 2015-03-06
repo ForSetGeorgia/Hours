@@ -10,6 +10,7 @@ class RootController < ApplicationController
 
     # for daily chart
     gon.projects = records[:projects]
+    gon.dates = records[:dates]
 
     @timestamp = Timestamp.new
   end
