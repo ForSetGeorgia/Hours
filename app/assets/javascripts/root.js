@@ -7,12 +7,12 @@ $(function () {
             text: ""
         },
         xAxis: {
-            categories: ['']
+            categories: gon.dates
         },
         yAxis: {
             min: 0,
             title: {
-                text: "Today's Projects' Hours"
+                text: "Hours"
             }
         },
         legend: {

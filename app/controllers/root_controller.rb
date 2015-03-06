@@ -5,17 +5,11 @@ class RootController < ApplicationController
   end
 
   def index
-    @timestamps = current_user.timestamps.stamps_today.sorted
-    
+    records = current_user.timestamps.current_day_stamps
+    @timestamps = records[:records]
+
     # for daily chart
-    projects = Hash.new(0)
-    @timestamps.each do |t|
-      projects[t.project.name] += t.duration
-    end
-    gon.projects = []
-    projects.each do |k,v|
-      gon.projects << {name: k, data: [v.to_f/60]}
-    end
+    gon.projects = records[:projects]
 
     @timestamp = Timestamp.new
   end

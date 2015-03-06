@@ -6,10 +6,16 @@ class TimestampsController < ApplicationController
 
   def index
     if current_user.role?(User::ROLES[:admin]) && (params[:everyone].present? && params[:everyone].to_bool == true)
-      @timestamps = Timestamp.sorted
+      records = Timestamp.all_stamps
     else
-      @timestamps = current_user.timestamps.sorted
+      records = current_user.timestamps.all_stamps
     end
+
+    @timestamps = records[:records]
+
+    # for chart
+    gon.projects = records[:projects]
+    gon.dates = records[:dates]
   end
  
   def new
