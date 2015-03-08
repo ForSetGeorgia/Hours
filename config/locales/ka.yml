@@ -8,7 +8,7 @@ ka:
       project: Project
       project_type: Project Type
       stage: Stage
-      timestamp: Timestamp
+      timestamp: Hours
     attributes:
       user:
         email: ელ.ფოსტა
@@ -85,12 +85,23 @@ ka:
       like: მოწონება
       likes: მოწონება
       menu: მენიუ
-      my_stamps: My Timestamps
+      my_hours: My Hours
+      new_org: New Organization
+      new_project: New Project
     titles:
       edit: "შეცვლა %{model}"
       save: "შენახვა %{model}"
       new: "ახალი %{model}"
       delete: "წაშლა %{model}"
+  charts:
+    bar:
+      title: Hour Breakdown By Day
+      title_today: "Today's Hour Breakdown"
+      subtitle: "From %{start} to %{end}"
+      xaxis: "Hours"
+    pie:
+      title: Hour Breakdown By Project
+      subtitle: "From %{start} to %{end}"
   app:
     language:
       en: English
@@ -150,7 +161,22 @@ ka:
     mailer:
       reset_password_instructions:
         title: 'მოგესალმებით, %{nickname}!'
-        p1: მივიღეთ მოთხოვნა "%{app_name}" თქვენი პაროლის შეცვლის შესახებ. პაროლის შესაცვლელად, მიჰყევით შემდეგ ბმულს.
+        p1: 'მივიღეთ მოთხოვნა "%{app_name}" თქვენი პაროლის შეცვლის შესახებ. პაროლის შესაცვლელად, მიჰყევით შემდეგ ბმულს.'
         link_title: პაროლის შეცვლა
         p2: "თუ თქვენ არ მოგითხოვიათ პაროლის შეცვლა, გთხოვთ, არ მიაქციოთ ყურადღება ამ შეტყობინებას."
         p3: "თქვენი პაროლი იგივე დარჩება, სანამ არ გადახვალთ ზემოთ მითითებულ ბმულზე და შექმნით ახალ პაროლს."    
+  root:
+    index:
+      title: Add Hours
+      header_today: "Today's Hours"
+      header_link: View All of My Hours
+      title_no_role: "Welcome to JumpStart's Hours application!"
+      explanation_no_role: Please ask the application administrator to assign you the proper staff role so you can start recording your time.
+  timestamps:
+    index:
+      title: All My Hours
+      title_link_all: "View Everyone's Hours"
+      title_link_yours: View Your Hours
+      label_start: Start Date
+      label_end: End Date
+      label_submit: Get Hours

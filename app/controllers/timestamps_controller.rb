@@ -26,6 +26,11 @@ class TimestampsController < ApplicationController
     # for chart
     gon.projects = records[:projects]
     gon.dates = records[:dates]
+    gon.bar_chart_title = I18n.t('charts.bar.title')
+    gon.bar_chart_subtitle = I18n.t('charts.bar.subtitle', start: params[:timestamp_start_at], end: params[:timestamp_end_at])
+    gon.bar_chart_xaxis = I18n.t('charts.bar.xaxis')
+    gon.pie_chart_title = I18n.t('charts.pie.title')
+    gon.pie_chart_subtitle = I18n.t('charts.pie.subtitle', start: params[:timestamp_start_at], end: params[:timestamp_end_at])
 
     # dates for date picker
     gon.begin_at = begin_at.strftime('%m/%d/%Y')

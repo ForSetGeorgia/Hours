@@ -12,6 +12,8 @@ class RootController < ApplicationController
       # for daily chart
       gon.projects = records[:projects]
       gon.dates = records[:dates]
+      gon.bar_chart_title = I18n.t('charts.bar.title_today')
+      gon.bar_chart_xaxis = I18n.t('charts.bar.xaxis')
 
       @timestamp = Timestamp.new
     end

@@ -53,28 +53,38 @@ class Timestamp < ActiveRecord::Base
 
   private
 
+  # process the data for the passed in records so is ready for charting
+  # returns hash of the following:
+  # - projects: array of {name: ___, data: [], y:___}
+  #   - data = array of sum of duration for project for each date
+  #   - y = overall sum of all durations for this project
+  # - dates: array of unique dates
+  # - records: the records that were passed in
   def self.process_data_for_charts(records)
     stamps = {projects: [], dates: [], records: records}
-    template = {name: nil, data: nil}
+    template = {name: nil, data: nil, y:nil}
 
     if records.present?
+      # group by dates
       dates = records.group_by{|x| x.created_at.to_date}
       stamps[:dates] = dates.keys.map{|x| x.to_s}
 
+      # get the unique projects
       projects = records.map{|x| x.project}.uniq.sort_by{|x| x.name}
+      # for each project, record data for each date
       projects.each do |project|
         puts "project = #{project.id}"
         project_data = template.dup
-        puts "- project data = #{project_data}"
         project_data[:name] = project.full_name
         project_data[:data] = []
+        project_data[:y] = ((records.select{|x| x.project_id == project.id}.inject(0){|sum,x| sum + x.duration }) / 60.0).round(2)
         dates.keys.each do |date|
           puts "- date = #{date}; projects on this date = #{dates[date].length}"
           date_projects = dates[date].select{|x| x.project_id == project.id}
           puts "-- date projects = #{date_projects.inspect}"
           if date_projects.present?
             puts "--- adding #{date_projects.map{|x| x.duration}}"
-            project_data[:data] << (date_projects.inject(0){|sum,x| sum + x.duration }) / 60.0
+            project_data[:data] << ((date_projects.inject(0){|sum,x| sum + x.duration }) / 60.0).round(2)
           else
             puts "--- adding 0"
             # no data for this project on this date

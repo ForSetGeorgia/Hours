@@ -33,6 +33,7 @@ ProjectType.create(:id => 6, :name => 'Workshop')
 ProjectType.create(:id => 7, :name => 'Training')
 ProjectType.create(:id => 8, :name => 'Conference')
 ProjectType.create(:id => 9, :name => 'Comic')
+ProjectType.create(:id => 10, :name => 'Support')
 
 
 #####################
@@ -48,6 +49,7 @@ Organization.create(id: 5, long_name: 'Transparency International Secretariat', 
 Organization.create(id: 6, long_name: "United Nations Children's Fund", short_name: 'UNICEF')
 Organization.create(id: 7, long_name: 'United Nations Development Fund', short_name: 'UNDP')
 Organization.create(id: 8, long_name: 'United Nations Population Fund', short_name: 'UNFPA')
+Organization.create(id: 9, long_name: 'Coda', short_name: 'Coda')
 
   
 #####################
@@ -70,6 +72,12 @@ Project.create(id: 12, name: 'Gender_III', organization_id: 2 , project_type_id:
 Project.create(id: 13, name: 'Crime map', organization_id: 1 , project_type_id: 4, active: true)
 Project.create(id: 14, name: 'Lari Currency Rate', organization_id: 1 , project_type_id: 1, active: true)
 Project.create(id: 15, name: 'Lari Belts', organization_id: 1 , project_type_id: 9, active: true)
+Project.create(id: 16, name: 'StoryBuilder', organization_id: 1 , project_type_id: 1, active: true)
+Project.create(id: 17, name: 'Coda Concept', organization_id: 9 , project_type_id: 2, active: true)
+Project.create(id: 18, name: 'Tech Support', organization_id: 1 , project_type_id: 10, active: true)
+Project.create(id: 19, name: 'Editorial Meetings', organization_id: 4 , project_type_id: 2, active: true)
+Project.create(id: 20, name: 'Rails Bootstrap Template', organization_id: 1 , project_type_id: 1, active: true)
+Project.create(id: 21, name: 'Organizational Meeting', organization_id: 1 , project_type_id: 2, active: true)
 
 
 
