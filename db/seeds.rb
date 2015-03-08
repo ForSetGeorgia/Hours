@@ -79,6 +79,24 @@ Project.create(id: 19, name: 'Editorial Meetings', organization_id: 4 , project_
 Project.create(id: 20, name: 'Rails Bootstrap Template', organization_id: 1 , project_type_id: 1, active: true)
 Project.create(id: 21, name: 'Organizational Meeting', organization_id: 1 , project_type_id: 2, active: true)
 
+# #####################
+# ## Load existing hours from spreadsheet
+# #####################
+user_id = 1
+start = Timestamp.by_user(user_id).start_date
+diff_level = "Easy"
+file = "#{Rails.root}/db/jason.csv"
+if (start.blank? || start >= Date.new(2015, 3, 1)) && File.exists?(file)
+  hours = CSV.read(File.open(file), headers: true)
+  if hours.present?
+    puts "Loading #{hours.length} hour records from spreadhseet for user #{user_id}"
+
+    sql = "insert into timestamps (created_at, updated_at, user_id, project_id, stage_id, duration, diff_level) values "
+    sql << hours.map{|x| "(\"#{Time.parse(x[0])}\", \"#{Time.parse(x[0])}\", #{user_id}, \"#{x[1]}\", \"#{x[2]}\", \"#{x[3]}\", \"#{diff_level}\")"}.join(', ')
+    ActiveRecord::Base.connection.execute(sql)
+
+  end
+end
 
 
 # #####################
