@@ -10,6 +10,7 @@
 //= require jquery_ujs
 //= require jquery.ui.core
 //= require jquery.ui.effect
+//= require jquery.ui.datepicker
 //= require twitter/bootstrap
 //= require dataTables/jquery.dataTables
 //= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
@@ -28,7 +29,13 @@ $(document).ready(function(){
 		.off('click.dropdown touchstart.dropdown.data-api', '.dropdown')
 		.on('click.dropdown touchstart.dropdown.data-api', '.dropdown form', function (e) { e.stopPropagation() });
 
+  // assign datatable to all tables
   if ($('table').length > 0){
     $('table').DataTable();
+  }
+
+  // assign select2 to all selects
+  if ($('select').length > 0){
+    $('select').selectpicker();
   }
 });

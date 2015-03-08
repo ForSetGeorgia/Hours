@@ -5,10 +5,20 @@ class TimestampsController < ApplicationController
   end
 
   def index
+    records = nil
+    begin_at = nil
+    last_at = nil
+    params[:timestamp_start_at] ||= 1.week.ago.in_time_zone.to_date.to_s
+    params[:timestamp_end_at] ||= Time.zone.now.to_date.to_s
+
     if current_user.role?(User::ROLES[:admin]) && (params[:everyone].present? && params[:everyone].to_bool == true)
-      records = Timestamp.all_stamps
+      records = Timestamp.all_stamps(start_at: params[:timestamp_start_at], end_at: params[:timestamp_end_at])
+      begin_at = Timestamp.start_date
+      last_at = Timestamp.end_date
     else
-      records = current_user.timestamps.all_stamps
+      records = current_user.timestamps.all_stamps(start_at: params[:timestamp_start_at], end_at: params[:timestamp_end_at])
+      begin_at = current_user.timestamps.start_date
+      last_at = current_user.timestamps.end_date
     end
 
     @timestamps = records[:records]
@@ -16,6 +26,12 @@ class TimestampsController < ApplicationController
     # for chart
     gon.projects = records[:projects]
     gon.dates = records[:dates]
+
+    # dates for date picker
+    gon.begin_at = begin_at.strftime('%m/%d/%Y')
+    gon.last_at = last_at.strftime('%m/%d/%Y')
+    gon.start_at = params[:timestamp_start_at].to_s
+    gon.end_at = params[:timestamp_end_at].to_s
   end
  
   def new

@@ -12,6 +12,24 @@ class Timestamp < ActiveRecord::Base
 
   validates :project_id, :diff_level, :stage_id, :duration, :user_id, :presence => true
 
+  ######################
+
+  # get for a user
+  def self.by_user(user_id)
+    where('timestamps.user_id = ?', user_id)
+  end
+
+  # get first date on file
+  def self.start_date
+    select('created_at').order('created_at').map{|x| x.created_at}.first
+  end
+
+  # get last date on file
+  def self.end_date
+    select('created_at').order('created_at desc').map{|x| x.created_at}.first
+  end
+
+  ######################
 
   # get all activity for teh current day
   def self.current_day_stamps
@@ -24,8 +42,12 @@ class Timestamp < ActiveRecord::Base
   end
 
   # get all activity by day
-  def self.all_stamps
-    process_data_for_charts(sorted)
+  def self.all_stamps(options={})
+    query = sorted
+    query = query.where('timestamps.created_at >= ?', options[:start_at]) if options[:start_at].present?
+    query = query.where('timestamps.created_at <= ?', Date.parse(options[:end_at])+1.day) if options[:end_at].present?
+
+    process_data_for_charts(query)
   end
 
 
