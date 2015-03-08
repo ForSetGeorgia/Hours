@@ -50,6 +50,11 @@
 	                <span class="caret"></span>
 			          </a>
 			          <ul class="dropdown-menu" role="menu">
+                  <% if current_user.role?(User::ROLES[:staff]) %>
+                    <li>
+                     <%= link_to t('helpers.links.my_stamps'), timestamps_path %>
+                    </li>
+                  <% end %>
                   <% if current_user.role?(User::ROLES[:admin]) %>
 					          <li>
 			   		         <%= link_to t('helpers.links.admin'), admin_path %>

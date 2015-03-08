@@ -1,18 +1,20 @@
 class RootController < ApplicationController
 	before_filter :authenticate_user!
-  before_filter do |controller_instance|
+  before_filter(except: [:index]) do |controller_instance|
     controller_instance.send(:valid_role?, User::ROLES[:staff])
   end
 
   def index
-    records = current_user.timestamps.current_day_stamps
-    @timestamps = records[:records]
+    if user_signed_in? && current_user.role?(User::ROLES[:staff])
+      records = current_user.timestamps.current_day_stamps
+      @timestamps = records[:records]
 
-    # for daily chart
-    gon.projects = records[:projects]
-    gon.dates = records[:dates]
+      # for daily chart
+      gon.projects = records[:projects]
+      gon.dates = records[:dates]
 
-    @timestamp = Timestamp.new
+      @timestamp = Timestamp.new
+    end
   end
 
   def new

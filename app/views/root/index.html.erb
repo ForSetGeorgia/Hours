@@ -1,15 +1,30 @@
-<% title 'Add Timestamp' %>
+<% if @timestamp.present? %>
+  <div class="page-header">
+    <h1>Add Timestamp</h1>
+  </div>
 
-<%= render :partial => 'timestamps/form' %>
 
-<% if @timestamps.present? %>
-  <div id="daily-chart" style="height: 200px; margin: 0 auto"></div>
+  <%= render :partial => 'timestamps/form' %>
 
-  <h2>
-    Today's Timestamps
-    <%= link_to 'View All My Timestamps', timestamps_path, :class => 'btn btn-info' %>
-  </h2>
+  <% if @timestamps.present? %>
+    <div id="daily-chart" style="height: 200px; margin: 0 auto"></div>
 
-  <%= render :partial => 'timestamps/table' %>
+    <h2>
+      Today's Timestamps
+      <%= link_to 'View All My Timestamps', timestamps_path, :class => 'btn btn-info' %>
+    </h2>
+
+    <%= render :partial => 'timestamps/table' %>
+
+  <% end %>
+<% else %>
+  <div class="page-header">
+    <h1>Welcome to JumpStart's "The Hours" application!</h1>
+  </div>
+
+
+  <p>
+    Please ask the application administrator to assign you the proper staff role so you can start recording your time.
+  </p>
 
 <% end %>

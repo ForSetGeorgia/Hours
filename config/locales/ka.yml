@@ -85,6 +85,7 @@ ka:
       like: მოწონება
       likes: მოწონება
       menu: მენიუ
+      my_stamps: My Timestamps
     titles:
       edit: "შეცვლა %{model}"
       save: "შენახვა %{model}"
