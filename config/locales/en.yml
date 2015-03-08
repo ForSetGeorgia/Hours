@@ -88,6 +88,8 @@ en:
       my_hours: My Hours
       new_org: New Organization
       new_project: New Project
+      todays_hours: "Today's Hours"
+      all_hours: All My Hours
     titles:
       edit: "Edit %{model}"
       save: "Save %{model}"
@@ -122,7 +124,7 @@ en:
       confirm: Are you sure?
       new: New
     common:
-      app_name: The Hours
+      app_name: "JumpStart's Hours"
       added_on: "Added on: %{date}" 
       jumpstart: JumpStart Georgia
       js_link_title: JumpStart Georgia - We communicate data better!
@@ -169,7 +171,6 @@ en:
     index:
       title: Add Hours
       header_today: "Today's Hours"
-      header_link: View All of My Hours
       title_no_role: "Welcome to JumpStart's Hours application!"
       explanation_no_role: Please ask the application administrator to assign you the proper staff role so you can start recording your time.
   timestamps:
@@ -180,4 +181,5 @@ en:
       label_start: Start Date
       label_end: End Date
       label_submit: Get Hours
-      
+      no_hours: You have not added any hours yet.
+      link_add_hours: Click here to add hours.

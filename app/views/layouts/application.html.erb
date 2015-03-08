@@ -40,9 +40,11 @@
         <div class="collapse navbar-collapse" id="navbar-collapse">
           <ul class="nav navbar-nav navbar-right">
 	          <% if user_signed_in? %>
-              <% if current_user && current_user.role?(User::ROLES[:admin]) %>
-                <li><%= link_to t('helpers.links.new_project'), new_admin_project_path %></li>
-                <li><%= link_to t('helpers.links.new_org'), new_admin_organization_path %></li>
+              <% if current_user %>
+                <% if current_user.role?(User::ROLES[:staff]) %>
+                  <li><%= link_to t('helpers.links.todays_hours'), root_path %></li>
+                  <li><%= link_to t('helpers.links.all_hours'), timestamps_path %></li>
+                <% end %>
               <% end %>
 			        <li class="dropdown">
 			          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -50,13 +52,10 @@
 	                <span class="caret"></span>
 			          </a>
 			          <ul class="dropdown-menu" role="menu">
-                  <% if current_user.role?(User::ROLES[:staff]) %>
-                    <li>
-                     <%= link_to t('helpers.links.my_hours'), timestamps_path %>
-                    </li>
-                  <% end %>
                   <% if current_user.role?(User::ROLES[:admin]) %>
-					          <li>
+                    <li><%= link_to t('helpers.links.new_project'), new_admin_project_path %></li>
+                    <li><%= link_to t('helpers.links.new_org'), new_admin_organization_path %></li>
+  				          <li>
 			   		         <%= link_to t('helpers.links.admin'), admin_path %>
 									  </li>
                   <% end %>
