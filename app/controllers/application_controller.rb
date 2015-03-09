@@ -60,6 +60,14 @@ logger.debug "////////////////////////// BROWSER = #{user_agent}"
 	def preload_global_variables
     # indicate that whether login should allow local and omniauth or just locale
 	  @enable_omniauth = false
+
+    # breakdown the referer into controller/action
+    # this is used so know whether to return to home page or timestamps page
+    referer = Rails.application.routes.recognize_path(request.referrer) if request.referrer.present?
+    if referer.present?
+      @referer_controller = referer[:controller]
+      @referer_action = referer[:action]
+    end
   end
 
 	def initialize_gon

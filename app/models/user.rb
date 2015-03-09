@@ -73,4 +73,9 @@ class User < ActiveRecord::Base
 	end
 
 
+  #############################
+  def self.sorted
+    order('email asc')
+  end
+
 end

@@ -84,26 +84,40 @@ en:
       reset_or_sign_in: sign in with facebook or reset your password
       like: Like   
       likes: Likes      
-      menu: Menu
-      my_hours: My Hours
-      new_org: New Organization
-      new_project: New Project
-      todays_hours: "Today's Hours"
-      all_hours: All My Hours
+      menu:
+        new_org: New Organization
+        new_project: New Project
+        add_hours: Add Hours
+        all_hours: All My Hours
+        summary:
+          header: Summaries
+          user: User 
+          project: Project
+          date: Date
     titles:
       edit: "Edit %{model}"
       save: "Save %{model}"
       new: "New %{model}"
       delete: "Delete %{model}"
   charts:
-    bar:
-      title: Hour Breakdown By Day
-      title_today: "Today's Hour Breakdown"
-      subtitle: "From %{start} to %{end}"
-      xaxis: "Hours"
-    pie:
-      title: Hour Breakdown By Project
-      subtitle: "From %{start} to %{end}"
+    user:
+      bar:
+        title: Hour Breakdown By Day
+        title_today: "Today's Hour Breakdown"
+        subtitle: "From %{start} to %{end}"
+        xaxis: "Hours"
+      pie:
+        title: Hour Breakdown By Project
+        subtitle: "From %{start} to %{end}"
+    summary:
+      user:
+        bar:
+          title: "%{user} Hour Breakdown By Day"
+          subtitle: "From %{start} to %{end}"
+          xaxis: "Hours"
+        pie:
+          title: "%{user} Hour Breakdown By Project"
+          subtitle: "From %{start} to %{end}"
   app:
     language:
       en: English
@@ -176,10 +190,19 @@ en:
   timestamps:
     index:
       title: All My Hours
-      title_link_all: "View Everyone's Hours"
-      title_link_yours: View Your Hours
       label_start: Start Date
       label_end: End Date
       label_submit: Get Hours
       no_hours: You have not added any hours yet.
       link_add_hours: Click here to add hours.
+  summary:
+    index:
+    date:
+    project:
+    user:
+      title: "Hours by User: %{user}"
+      label_user: User
+      label_start: Start Date
+      label_end: End Date
+      label_submit: Get Hours
+      no_hours: "No hours have been submitted for '%{user}' between %{start} and %{end}."

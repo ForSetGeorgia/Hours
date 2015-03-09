@@ -12,52 +12,11 @@ class RootController < ApplicationController
       # for daily chart
       gon.projects = records[:projects]
       gon.dates = records[:dates]
-      gon.bar_chart_title = I18n.t('charts.bar.title_today')
-      gon.bar_chart_xaxis = I18n.t('charts.bar.xaxis')
+      gon.bar_chart_title = I18n.t('charts.user.bar.title_today')
+      gon.bar_chart_xaxis = I18n.t('charts.user.bar.xaxis')
 
       @timestamp = Timestamp.new
     end
   end
 
-  def new
-    @timestamp = Timestamp.new
-  end
-
-  def edit
-    @timestamp = Timestamp.find(params[:id])
-  end
-
-  def create
-    @timestamp = Timestamp.new(params[:timestamp])
-    @timestamp.user_id = current_user.id
-
-    respond_to do |format|
-      if @timestamp.save
-        format.html { redirect_to root_url, notice: 'Timestamp was successfully created.' }
-      else
-        format.html { render action: "new" }
-      end
-    end
-  end
-
-  def update
-    @timestamp = Timestamp.find(params[:id])
-
-    respond_to do |format|
-      if @timestamp.update_attributes(params[:timestamp])
-        format.html { redirect_to timestamps_url, notice: 'Timestamp was successfully updated.' }
-      else
-        format.html { render action: "edit" }
-      end
-    end
-  end
-
-  def destroy
-    @timestamp = Timestamp.find(params[:id])
-    @timestamp.destroy
-
-    respond_to do |format|
-      format.html { redirect_to timestamps_url }
-    end
-  end
 end

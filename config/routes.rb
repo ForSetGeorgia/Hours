@@ -20,6 +20,11 @@ BootstrapStarter::Application.routes.draw do
 
     resources :timestamps
 
+    # summary pages
+    match '/summary', :to => 'summary#index', :as => :summary, :via => :get
+    match '/summary/user', :to => 'summary#user', :as => :summary_user, :via => :get
+    match '/summary/project', :to => 'summary#project', :as => :summary_project, :via => :get
+    match '/summary/date', :to => 'summary#date', :as => :summary_date, :via => :get
 
 		root :to => 'root#index'
 	  match "*path", :to => redirect("/#{I18n.default_locale}") # handles /en/fake/path/whatever
