@@ -40,7 +40,7 @@
       <abbr title="required">*</abbr>
     <% end %> 
     <div class="controls">
-      <%= f.collection_select(:stage_id, Stage.sorted, :id, :name,{include_blank: true},
+      <%= f.collection_select(:stage_id, Stage.sorted, :id, :name, {selected: @timestamp.stage_id,include_blank: true},
           {:'data-live-search' => true, :'data-size' => "7"} ) %>
     </div>
   </div>

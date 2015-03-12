@@ -18,12 +18,20 @@ class TimestampsController < ApplicationController
 
       # for chart
       gon.projects = records[:projects]
-      gon.dates = records[:dates]
+      gon.dates = records[:dates_formatted]
       gon.bar_chart_title = I18n.t('charts.user.bar.title')
-      gon.bar_chart_subtitle = I18n.t('charts.user.bar.subtitle', start: params[:timestamp_start_at], end: params[:timestamp_end_at])
+      gon.bar_chart_subtitle = I18n.t('charts.user.bar.subtitle',
+          start: params[:timestamp_start_at], end: params[:timestamp_end_at],
+          hours: records[:counts][:hours],
+          projects: records[:counts][:projects],
+          dates: records[:counts][:dates])
       gon.bar_chart_xaxis = I18n.t('charts.user.bar.xaxis')
       gon.pie_chart_title = I18n.t('charts.user.pie.title')
-      gon.pie_chart_subtitle = I18n.t('charts.user.pie.subtitle', start: params[:timestamp_start_at], end: params[:timestamp_end_at])
+      gon.pie_chart_subtitle = I18n.t('charts.user.pie.subtitle', 
+          start: params[:timestamp_start_at], end: params[:timestamp_end_at],
+          hours: records[:counts][:hours],
+          projects: records[:counts][:projects],
+          dates: records[:counts][:dates])
 
       # dates for date picker
       gon.begin_at = begin_at.strftime('%m/%d/%Y')
@@ -34,7 +42,7 @@ class TimestampsController < ApplicationController
   end
  
   def new
-    @timestamp = Timestamp.new
+    @timestamp = Timestamp.new(stage_id: 4)
   end
 
   def edit

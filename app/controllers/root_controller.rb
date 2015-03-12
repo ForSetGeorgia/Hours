@@ -11,11 +11,14 @@ class RootController < ApplicationController
 
       # for daily chart
       gon.projects = records[:projects]
-      gon.dates = records[:dates]
+      gon.dates = records[:dates_formatted]
       gon.bar_chart_title = I18n.t('charts.user.bar.title_today')
+      gon.bar_chart_subtitle = I18n.t('charts.user.bar.subtitle_today',
+          hours: records[:counts][:hours],
+          projects: records[:counts][:projects])
       gon.bar_chart_xaxis = I18n.t('charts.user.bar.xaxis')
 
-      @timestamp = Timestamp.new
+      @timestamp = Timestamp.new(stage_id: 4)
     end
   end
 

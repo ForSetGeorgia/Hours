@@ -37,6 +37,7 @@ en:
       default: ! '%Y-%m-%d'
       long: ! '%B %d, %Y'
       short: ! '%b %d'
+      chart_axis: '%a %Y-%m-%d'
     month_names:
     -
     - January

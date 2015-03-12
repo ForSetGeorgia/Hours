@@ -5,7 +5,7 @@ class Timestamp < ActiveRecord::Base
   belongs_to :stage
   belongs_to :user
 
-  DIFF_LEVELS = ["Easy", "Moderately Easy", "Medium", "Difficult", "Very Difficult"]
+  DIFF_LEVELS = ["Easy", "Moderately Easy", "Medium", "Difficult", "Very Difficult", "Not Relevant"]
 
   scope :stamps_today, -> { where('timestamps.created_at >= ?', Time.zone.now.beginning_of_day) }
   scope :sorted, includes(:project).order('timestamps.created_at desc, projects.name asc')
@@ -59,19 +59,23 @@ class Timestamp < ActiveRecord::Base
   #   - data = array of sum of duration for project for each date
   #   - y = overall sum of all durations for this project
   # - dates: array of unique dates
+  # - dates_formatted: array of unique dates in format: Day yyyy-mm-dd
   # - records: the records that were passed in
+  # - counts: hash of total counts {dates: xx, projects: xx, hours: xx}
   def self.process_data_for_charts(records)
-    stamps = {projects: [], dates: [], records: records}
+    stamps = {projects: [], dates: [], dates_formated: [], records: records, counts: {projects: 0, dates: 0, hours: 0}}
     template = {name: nil, data: nil, y:nil}
 
     if records.present?
       # group by dates
       dates = records.group_by{|x| x.created_at.to_date}
       stamps[:dates] = dates.keys.map{|x| x.to_s}
+      stamps[:dates_formatted] = dates.keys.map{|x| I18n.l(x, format: :chart_axis)}
 
       # get the unique projects
-      projects = records.map{|x| x.project}.uniq.sort_by{|x| x.name}
+      projects = records.map{|x| x.project}.uniq.sort_by{|x| x.full_name}
       # for each project, record data for each date
+      total_hours = 0
       projects.each do |project|
         puts "project = #{project.id}"
         project_data = template.dup
@@ -92,7 +96,13 @@ class Timestamp < ActiveRecord::Base
           end
         end
         stamps[:projects] << project_data
+        total_hours += project_data[:data].inject(:+)
       end
+
+      # add the counts
+      stamps[:counts][:projects] = stamps[:projects].length
+      stamps[:counts][:dates] = stamps[:dates].length
+      stamps[:counts][:hours] = total_hours
     end
 
     return stamps

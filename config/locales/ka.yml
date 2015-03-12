@@ -104,20 +104,21 @@ ka:
       bar:
         title: Hour Breakdown By Day
         title_today: "Today's Hour Breakdown"
-        subtitle: "From %{start} to %{end}"
+        subtitle: "From %{start} to %{end} | Hours: %{hours} | Projects: %{projects} | Dates: %{dates}"
+        subtitle_today: "Hours: %{hours} | Projects: %{projects}"
         xaxis: "Hours"
       pie:
         title: Hour Breakdown By Project
-        subtitle: "From %{start} to %{end}"
+        subtitle: "From %{start} to %{end} | Hours: %{hours} | Projects: %{projects} | Dates: %{dates}"
     summary:
       user:
         bar:
           title: "%{user} Hour Breakdown By Day"
-          subtitle: "From %{start} to %{end}"
+          subtitle: "From %{start} to %{end} | Hours: %{hours} | Projects: %{projects} | Dates: %{dates}"
           xaxis: "Hours"
         pie:
           title: "%{user} Hour Breakdown By Project"
-          subtitle: "From %{start} to %{end}"
+          subtitle: "From %{start} to %{end} | Hours: %{hours} | Projects: %{projects} | Dates: %{dates}"
   app:
     language:
       en: English
