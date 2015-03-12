@@ -20,9 +20,6 @@ $(function () {
               text: gon.bar_chart_xaxis
           }
       },
-      legend: {
-          reversed: true
-      },
       plotOptions: {
           series: {
               stacking: 'normal'
