@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150305053250) do
+ActiveRecord::Schema.define(:version => 20150313063612) do
 
   create_table "organizations", :force => true do |t|
     t.string   "long_name"
@@ -83,8 +83,10 @@ ActiveRecord::Schema.define(:version => 20150305053250) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.integer  "stage_id"
+    t.date     "date"
   end
 
+  add_index "timestamps", ["date"], :name => "index_timestamps_on_date"
   add_index "timestamps", ["project_id"], :name => "index_timestamps_on_project_id"
   add_index "timestamps", ["stage_id"], :name => "index_timestamps_on_stage_id"
   add_index "timestamps", ["user_id"], :name => "index_timestamps_on_user_id"
