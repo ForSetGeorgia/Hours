@@ -45,6 +45,7 @@ en:
         duration: Duration (minutes)
         notes: Notes
         created_at: Date
+        date: Date
     errors:
       messages:
         required_field: "is a required field."

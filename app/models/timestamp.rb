@@ -1,5 +1,5 @@
 class Timestamp < ActiveRecord::Base
-  attr_accessible :user_id, :project_id, :stage_id, :duration, :diff_level, :notes
+  attr_accessible :user_id, :project_id, :stage_id, :duration, :diff_level, :notes, :date
 
   belongs_to :project
   belongs_to :stage
@@ -7,10 +7,10 @@ class Timestamp < ActiveRecord::Base
 
   DIFF_LEVELS = ["Easy", "Moderately Easy", "Medium", "Difficult", "Very Difficult", "Not Relevant"]
 
-  scope :stamps_today, -> { where('timestamps.created_at >= ?', Time.zone.now.beginning_of_day) }
-  scope :sorted, includes(:project).order('timestamps.created_at desc, projects.name asc')
+  scope :stamps_today, -> { where('timestamps.date >= ?', Time.zone.now.beginning_of_day) }
+  scope :sorted, includes(:project).order('timestamps.date desc, projects.name asc')
 
-  validates :project_id, :diff_level, :stage_id, :duration, :user_id, :presence => true
+  validates :date, :project_id, :diff_level, :stage_id, :duration, :user_id, :presence => true
 
   ######################
 
@@ -21,31 +21,31 @@ class Timestamp < ActiveRecord::Base
 
   # get first date on file
   def self.start_date
-    select('created_at').order('created_at').map{|x| x.created_at}.first
+    select('date').order('date').map{|x| x.date}.first
   end
 
   # get last date on file
   def self.end_date
-    select('created_at').order('created_at desc').map{|x| x.created_at}.first
+    select('date').order('date desc').map{|x| x.date}.first
   end
 
   ######################
 
   # get all activity for teh current day
   def self.current_day_stamps
-    process_data_for_charts(where('timestamps.created_at >= ?', Time.zone.now.beginning_of_day).sorted)
+    process_data_for_charts(where('timestamps.date >= ?', Time.zone.now.beginning_of_day).sorted)
   end
 
   # get all activity for the current week, by day
   def self.current_week_stamps
-    process_data_for_charts(where('timestamps.created_at between ? and ?', Time.zone.now.at_beginning_of_week, Time.zone.now.at_end_of_week).sorted)
+    process_data_for_charts(where('timestamps.date between ? and ?', Time.zone.now.at_beginning_of_week, Time.zone.now.at_end_of_week).sorted)
   end
 
   # get all activity by day
   def self.all_stamps(options={})
     query = sorted
-    query = query.where('timestamps.created_at >= ?', options[:start_at]) if options[:start_at].present?
-    query = query.where('timestamps.created_at <= ?', Date.parse(options[:end_at])+1.day) if options[:end_at].present?
+    query = query.where('timestamps.date >= ?', options[:start_at]) if options[:start_at].present?
+    query = query.where('timestamps.date <= ?', Date.parse(options[:end_at])+1.day) if options[:end_at].present?
 
     process_data_for_charts(query)
   end
@@ -68,7 +68,7 @@ class Timestamp < ActiveRecord::Base
 
     if records.present?
       # group by dates
-      dates = records.group_by{|x| x.created_at.to_date}
+      dates = records.group_by{|x| x.date}
       stamps[:dates] = dates.keys.map{|x| x.to_s}
       stamps[:dates_formatted] = dates.keys.map{|x| I18n.l(x, format: :chart_axis)}
 

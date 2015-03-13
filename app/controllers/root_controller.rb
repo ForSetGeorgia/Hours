@@ -19,6 +19,7 @@ class RootController < ApplicationController
       gon.bar_chart_xaxis = I18n.t('charts.user.bar.xaxis')
 
       @timestamp = Timestamp.new(stage_id: 4)
+      gon.timestamp_date = Time.zone.now.to_date.to_s
     end
   end
 

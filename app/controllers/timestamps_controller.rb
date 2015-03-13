@@ -43,10 +43,12 @@ class TimestampsController < ApplicationController
  
   def new
     @timestamp = Timestamp.new(stage_id: 4)
+    gon.timestamp_date = Time.zone.now.to_date.to_s
   end
 
   def edit
     @timestamp = Timestamp.find(params[:id])
+    gon.timestamp_date = @timestamp.to_s
   end
 
   def create
@@ -57,6 +59,7 @@ class TimestampsController < ApplicationController
       if @timestamp.save
         format.html { redirect_to @redirect_url, notice: t('app.msgs.success_created', :obj => t('activerecord.models.timestamp')) }
       else
+        gon.timestamp_date = @timestamp.to_s
         format.html { render action: "new" }
       end
     end
@@ -69,6 +72,7 @@ class TimestampsController < ApplicationController
       if @timestamp.update_attributes(params[:timestamp])
         format.html { redirect_to @redirect_url, notice: t('app.msgs.success_updated', :obj => t('activerecord.models.timestamp')) }
       else
+        gon.timestamp_date = @timestamp.to_s
         format.html { render action: "edit" }
       end
     end
