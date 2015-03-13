@@ -7,4 +7,5 @@ class Program < ActiveRecord::Base
   scope :sorted, order('name asc')
 
   validates :name, :presence => true
+
 end

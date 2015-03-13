@@ -1,5 +1,5 @@
 class Project < ActiveRecord::Base
-  attr_accessible :id, :name, :organization_id, :active, :project_type_id
+  attr_accessible :id, :name, :organization_id, :active, :project_type_id, :program_id
 
   belongs_to :organization
   belongs_to :project_type

@@ -9,6 +9,7 @@ en:
       project_type: Project Type
       stage: Stage
       timestamp: Hours
+      program: Program
     attributes:
       user:
         email: Email Address
@@ -31,6 +32,10 @@ en:
       project:
         organization_id: Organization
         project_type_id: Project Type
+        program_id: Program
+        name: Name
+        active: Is Active?
+      program:
         name: Name
         active: Is Active?
       project_type:

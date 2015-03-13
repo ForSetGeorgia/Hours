@@ -1,28 +1,27 @@
 <%- model_class = Program -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
-</div>
-<%= link_to t('.new', :default => t("helpers.links.new")),
+  <h1>
+    <%=t '.title', :default => model_class.model_name.human.pluralize.titleize %>
+    <%= link_to t('.new', :default => t("helpers.links.new")),
             new_admin_program_path,
             :class => 'btn btn-primary' %>
+    <%= link_to t('helpers.links.admin'), admin_path, :class => 'btn btn-info' %>
+  </h1>
+</div>
 
 <table class="table table-striped">
   <thead>
     <tr>
-      <th><%= model_class.human_attribute_name(:id) %></th>
       <th><%= model_class.human_attribute_name(:name) %></th>
       <th><%= model_class.human_attribute_name(:active) %></th>
-      <th><%= model_class.human_attribute_name(:created_at) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
   <tbody>
     <% @programs.each do |program| %>
       <tr>
-        <td><%= link_to program.id, program_path(program) %></td>
         <td><%= program.name %></td>
         <td><%= program.active %></td>
-        <td><%=l program.created_at %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_admin_program_path(program), :class => 'btn btn-default btn-xs' %>
