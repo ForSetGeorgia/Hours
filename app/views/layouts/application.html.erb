@@ -93,7 +93,7 @@
                   <% if current_user.role?(User::ROLES[:admin]) %>
                     <li><%= link_to t('helpers.links.menu.new_project'), new_admin_project_path %></li>
                     <li><%= link_to t('helpers.links.menu.new_org'), new_admin_organization_path %></li>
-                    <li><%= link_to t('helpers.links.menu.new_prog'), new_admin_program_path %></li>
+                    <li><%= link_to t('helpers.links.menu.new_group'), new_admin_group_path %></li>
   				          <li>
 			   		         <%= link_to t('helpers.links.admin'), admin_path %>
 									  </li>
