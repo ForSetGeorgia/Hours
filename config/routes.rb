@@ -1,7 +1,4 @@
 BootstrapStarter::Application.routes.draw do
-  resources :programs
-
-
 	#--------------------------------
 	# all resources should be within the scope block below
 	#--------------------------------
