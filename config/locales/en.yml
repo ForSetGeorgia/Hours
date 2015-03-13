@@ -28,7 +28,7 @@ en:
       organization:
         long_name: Long Name
         short_name: Abbreviated Name
-      project: 
+      project:
         organization_id: Organization
         project_type_id: Project Type
         name: Name
@@ -82,16 +82,17 @@ en:
       sign_up_provider: "Sign up with %{provider}"
       sign_in_local_or_provider: or log in with your email and password
       reset_or_sign_in: sign in with facebook or reset your password
-      like: Like   
-      likes: Likes      
+      like: Like
+      likes: Likes
       menu:
         new_org: New Organization
         new_project: New Project
+        new_prog: New Program
         add_hours: Add Hours
         all_hours: All My Hours
         summary:
           header: Summaries
-          user: User 
+          user: User
           project: Project
           date: Date
     titles:
@@ -140,7 +141,7 @@ en:
       new: New
     common:
       app_name: "JumpStart's Hours"
-      added_on: "Added on: %{date}" 
+      added_on: "Added on: %{date}"
       jumpstart: JumpStart Georgia
       js_link_title: JumpStart Georgia - We communicate data better!
     msgs:
@@ -181,7 +182,7 @@ en:
         p1: Someone has requested a link to change your password on %{app_name}, and you can do this through the link below.
         link_title: Change my password
         p2: "If you didn't request this, please ignore this email."
-        p3: "Your password won't change until you access the link above and create a new one."                
+        p3: "Your password won't change until you access the link above and create a new one."
   root:
     index:
       title: Add Hours

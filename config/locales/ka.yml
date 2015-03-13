@@ -28,7 +28,7 @@ ka:
       organization:
         long_name: Long Name
         short_name: Abbreviated Name
-      project: 
+      project:
         organization_id: Organization
         project_type_id: Project Type
         name: Name
@@ -72,7 +72,7 @@ ka:
       change_password2: პაროლის შეცვლა
       password_reset: პაროლის აღდგენა
       sign_in2: შესვლა
-      sign_in: უკვე გაქვთ ანგარიში?      
+      sign_in: უკვე გაქვთ ანგარიში?
       sign_up2: რეგისტრაცია
       sign_up_question: "არ გაქვთ ანგარიში?"
       sign_up: დარეგისტრირდით
@@ -87,11 +87,12 @@ ka:
       menu:
         new_org: New Organization
         new_project: New Project
+        new_prog: New Program
         add_hours: Add Hours
         all_hours: All My Hours
         summary:
           header: Summaries
-          user: User 
+          user: User
           project: Project
           date: Date
     titles:
@@ -137,10 +138,10 @@ ka:
       reset: საწყის კონფიგურაციაზე დაბრუნება
       remove: ამოშლა
       confirm: დარწმუნებული ხართ?
-      new: ახალი            
+      new: ახალი
     common:
       app_name: "JumpStart's Hours"
-      added_on: "დამატებულია: %{date}" 
+      added_on: "დამატებულია: %{date}"
       jumpstart: “ჯამპსტარტ ჯორჯია”
       js_link_title: “ჯამპსტარტ ჯორჯია” - ჩვენ გაწვდით მონაცემებს უკეთ!
     msgs:
@@ -181,7 +182,7 @@ ka:
         p1: 'მივიღეთ მოთხოვნა "%{app_name}" თქვენი პაროლის შეცვლის შესახებ. პაროლის შესაცვლელად, მიჰყევით შემდეგ ბმულს.'
         link_title: პაროლის შეცვლა
         p2: "თუ თქვენ არ მოგითხოვიათ პაროლის შეცვლა, გთხოვთ, არ მიაქციოთ ყურადღება ამ შეტყობინებას."
-        p3: "თქვენი პაროლი იგივე დარჩება, სანამ არ გადახვალთ ზემოთ მითითებულ ბმულზე და შექმნით ახალ პაროლს."    
+        p3: "თქვენი პაროლი იგივე დარჩება, სანამ არ გადახვალთ ზემოთ მითითებულ ბმულზე და შექმნით ახალ პაროლს."
   root:
     index:
       title: Add Hours

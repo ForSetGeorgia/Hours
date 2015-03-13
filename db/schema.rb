@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150305053250) do
+ActiveRecord::Schema.define(:version => 20150313073336) do
 
   create_table "organizations", :force => true do |t|
     t.string   "long_name"
@@ -43,6 +43,13 @@ ActiveRecord::Schema.define(:version => 20150305053250) do
 
   add_index "pages", ["name"], :name => "index_pages_on_name"
 
+  create_table "programs", :force => true do |t|
+    t.string   "name"
+    t.boolean  "active"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "project_types", :force => true do |t|
     t.string   "name"
     t.datetime "created_at", :null => false
@@ -58,6 +65,7 @@ ActiveRecord::Schema.define(:version => 20150305053250) do
     t.datetime "created_at",                        :null => false
     t.datetime "updated_at",                        :null => false
     t.integer  "project_type_id"
+    t.integer  "program_id"
   end
 
   add_index "projects", ["active"], :name => "index_projects_on_active"
