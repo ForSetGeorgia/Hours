@@ -11,7 +11,19 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150313073336) do
+ActiveRecord::Schema.define(:version => 20150313200320) do
+
+  create_table "groups", :force => true do |t|
+    t.string   "name"
+    t.boolean  "active"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "groups_projects", :id => false, :force => true do |t|
+    t.integer "project_id"
+    t.integer "group_id"
+  end
 
   create_table "organizations", :force => true do |t|
     t.string   "long_name"
@@ -43,16 +55,6 @@ ActiveRecord::Schema.define(:version => 20150313073336) do
 
   add_index "pages", ["name"], :name => "index_pages_on_name"
 
-  create_table "programs", :force => true do |t|
-    t.string   "name"
-    t.boolean  "active",     :default => true
-    t.datetime "created_at",                   :null => false
-    t.datetime "updated_at",                   :null => false
-  end
-
-  add_index "programs", ["active"], :name => "index_programs_on_active"
-  add_index "programs", ["name"], :name => "index_programs_on_name"
-
   create_table "project_types", :force => true do |t|
     t.string   "name"
     t.datetime "created_at", :null => false
@@ -68,13 +70,11 @@ ActiveRecord::Schema.define(:version => 20150313073336) do
     t.datetime "created_at",                        :null => false
     t.datetime "updated_at",                        :null => false
     t.integer  "project_type_id"
-    t.integer  "program_id"
   end
 
   add_index "projects", ["active"], :name => "index_projects_on_active"
   add_index "projects", ["name"], :name => "index_projects_on_name"
   add_index "projects", ["organization_id"], :name => "index_projects_on_organization_id"
-  add_index "projects", ["program_id"], :name => "index_projects_on_program_id"
   add_index "projects", ["project_type_id"], :name => "index_projects_on_project_type_id"
 
   create_table "stages", :force => true do |t|

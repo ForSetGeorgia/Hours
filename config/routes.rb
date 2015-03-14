@@ -1,5 +1,5 @@
 BootstrapStarter::Application.routes.draw do
-  resources :programs
+  resources :groups
 
 
 	#--------------------------------
@@ -15,7 +15,7 @@ BootstrapStarter::Application.routes.draw do
 		namespace :admin do
       resources :organizations
       resources :projects
-      resources :programs
+      resources :groups
       resources :stages
       resources :project_types
       resources :pages
