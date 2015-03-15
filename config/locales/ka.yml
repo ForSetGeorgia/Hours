@@ -9,7 +9,7 @@ ka:
       project_type: Project Type
       stage: Stage
       timestamp: Hours
-      program: Program
+      group: Group
     attributes:
       user:
         email: ელ.ფოსტა
@@ -32,12 +32,15 @@ ka:
       project:
         organization_id: Organization
         project_type_id: Project Type
-        program_id: Program
+        group_ids: Groups
+        groups: Groups
         name: Name
         active: Is Active?
-      program:
+      group:
         name: Name
         active: Is Active?
+        project_ids: Projects
+        projects: Projects
       project_type:
         name: Name
       stage:

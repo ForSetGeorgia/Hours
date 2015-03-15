@@ -2,6 +2,8 @@
 
   <%= f.inputs do %>
     <%= f.input :name %>
+    <%= f.input :projects, collection: Project.is_active.map{|x| [x.full_name, x.id]}.sort_by{|x| x[0]}, multiple: true,
+          input_html: {:'data-live-search' => true, :'data-size' => "7", :'data-width' => 'auto'} %>
     <%= f.input :active, :as => :radio %>
   <% end %>
 
@@ -11,4 +13,4 @@
               admin_groups_path, :class => 'btn btn-default' %>
   <% end %>
 
-  <% end %>
+<% end %>

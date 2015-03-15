@@ -15,10 +15,13 @@ ActiveRecord::Schema.define(:version => 20150313200320) do
 
   create_table "groups", :force => true do |t|
     t.string   "name"
-    t.boolean  "active"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.boolean  "active",     :default => true
+    t.datetime "created_at",                   :null => false
+    t.datetime "updated_at",                   :null => false
   end
+
+  add_index "groups", ["active"], :name => "index_groups_on_active"
+  add_index "groups", ["name"], :name => "index_groups_on_name"
 
   create_table "groups_projects", :id => false, :force => true do |t|
     t.integer "project_id"

@@ -5,7 +5,7 @@ class Admin::GroupsController < ApplicationController
   end
 
   def index
-    @groups = Group.all
+    @groups = Group.sorted
 
     respond_to do |format|
       format.html
@@ -37,7 +37,7 @@ class Admin::GroupsController < ApplicationController
 
     respond_to do |format|
       if @group.save
-        format.html { redirect_to admin_groups_path, notice: 'Group was successfully created.' }
+        format.html { redirect_to admin_groups_path, notice: t('app.msgs.success_created', :obj => t('activerecord.models.group')) }
       else
         format.html { render action: "new" }
       end
@@ -49,7 +49,7 @@ class Admin::GroupsController < ApplicationController
 
     respond_to do |format|
       if @group.update_attributes(params[:group])
-        format.html { redirect_to admin_groups, notice: 'Group was successfully updated.' }
+        format.html { redirect_to admin_groups, notice: t('app.msgs.success_updated', :obj => t('activerecord.models.group')) }
       else
         format.html { render action: "edit" }
       end

@@ -16,4 +16,14 @@ class Project < ActiveRecord::Base
     "#{organization.short_name}: #{name} (#{project_type.name})"
   end
 
+  # return array of group names
+  def group_names
+    self.groups.map{|x| x.name}.sort
+  end
+
+  # return array of active group names
+  def active_group_names
+    self.groups.select{|x| x.active == true}.map{|x| x.name}.sort
+  end
+
 end
