@@ -19,16 +19,20 @@ class SummaryController < ApplicationController
     @user = @users.select{|x| x.id.to_s == params[:timestamp_user_id].to_s}.first
 
     records = Timestamp.by_user(params[:timestamp_user_id]).all_stamps(start_at: params[:timestamp_start_at], end_at: params[:timestamp_end_at])
-    begin_at = Timestamp.by_user(params[:timestamp_user_id]).start_date
-    last_at = Timestamp.by_user(params[:timestamp_user_id]).end_date
-
+    dates = Timestamp.by_user(params[:timestamp_user_id]).dates
+    if dates.present?
+      begin_at = dates.first
+      last_at = dates.last
+    end
+    
     if records[:records].present?
 
       @timestamps = records[:records]
 
       # for chart
       gon.projects = records[:projects]
-      gon.dates = records[:dates]
+      gon.datepicker_dates = dates
+      gon.dates = records[:dates_formatted]
       gon.bar_chart_title = I18n.t('charts.summary.user.bar.title', user: @user.nickname)
       gon.bar_chart_subtitle = I18n.t('charts.summary.user.bar.subtitle',
           start: params[:timestamp_start_at], end: params[:timestamp_end_at],
@@ -44,8 +48,8 @@ class SummaryController < ApplicationController
           dates: records[:counts][:dates])
 
       # dates for date picker
-      gon.begin_at = begin_at.strftime('%m/%d/%Y')
-      gon.last_at = last_at.strftime('%m/%d/%Y')
+      gon.begin_at = begin_at
+      gon.last_at = last_at
       gon.start_at = params[:timestamp_start_at].to_s
       gon.end_at = params[:timestamp_end_at].to_s
     end

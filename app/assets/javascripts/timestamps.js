@@ -14,10 +14,8 @@ $(function() {
     var clone_date = new Date(date.getTime());
     clone_date.setHours(clone_date.getHours()+4);
     if (gon.datepicker_dates){
-      for (var i = 0; i < gon.datepicker_dates.length; i++) {
-        if (new Date(gon.datepicker_dates[i]).toString() == clone_date.toString()) {              
-          return [true, 'datepicker-highlight'];
-        }
+      if ($.inArray(date.toISOString().slice(0,10), gon.datepicker_dates) > -1){
+        return [true, 'datepicker-highlight'];
       }
     }
     return [false, ''];

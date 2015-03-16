@@ -29,6 +29,11 @@ class Timestamp < ActiveRecord::Base
     where('timestamps.date = ?', date)
   end
 
+  # get dates
+  def self.dates
+    pluck(:date).uniq.sort.map{|x| x.to_s}
+  end
+
   # get first date on file
   def self.start_date
     select('date').order('date').map{|x| x.date}.first

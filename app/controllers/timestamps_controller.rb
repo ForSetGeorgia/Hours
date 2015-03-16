@@ -9,16 +9,19 @@ class TimestampsController < ApplicationController
     params[:timestamp_start_at] ||= 1.week.ago.in_time_zone.to_date.to_s
     params[:timestamp_end_at] ||= Time.zone.now.to_date.to_s
     records = current_user.timestamps.all_stamps(start_at: params[:timestamp_start_at], end_at: params[:timestamp_end_at])
-    begin_at = current_user.timestamps.start_date
-    last_at = current_user.timestamps.end_date
-
+    dates = current_user.timestamps.dates
+    if dates.present?
+      begin_at = dates.first
+      last_at = dates.last
+    end
+    
     if records[:records].present?
 
       @timestamps = records[:records]
 
       # for chart
       gon.projects = records[:projects]
-      gon.datepicker_dates = records[:dates]
+      gon.datepicker_dates = dates
       gon.dates = records[:dates_formatted]
       gon.bar_chart_title = I18n.t('charts.user.bar.title')
       gon.bar_chart_subtitle = I18n.t('charts.user.bar.subtitle',
@@ -35,8 +38,8 @@ class TimestampsController < ApplicationController
           dates: records[:counts][:dates])
 
       # dates for date picker
-      gon.begin_at = begin_at.strftime('%m/%d/%Y')
-      gon.last_at = last_at.strftime('%m/%d/%Y')
+      gon.begin_at = begin_at
+      gon.last_at = last_at
       gon.start_at = params[:timestamp_start_at].to_s
       gon.end_at = params[:timestamp_end_at].to_s
     end
