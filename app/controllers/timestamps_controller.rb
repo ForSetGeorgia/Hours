@@ -12,7 +12,7 @@ class TimestampsController < ApplicationController
     dates = current_user.timestamps.dates
 
     # in app controller
-    load_data_for_charts(records, dates, :projects, 'charts.user')
+    load_data_for_charts(records, dates, :projects, :dates, 'charts.user')
     
     # if records[:records].present?
 
