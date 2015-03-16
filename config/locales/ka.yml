@@ -217,6 +217,10 @@ ka:
   summary:
     index:
     date:
+      title: "Hours by Date: %{date}"
+      label_date: Date
+      label_submit: Get Hours
+      no_hours: "No hours have been submitted for '%{date}'"
     project:
       title: "Hours by Project: %{project}"
       label_project: Project

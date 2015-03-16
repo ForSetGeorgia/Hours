@@ -110,7 +110,52 @@ class SummaryController < ApplicationController
     # end
   end
 
-  def day
+  def date
+    dates = Timestamp.dates
+    @dates_formatted = dates.map{|x| [I18n.l(Date.parse(x), format: :chart_axis), x]}
+    records = nil
+    begin_at = nil
+    last_at = nil
+    params[:timestamp_date] ||= dates.last
+    params[:timestamp_date] = dates.last if params[:timestamp_date].present? && dates.index{|x| x == params[:timestamp_date]}.nil?
+    date = dates.select{|x| x == params[:timestamp_date]}.first
+    @date_formatted = date.present? ? I18n.l(Date.parse(date), format: :chart_axis) : date
+
+    if dates.present?
+      begin_at = dates.first
+      last_at = dates.last
+    end
+
+    records = Timestamp.by_date(params[:timestamp_date]).all_stamps(type: Timestamp::SUMMARY[:date])
+    
+    if records[:records].present?
+
+      @timestamps = records[:records]
+
+      gon.chart_data = records[:chart_data]
+      gon.datepicker_dates = dates
+      gon.xaxis_categories = records[:xaxis_categories]
+      gon.bar_chart_title = I18n.t("charts.summary.date.bar.title", item: @date_formatted)
+      gon.bar_chart_subtitle = I18n.t("charts.summary.date.bar.subtitle",
+          date: params[:timestamp_date],
+          hours: records[:counts][:hours],
+          items: records[:counts][:projects],
+          users: records[:counts][:users])
+      gon.bar_chart_xaxis = I18n.t("charts.summary.date.bar.xaxis")
+      gon.pie_chart_title = I18n.t("charts.summary.date.pie.title", item: @date_formatted)
+      gon.pie_chart_subtitle = I18n.t("charts.summary.date.pie.subtitle", 
+          date: params[:timestamp_date],
+          hours: records[:counts][:hours],
+          items: records[:counts][:projects],
+          users: records[:counts][:users])
+
+      # dates for date picker
+      gon.begin_at = begin_at
+      gon.last_at = last_at
+      gon.timestamp_summary_date = date
+    end
+
+
 
   end
 

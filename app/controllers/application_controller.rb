@@ -148,9 +148,9 @@ logger.debug "////////////////////////// BROWSER = #{user_agent}"
         last_at = dates.last
       end
 
-      gon.chart_data = records[chart_data_key]
+      gon.chart_data = records[:chart_data]
       gon.datepicker_dates = dates
-      gon.dates = records[:dates_formatted]
+      gon.xaxis_categories = records[:xaxis_categories]
       if is_summary
         gon.bar_chart_title = I18n.t("#{i18n_key}.bar.title", item: item_name)
       else

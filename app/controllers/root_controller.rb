@@ -10,8 +10,8 @@ class RootController < ApplicationController
       @timestamps = records[:records]
 
       # for daily chart
-      gon.chart_data = records[:projects]
-      gon.dates = records[:dates_formatted]
+      gon.chart_data = records[:chart_data]
+      gon.xaxis_categories = records[:xaxis_categories]
       gon.bar_chart_title = I18n.t('charts.user.bar.title_today')
       gon.bar_chart_subtitle = I18n.t('charts.user.bar.subtitle_today',
           hours: records[:counts][:hours],

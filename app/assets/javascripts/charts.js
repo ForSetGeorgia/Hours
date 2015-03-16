@@ -12,7 +12,7 @@ $(function () {
           style: {'text-align': 'center', 'margin-top': '-15px'}
       },
       xAxis: {
-          categories: gon.dates
+          categories: gon.xaxis_categories
       },
       yAxis: {
           min: 0,

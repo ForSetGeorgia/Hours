@@ -137,6 +137,14 @@ en:
         pie:
           title: "'%{item}' Hour Breakdown By Person"
           subtitle: "From %{start} to %{end} | Hours: %{hours} | People: %{items} | Days: %{dates}"
+      date:
+        bar:
+          title: "'%{item}' Hour Breakdown By Person"
+          subtitle: "Date: %{date} | Hours: %{hours} | Projects: %{items} | Users: %{users}"
+          xaxis: "Hours"
+        pie:
+          title: "'%{item}' Hour Breakdown By Project"
+          subtitle: "Date: %{date} | Hours: %{hours} | Projects: %{items} | Users: %{users}"
   app:
     language:
       en: English
@@ -217,6 +225,10 @@ en:
   summary:
     index:
     date:
+      title: "Hours by Date: %{date}"
+      label_date: Date
+      label_submit: Get Hours
+      no_hours: "No hours have been submitted for '%{date}'"
     project:
       title: "Hours by Project: %{project}"
       label_project: Project

@@ -1,1 +1,36 @@
-under construction!
+<% title t('.title', date: @date_formatted) %>
+
+  <%= form_tag summary_date_path, method: 'get' do %>
+    <div class="row" id="date-pickers">
+      <div class="col-xs-3">
+        <%= label_tag :timestamp_date, t('.label_date') %>
+        <br />
+        <%= text_field_tag :timestamp_date, params[:timestamp_date], size: 14 %>
+      </div>
+      <div class="col-xs-3">
+        <br />
+        <%= submit_tag t('.label_submit'), class: 'btn btn-default btn-sm btn-success' %>
+      </div>
+    </div>
+  <% end %>
+
+<% if @timestamps.present? %>
+
+
+  <div id="pie-chart" style="min-height: 500px; margin: 0 auto;"></div>
+
+  <hr />
+
+  <div id="bar-chart" style="min-height: 500px; margin: 0 auto;"></div>
+
+  <hr />
+
+  <%= render :partial => 'timestamps/table' %>
+
+<% else %>
+
+  <p class="alert alert-warning">
+    <%= t('.no_hours', date: @date_formatted) %>
+  </p>
+
+<% end %>

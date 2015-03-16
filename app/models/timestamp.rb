@@ -61,6 +61,8 @@ class Timestamp < ActiveRecord::Base
 
     if options[:type] == Timestamp::SUMMARY[:project]
       process_project_data_for_charts(query)
+    elsif options[:type] == Timestamp::SUMMARY[:date]
+      process_date_data_for_charts(query)
     else
       process_user_data_for_charts(query)
     end
@@ -79,14 +81,14 @@ class Timestamp < ActiveRecord::Base
   # - records: the records that were passed in
   # - counts: hash of total counts {dates: xx, projects: xx, hours: xx}
   def self.process_user_data_for_charts(records)
-    stamps = {projects: [], dates: [], dates_formatted: [], records: records, counts: {projects: 0, dates: 0, hours: 0}}
+    stamps = {chart_data: [], xaxis_categories: [], xaxis_categories_alt: [], records: records, counts: {projects: 0, dates: 0, hours: 0}}
     template = {name: nil, data: nil, y:nil}
 
     if records.present?
       # group by dates
       dates = records.group_by{|x| x.date}
-      stamps[:dates] = dates.keys.map{|x| x.to_s}
-      stamps[:dates_formatted] = dates.keys.map{|x| I18n.l(x, format: :chart_axis)}
+      stamps[:xaxis_categories] = dates.keys.map{|x| I18n.l(x, format: :chart_axis)}
+      stamps[:xaxis_categories_alt] = dates.keys.map{|x| x.to_s}
 
       # get the unique projects
       projects = records.map{|x| x.project}.uniq.sort_by{|x| x.full_name}
@@ -111,13 +113,13 @@ class Timestamp < ActiveRecord::Base
             project_data[:data] << 0
           end
         end
-        stamps[:projects] << project_data
+        stamps[:chart_data] << project_data
         total_hours += project_data[:data].inject(:+)
       end
 
       # add the counts
-      stamps[:counts][:projects] = stamps[:projects].length
-      stamps[:counts][:dates] = stamps[:dates].length
+      stamps[:counts][:projects] = stamps[:chart_data].length
+      stamps[:counts][:dates] = stamps[:xaxis_categories].length
       stamps[:counts][:hours] = total_hours.round(2)
     end
 
@@ -135,14 +137,14 @@ class Timestamp < ActiveRecord::Base
   # - records: the records that were passed in
   # - counts: hash of total counts {dates: xx, projects: xx, hours: xx}
   def self.process_project_data_for_charts(records)
-    stamps = {users: [], dates: [], dates_formatted: [], records: records, counts: {users: 0, dates: 0, hours: 0}}
+    stamps = {chart_data: [], xaxis_categories: [], xaxis_categories_alt: [], records: records, counts: {users: 0, dates: 0, hours: 0}}
     template = {name: nil, data: nil, y:nil}
 
     if records.present?
       # group by dates
       dates = records.group_by{|x| x.date}
-      stamps[:dates] = dates.keys.map{|x| x.to_s}
-      stamps[:dates_formatted] = dates.keys.map{|x| I18n.l(x, format: :chart_axis)}
+      stamps[:xaxis_categories] = dates.keys.map{|x| I18n.l(x, format: :chart_axis)}
+      stamps[:xaxis_categories_alt] = dates.keys.map{|x| x.to_s}
 
       # get the unique users
       users = records.map{|x| x.user}.uniq.sort_by{|x| x.nickname}
@@ -167,14 +169,70 @@ class Timestamp < ActiveRecord::Base
             user_data[:data] << 0
           end
         end
-        stamps[:users] << user_data
+        stamps[:chart_data] << user_data
         total_hours += user_data[:data].inject(:+)
       end
 
       # add the counts
-      stamps[:counts][:users] = stamps[:users].length
-      stamps[:counts][:dates] = stamps[:dates].length
+      stamps[:counts][:users] = stamps[:chart_data].length
+      stamps[:counts][:dates] = stamps[:xaxis_categories].length
       stamps[:counts][:hours] = total_hours.round(2)
+    end
+
+    return stamps
+  end
+
+  # process the data for the passed in records so is ready for charting
+  # returns hash of the following:
+  # - users: array of {name: ___, data: [], y:___}
+  #   - data = array of sum of duration for project for each date
+  #   - y = overall sum of all durations for this project
+  # - dates: array of unique dates
+  # - dates_formatted: array of unique dates in format: Day yyyy-mm-dd
+  # - records: the records that were passed in
+  # - counts: hash of total counts {dates: xx, projects: xx, hours: xx}
+  def self.process_date_data_for_charts(records)
+    stamps = {chart_data: [], xaxis_categories: [], xaxis_categories_alt: [], records: records, counts: {users: 0, projects: 0, hours: 0}}
+    template = {name: nil, data: nil, y:nil}
+
+    if records.present?
+      # group by users
+      users = records.group_by{|x| x.user.nickname}
+      stamps[:xaxis_categories] = users.keys.sort.map{|x| x}
+      stamps[:xaxis_categories_alt] = users.keys.sort.map{|x| x}
+
+      # get the unique projects
+      projects = records.map{|x| x.project}.uniq.sort_by{|x| x.full_name}
+      # for each project, record data for each date
+      total_hours = 0
+      projects.each do |project|
+        puts "project = #{project.id}"
+        project_data = template.dup
+        project_data[:name] = project.full_name
+        project_data[:data] = []
+        project_data[:y] = ((records.select{|x| x.project_id == project.id}.inject(0){|sum,x| sum + x.duration }) / 60.0).round(2)
+        users.keys.sort.each do |user|
+          puts "- user = #{user}; projects for this user = #{users[user].length}"
+          user_projects = users[user].select{|x| x.project_id == project.id}
+          puts "-- user projects = #{user_projects.inspect}"
+          if user_projects.present?
+            puts "--- adding #{user_projects.map{|x| x.duration}}"
+            project_data[:data] << ((user_projects.inject(0){|sum,x| sum + x.duration }) / 60.0).round(2)
+          else
+            puts "--- adding 0"
+            # no data for this project on this date
+            project_data[:data] << 0
+          end
+        end
+        stamps[:chart_data] << project_data
+        total_hours += project_data[:data].inject(:+)
+      end
+
+      # add the counts
+      stamps[:counts][:projects] = stamps[:chart_data].length
+      stamps[:counts][:users] = stamps[:xaxis_categories].length
+      stamps[:counts][:hours] = total_hours.round(2)
+
     end
 
     return stamps

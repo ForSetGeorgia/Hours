@@ -24,8 +24,7 @@ $(function() {
    if (gon.timestamp_date){
     // todays date for timestmap form
     $("input#timestamp_date").datepicker({
-      dateFormat: 'yy-mm-dd',
-      onSelect: customRange
+      dateFormat: 'yy-mm-dd'
     });
     if (gon.timestamp_date !== undefined && gon.timestamp_date.length > 0)
     {
@@ -36,6 +35,25 @@ $(function() {
       $('input#timestamp_date').datepicker('option', 'minDate', minDate);
     }
   }
+
+  if (gon.timestamp_summary_date){
+    $("input#timestamp_date").datepicker({
+      dateFormat: 'yy-mm-dd',
+      beforeShowDay: highlightDays
+    });
+    if (gon.timestamp_summary_date !== undefined && gon.timestamp_summary_date.length > 0)
+    {
+      var date = new Date(gon.timestamp_summary_date);
+      $("input#timestamp_date").datepicker("setDate", date);
+      if (gon.last_at !== undefined && gon.last_at.length > 0){
+        $('input#timestamp_start_at').datepicker('option', 'maxDate', new Date(gon.last_at));
+      }
+      if (gon.begin_at !== undefined && gon.begin_at.length > 0){
+        $('input#timestamp_end_at').datepicker('option', 'minDate', new Date(gon.begin_at));
+      }
+    }
+  }
+
 
   if (gon.start_at && gon.end_at){
     // start gathered at
