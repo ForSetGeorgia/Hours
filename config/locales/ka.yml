@@ -114,29 +114,37 @@ ka:
       bar:
         title: Hour Breakdown By Day
         title_today: "Today's Hour Breakdown"
-        subtitle: "From %{start} to %{end} | Hours: %{hours} | Projects: %{items} | Days: %{dates}"
+        subtitle: "From %{start} to %{end} | Hours: %{hours} | Projects: %{xaxis} | Days: %{yaxis}"
         subtitle_today: "Hours: %{hours} | Projects: %{projects}"
         xaxis: "Hours"
       pie:
         title: Hour Breakdown By Project
-        subtitle: "From %{start} to %{end} | Hours: %{hours} | Projects: %{items} | Days: %{dates}"
+        subtitle: "From %{start} to %{end} | Hours: %{hours} | Projects: %{xaxis} | Days: %{yaxis}"
     summary:
       user:
         bar:
           title: "'%{item}' Hour Breakdown By Day"
-          subtitle: "From %{start} to %{end} | Hours: %{hours} | Projects: %{items} | Days: %{dates}"
+          subtitle: "From %{start} to %{end} | Hours: %{hours} | Projects: %{xaxis} | Days: %{yaxis}"
           xaxis: "Hours"
         pie:
           title: "'%{item}' Hour Breakdown By Project"
-          subtitle: "From %{start} to %{end} | Hours: %{hours} | Projects: %{items} | Days: %{dates}"
+          subtitle: "From %{start} to %{end} | Hours: %{hours} | Projects: %{xaxis} | Days: %{yaxis}"
       project:
         bar:
           title: "'%{item}' Hour Breakdown By Day"
-          subtitle: "From %{start} to %{end} | Hours: %{hours} | People: %{items} | Days: %{dates}"
+          subtitle: "From %{start} to %{end} | Hours: %{hours} | People: %{xaxis} | Days: %{yaxis}"
           xaxis: "Hours"
         pie:
           title: "'%{item}' Hour Breakdown By Person"
-          subtitle: "From %{start} to %{end} | Hours: %{hours} | People: %{items} | Days: %{dates}"
+          subtitle: "From %{start} to %{end} | Hours: %{hours} | People: %{xaxis} | Days: %{yaxis}"
+      date:
+        bar:
+          title: "'%{item}' Hour Breakdown By Person"
+          subtitle: "Date: %{start} | Hours: %{hours} | Projects: %{xaxis} | People: %{yaxis}"
+          xaxis: "Hours"
+        pie:
+          title: "'%{item}' Hour Breakdown By Project"
+          subtitle: "Date: %{start} | Hours: %{hours} | Projects: %{xaxis} | People: %{yaxis}"
   app:
     language:
       en: English

@@ -138,7 +138,7 @@ logger.debug "////////////////////////// BROWSER = #{user_agent}"
 
 	
   # load data for the charts
-  def load_data_for_charts(records, dates, chart_data_key, i18n_key, is_summary=false, item_name=nil)
+  def load_data_for_charts(records, dates, chart_xaxis_key, chart_yaxis_key, i18n_key, is_summary=false, item_name=nil)
     if records[:records].present?
 
       @timestamps = records[:records]
@@ -156,28 +156,25 @@ logger.debug "////////////////////////// BROWSER = #{user_agent}"
       else
         gon.bar_chart_title = I18n.t("#{i18n_key}.bar.title")
       end
-      gon.bar_chart_subtitle = I18n.t("#{i18n_key}.bar.subtitle",
-          start: params[:timestamp_start_at], end: params[:timestamp_end_at],
+      options = {start: params[:timestamp_start_at],
           hours: records[:counts][:hours],
-          items: records[:counts][chart_data_key],
-          dates: records[:counts][:dates])
+          xaxis: records[:counts][chart_xaxis_key],
+          yaxis: records[:counts][chart_yaxis_key]}
+      options[:end] = params[:timestamp_start_at] if i18n_key != 'charts.summary.date'
+      gon.bar_chart_subtitle = I18n.t("#{i18n_key}.bar.subtitle", options)
       gon.bar_chart_xaxis = I18n.t("#{i18n_key}.bar.xaxis")
       if is_summary
         gon.pie_chart_title = I18n.t("#{i18n_key}.pie.title", item: item_name)
       else
         gon.pie_chart_title = I18n.t("#{i18n_key}.pie.title")
       end
-      gon.pie_chart_subtitle = I18n.t("#{i18n_key}.pie.subtitle", 
-          start: params[:timestamp_start_at], end: params[:timestamp_end_at],
-          hours: records[:counts][:hours],
-          items: records[:counts][chart_data_key],
-          dates: records[:counts][:dates])
+      gon.pie_chart_subtitle = I18n.t("#{i18n_key}.pie.subtitle", options)
 
       # dates for date picker
       gon.begin_at = begin_at
       gon.last_at = last_at
-      gon.start_at = params[:timestamp_start_at].to_s
-      gon.end_at = params[:timestamp_end_at].to_s
+      gon.start_at = params[:timestamp_start_at].to_s if params[:timestamp_start_at].present?
+      gon.end_at = params[:timestamp_end_at].to_s if params[:timestamp_end_at].present?
     end
   end
 

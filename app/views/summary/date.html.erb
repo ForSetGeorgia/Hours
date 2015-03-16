@@ -4,11 +4,9 @@
     <div class="row" id="date-pickers">
       <div class="col-xs-3">
         <%= label_tag :timestamp_date, t('.label_date') %>
-        <br />
         <%= text_field_tag :timestamp_date, params[:timestamp_date], size: 14 %>
       </div>
       <div class="col-xs-3">
-        <br />
         <%= submit_tag t('.label_submit'), class: 'btn btn-default btn-sm btn-success' %>
       </div>
     </div>
