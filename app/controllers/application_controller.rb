@@ -160,7 +160,7 @@ logger.debug "////////////////////////// BROWSER = #{user_agent}"
           hours: records[:counts][:hours],
           xaxis: records[:counts][chart_xaxis_key],
           yaxis: records[:counts][chart_yaxis_key]}
-      options[:end] = params[:timestamp_start_at] if i18n_key != 'charts.summary.date'
+      options[:end] = params[:timestamp_end_at] if i18n_key != 'charts.summary.date'
       gon.bar_chart_subtitle = I18n.t("#{i18n_key}.bar.subtitle", options)
       gon.bar_chart_xaxis = I18n.t("#{i18n_key}.bar.xaxis")
       if is_summary
