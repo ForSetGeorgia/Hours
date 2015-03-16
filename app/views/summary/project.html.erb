@@ -1,1 +1,47 @@
-under construction!
+<% title t('.title', project: @project.full_name) %>
+
+  <%= form_tag summary_project_path, method: 'get' do %>
+    <div class="row" id="date-pickers">
+      <div class="col-xs-3">
+        <%= label_tag :timestamp_project_id, t('.label_project') %>
+        <br />
+        <%= select_tag :timestamp_project_id, options_from_collection_for_select(@projects, :id, :full_name, params[:timestamp_project_id]), 
+          :'data-live-search' => true, :'data-size' => "7" %>
+      </div>
+      <div class="col-xs-3">
+        <%= label_tag :timestamp_start_at, t('.label_start') %>
+        <br />
+        <%= text_field_tag :timestamp_start_at, params[:timestamp_start_at], size: 14 %>
+      </div>
+      <div class="col-xs-3">
+        <%= label_tag :timestamp_end_at, t('.label_end') %>
+        <br />
+        <%= text_field_tag :timestamp_end_at, params[:timestamp_end_at], size: 14 %>
+      </div>
+      <div class="col-xs-3">
+        <br />
+        <%= submit_tag t('.label_submit'), class: 'btn btn-default btn-sm btn-success' %>
+      </div>
+    </div>
+  <% end %>
+
+<% if @timestamps.present? %>
+
+
+  <div id="pie-chart" style="min-height: 500px; margin: 0 auto;"></div>
+
+  <hr />
+
+  <div id="bar-chart" style="min-height: 500px; margin: 0 auto;"></div>
+
+  <hr />
+
+  <%= render :partial => 'timestamps/table' %>
+
+<% else %>
+
+  <p class="alert alert-warning">
+    <%= t('.no_hours', project: @project.full_name, start: params[:timestamp_start_at], end: params[:timestamp_end_at]) %>
+  </p>
+
+<% end %>

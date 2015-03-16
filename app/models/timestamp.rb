@@ -6,11 +6,13 @@ class Timestamp < ActiveRecord::Base
   belongs_to :user
 
   DIFF_LEVELS = ["Easy", "Moderately Easy", "Medium", "Difficult", "Very Difficult", "Not Relevant"]
+  SUMMARY = {user: 1, project: 2, date: 3}
 
   scope :stamps_today, -> { where('timestamps.date >= ?', Time.zone.now.beginning_of_day) }
   scope :sorted, includes(:project).order('timestamps.date desc, projects.name asc')
 
   validates :date, :project_id, :diff_level, :stage_id, :duration, :user_id, :presence => true
+
 
   ######################
 
@@ -48,12 +50,7 @@ class Timestamp < ActiveRecord::Base
 
   # get all activity for teh current day
   def self.current_day_stamps
-    process_data_for_charts(where('timestamps.date >= ?', Time.zone.now.beginning_of_day).sorted)
-  end
-
-  # get all activity for the current week, by day
-  def self.current_week_stamps
-    process_data_for_charts(where('timestamps.date between ? and ?', Time.zone.now.at_beginning_of_week, Time.zone.now.at_end_of_week).sorted)
+    process_user_data_for_charts(where('timestamps.date >= ?', Time.zone.now.beginning_of_day).sorted)
   end
 
   # get all activity by day
@@ -62,7 +59,11 @@ class Timestamp < ActiveRecord::Base
     query = query.where('timestamps.date >= ?', options[:start_at]) if options[:start_at].present?
     query = query.where('timestamps.date <= ?', Date.parse(options[:end_at])+1.day) if options[:end_at].present?
 
-    process_data_for_charts(query)
+    if options[:type] == Timestamp::SUMMARY[:project]
+      process_project_data_for_charts(query)
+    else
+      process_user_data_for_charts(query)
+    end
   end
 
 
@@ -77,8 +78,8 @@ class Timestamp < ActiveRecord::Base
   # - dates_formatted: array of unique dates in format: Day yyyy-mm-dd
   # - records: the records that were passed in
   # - counts: hash of total counts {dates: xx, projects: xx, hours: xx}
-  def self.process_data_for_charts(records)
-    stamps = {projects: [], dates: [], dates_formated: [], records: records, counts: {projects: 0, dates: 0, hours: 0}}
+  def self.process_user_data_for_charts(records)
+    stamps = {projects: [], dates: [], dates_formatted: [], records: records, counts: {projects: 0, dates: 0, hours: 0}}
     template = {name: nil, data: nil, y:nil}
 
     if records.present?
@@ -117,9 +118,66 @@ class Timestamp < ActiveRecord::Base
       # add the counts
       stamps[:counts][:projects] = stamps[:projects].length
       stamps[:counts][:dates] = stamps[:dates].length
-      stamps[:counts][:hours] = total_hours
+      stamps[:counts][:hours] = total_hours.round(2)
     end
 
     return stamps
   end
+
+
+  # process the data for the passed in records so is ready for charting
+  # returns hash of the following:
+  # - users: array of {name: ___, data: [], y:___}
+  #   - data = array of sum of duration for project for each date
+  #   - y = overall sum of all durations for this project
+  # - dates: array of unique dates
+  # - dates_formatted: array of unique dates in format: Day yyyy-mm-dd
+  # - records: the records that were passed in
+  # - counts: hash of total counts {dates: xx, projects: xx, hours: xx}
+  def self.process_project_data_for_charts(records)
+    stamps = {users: [], dates: [], dates_formatted: [], records: records, counts: {users: 0, dates: 0, hours: 0}}
+    template = {name: nil, data: nil, y:nil}
+
+    if records.present?
+      # group by dates
+      dates = records.group_by{|x| x.date}
+      stamps[:dates] = dates.keys.map{|x| x.to_s}
+      stamps[:dates_formatted] = dates.keys.map{|x| I18n.l(x, format: :chart_axis)}
+
+      # get the unique users
+      users = records.map{|x| x.user}.uniq.sort_by{|x| x.nickname}
+      # for each user, record data for each date
+      total_hours = 0
+      users.each do |user|
+        puts "user = #{user.id}"
+        user_data = template.dup
+        user_data[:name] = user.nickname
+        user_data[:data] = []
+        user_data[:y] = ((records.select{|x| x.user_id == user.id}.inject(0){|sum,x| sum + x.duration }) / 60.0).round(2)
+        dates.keys.each do |date|
+          puts "- date = #{date}; users on this date = #{dates[date].length}"
+          date_users = dates[date].select{|x| x.user_id == user.id}
+          puts "-- date users = #{date_users.inspect}"
+          if date_users.present?
+            puts "--- adding #{date_users.map{|x| x.duration}}"
+            user_data[:data] << ((date_users.inject(0){|sum,x| sum + x.duration }) / 60.0).round(2)
+          else
+            puts "--- adding 0"
+            # no data for this user on this date
+            user_data[:data] << 0
+          end
+        end
+        stamps[:users] << user_data
+        total_hours += user_data[:data].inject(:+)
+      end
+
+      # add the counts
+      stamps[:counts][:users] = stamps[:users].length
+      stamps[:counts][:dates] = stamps[:dates].length
+      stamps[:counts][:hours] = total_hours.round(2)
+    end
+
+    return stamps
+  end
+
 end

@@ -36,6 +36,6 @@ $(document).ready(function(){
 
   // assign select2 to all selects
   if ($('select').length > 0){
-    $('select').selectpicker();
+    $('select').selectpicker({width: '100%'});
   }
 });

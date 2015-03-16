@@ -137,6 +137,49 @@ logger.debug "////////////////////////// BROWSER = #{user_agent}"
   end
 
 	
+  # load data for the charts
+  def load_data_for_charts(records, dates, chart_data_key, i18n_key, is_summary=false, item_name=nil)
+    if records[:records].present?
+
+      @timestamps = records[:records]
+
+      if dates.present?
+        begin_at = dates.first
+        last_at = dates.last
+      end
+
+      gon.chart_data = records[chart_data_key]
+      gon.datepicker_dates = dates
+      gon.dates = records[:dates_formatted]
+      if is_summary
+        gon.bar_chart_title = I18n.t("#{i18n_key}.bar.title", item: item_name)
+      else
+        gon.bar_chart_title = I18n.t("#{i18n_key}.bar.title")
+      end
+      gon.bar_chart_subtitle = I18n.t("#{i18n_key}.bar.subtitle",
+          start: params[:timestamp_start_at], end: params[:timestamp_end_at],
+          hours: records[:counts][:hours],
+          items: records[:counts][chart_data_key],
+          dates: records[:counts][:dates])
+      gon.bar_chart_xaxis = I18n.t("#{i18n_key}.bar.xaxis")
+      if is_summary
+        gon.pie_chart_title = I18n.t("#{i18n_key}.pie.title", item: item_name)
+      else
+        gon.pie_chart_title = I18n.t("#{i18n_key}.pie.title")
+      end
+      gon.pie_chart_subtitle = I18n.t("#{i18n_key}.pie.subtitle", 
+          start: params[:timestamp_start_at], end: params[:timestamp_end_at],
+          hours: records[:counts][:hours],
+          items: records[:counts][chart_data_key],
+          dates: records[:counts][:dates])
+
+      # dates for date picker
+      gon.begin_at = begin_at
+      gon.last_at = last_at
+      gon.start_at = params[:timestamp_start_at].to_s
+      gon.end_at = params[:timestamp_end_at].to_s
+    end
+  end
 
   #######################
 	def render_not_found(exception)
