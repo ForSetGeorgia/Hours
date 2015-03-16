@@ -19,6 +19,16 @@ class Timestamp < ActiveRecord::Base
     where('timestamps.user_id = ?', user_id)
   end
 
+  # get for a project
+  def self.by_project(project_id)
+    where('timestamps.project_id = ?', project_id)
+  end
+
+  # get for a date
+  def self.by_date(date)
+    where('timestamps.date = ?', date)
+  end
+
   # get first date on file
   def self.start_date
     select('date').order('date').map{|x| x.date}.first

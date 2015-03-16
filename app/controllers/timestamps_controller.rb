@@ -18,6 +18,7 @@ class TimestampsController < ApplicationController
 
       # for chart
       gon.projects = records[:projects]
+      gon.datepicker_dates = records[:dates]
       gon.dates = records[:dates_formatted]
       gon.bar_chart_title = I18n.t('charts.user.bar.title')
       gon.bar_chart_subtitle = I18n.t('charts.user.bar.subtitle',

@@ -9,7 +9,21 @@ $(function() {
     } 
   }
 
-  if (gon.timestamp_date){
+  // make only days with timestamps active
+  function highlightDays(date) {
+    var clone_date = new Date(date.getTime());
+    clone_date.setHours(clone_date.getHours()+4);
+    if (gon.datepicker_dates){
+      for (var i = 0; i < gon.datepicker_dates.length; i++) {
+        if (new Date(gon.datepicker_dates[i]).toString() == clone_date.toString()) {              
+          return [true, 'datepicker-highlight'];
+        }
+      }
+    }
+    return [false, ''];
+   } 
+
+   if (gon.timestamp_date){
     // todays date for timestmap form
     $("input#timestamp_date").datepicker({
       dateFormat: 'yy-mm-dd',
@@ -21,7 +35,6 @@ $(function() {
       $("input#timestamp_date").datepicker("setDate", date);
       $('input#timestamp_date').datepicker('option', 'maxDate', date);
       var minDate = new Date(new Date().setDate(date.getDate()-7));
-      console.log(minDate);
       $('input#timestamp_date').datepicker('option', 'minDate', minDate);
     }
   }
@@ -30,7 +43,8 @@ $(function() {
     // start gathered at
     $("input#timestamp_start_at").datepicker({
       dateFormat: 'yy-mm-dd',
-      onSelect: customRange
+      onSelect: customRange,
+      beforeShowDay: highlightDays
     });
     if (gon.start_at !== undefined && gon.start_at.length > 0)
     {
@@ -55,7 +69,8 @@ $(function() {
     // end gathered at
     $("input#timestamp_end_at").datepicker({
       dateFormat: 'yy-mm-dd',
-      onSelect: customRange
+      onSelect: customRange,
+      beforeShowDay: highlightDays
     });
     if (gon.end_at !== undefined && gon.end_at.length > 0)
     {

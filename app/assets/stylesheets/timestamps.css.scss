@@ -18,3 +18,12 @@ input.inline {
 	margin: 1.4em 0em 0em 0em;
 }
 
+// highlight dates that have data
+.datepicker-highlight a{
+  background: #a8d2b8 !important;
+}
+.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active{
+  border-color: #a8d2b8;
+  background: #c8f2d8 !important;
+  font-weight: bold;
+}
