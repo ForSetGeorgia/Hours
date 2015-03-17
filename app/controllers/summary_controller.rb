@@ -120,6 +120,7 @@ class SummaryController < ApplicationController
     params[:timestamp_date] = dates.last if params[:timestamp_date].present? && dates.index{|x| x == params[:timestamp_date]}.nil?
     date = dates.select{|x| x == params[:timestamp_date]}.first
     @date_formatted = date.present? ? I18n.l(Date.parse(date), format: :chart_axis) : date
+    gon.timestamp_summary_date = date
 
     if dates.present?
       begin_at = dates.first

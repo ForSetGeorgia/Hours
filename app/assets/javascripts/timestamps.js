@@ -21,7 +21,8 @@ $(function() {
     return [false, ''];
    } 
 
-   if (gon.timestamp_date){
+  // used on timestamp index page
+  if (gon.timestamp_date){
     // todays date for timestmap form
     $("input#timestamp_date").datepicker({
       dateFormat: 'yy-mm-dd'
@@ -36,6 +37,7 @@ $(function() {
     }
   }
 
+  // used in summary date page
   if (gon.timestamp_summary_date){
     $("input#timestamp_date").datepicker({
       dateFormat: 'yy-mm-dd',
@@ -54,7 +56,7 @@ $(function() {
     }
   }
 
-
+  // used in summary user/project page
   if (gon.start_at && gon.end_at){
     // start gathered at
     $("input#timestamp_start_at").datepicker({
