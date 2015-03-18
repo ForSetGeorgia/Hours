@@ -94,9 +94,9 @@ en:
       like: Like
       likes: Likes
       menu:
-        new_org: New Organization
-        new_project: New Project
-        new_prog: New Group
+        org: Organizations
+        project: Projects
+        prog: Groups
         add_hours: Add Hours
         all_hours: All My Hours
         summary:

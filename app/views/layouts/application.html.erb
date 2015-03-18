@@ -91,9 +91,9 @@
 			          </a>
 			          <ul class="dropdown-menu" role="menu">
                   <% if current_user.role?(User::ROLES[:admin]) %>
-                    <li><%= link_to t('helpers.links.menu.new_project'), new_admin_project_path %></li>
-                    <li><%= link_to t('helpers.links.menu.new_org'), new_admin_organization_path %></li>
-                    <li><%= link_to t('helpers.links.menu.new_group'), new_admin_group_path %></li>
+                    <li><%= link_to t('helpers.links.menu.project'), admin_projects_path %></li>
+                    <li><%= link_to t('helpers.links.menu.org'), admin_organizations_path %></li>
+                    <li><%= link_to t('helpers.links.menu.group'), admin_groups_path %></li>
   				          <li>
 			   		         <%= link_to t('helpers.links.admin'), admin_path %>
 									  </li>

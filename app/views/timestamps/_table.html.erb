@@ -7,6 +7,7 @@
         <th><%= model_class.human_attribute_name(:created_at) %></th>
         <th><%= model_class.human_attribute_name(:project_id) %></th>
         <th><%= model_class.human_attribute_name(:diff_level) %></th>
+        <th><%= model_class.human_attribute_name(:stage_id) %></th>
         <th><%= model_class.human_attribute_name(:duration) %></th>
         <th><%= model_class.human_attribute_name(:notes) %></th>
         
@@ -17,9 +18,10 @@
       <% @timestamps.each do |timestamp| %>
         <tr>
           <td><%= timestamp.user.nickname %></td>
-          <td><%= l timestamp.created_at, format: :no_time %></td>
+          <td><%= l timestamp.date, format: :chart_axis %></td>
           <td><%= timestamp.project.full_name %></td>
           <td><%= timestamp.diff_level %></td>
+          <td><%= timestamp.stage.name %></td>
           <td><%= timestamp.duration %></td>
           <td>
           <% if timestamp.notes.present? %>
