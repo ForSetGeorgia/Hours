@@ -46,9 +46,14 @@ class Timestamp < ActiveRecord::Base
     select('date').order('date desc').map{|x| x.date}.first
   end
 
+  # get timestamps for the last week
+  def self.for_last_week
+    where(['timestamps.date between ? and ?', 1.week.ago.in_time_zone.to_date, Time.now.in_time_zone.to_date])
+  end
+
   ######################
 
-  # get all activity for teh current day
+  # get all activity for the current day
   def self.current_day_stamps
     process_user_data_for_charts(where('timestamps.date >= ?', Time.zone.now.beginning_of_day).sorted)
   end

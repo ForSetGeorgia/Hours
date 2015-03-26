@@ -29,8 +29,7 @@
       <abbr title="required">*</abbr>
     <% end %> 
     <div class="controls">
-      <%= f.collection_select(:project_id, Project.is_active.sorted_organization, :id, :full_name, {include_blank: true},
-          {:'data-live-search' => true, :'data-size' => "7"} ) %>
+      <%= select_tag :project_id, projects_grouped_for_user(@timestamp.project_id), :'data-live-search' => true, :'data-size' => "7" %>
     </div>
   </div>
   <div class="form-group">
