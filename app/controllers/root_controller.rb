@@ -18,7 +18,10 @@ class RootController < ApplicationController
           projects: records[:counts][:projects])
       gon.bar_chart_xaxis = I18n.t('charts.user.bar.xaxis')
 
-      @timestamp = Timestamp.new(stage_id: 4)
+      if params[:edit_id].present?
+        @timestamp = Timestamp.by_user(current_user.id).find(params[:edit_id])
+      end
+      @timestamp = Timestamp.new(stage_id: 4) if @timestamp.nil?
       gon.timestamp_date = Time.zone.now.to_date.to_s
     end
   end

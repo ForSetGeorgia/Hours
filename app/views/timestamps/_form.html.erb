@@ -20,7 +20,7 @@
       <abbr title="required">*</abbr>
     <% end %> 
     <div class="controls">
-      <%= f.text_field :date, size: 14 %>
+      <%= f.text_field :date, size: 14, autofocus: true %>
     </div>
   </div>
   <div class="form-group">
@@ -29,7 +29,8 @@
       <abbr title="required">*</abbr>
     <% end %> 
     <div class="controls">
-      <%= select_tag :project_id, projects_grouped_for_user(@timestamp.project_id), :'data-live-search' => true, :'data-size' => "7" %>
+      <%= select_tag 'timestmap_project_id', projects_grouped_for_user(@timestamp.project_id), 
+          name: 'timestamp[project_id]', :'data-live-search' => true, :'data-size' => "7" %>
     </div>
   </div>
   <div class="form-group">

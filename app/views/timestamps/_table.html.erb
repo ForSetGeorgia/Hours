@@ -47,8 +47,9 @@
             <% end %>
           </td>
           <td>
+            <% edit_url = params[:controller] == 'root' && params[:action] == 'index' ? root_path(edit_id: timestamp.id) : edit_timestamp_path(timestamp) %>
             <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                        edit_timestamp_path(timestamp), :class => 'btn btn-default btn-xs' %>
+                        edit_url, :class => 'btn btn-default btn-xs' %>
             <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
                         timestamp_path(timestamp),
                         :method => :delete,
