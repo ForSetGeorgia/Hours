@@ -21,7 +21,7 @@
           <td><%= l timestamp.date, format: :chart_axis %></td>
           <td><%= timestamp.project.full_name %></td>
           <td><%= timestamp.diff_level %></td>
-          <td><%= timestamp.stage.name %></td>
+          <td><%= timestamp.stage.name if timestamp.stage.present? %></td>
           <td><%= timestamp.duration %></td>
           <td>
           <% if timestamp.notes.present? %>

@@ -220,8 +220,8 @@ ka:
       label_start: Start Date
       label_end: End Date
       label_submit: Get Hours
-      no_hours: You have not added any hours yet.
-      link_add_hours: Click here to add hours.
+      no_hours: You have not added any hours between the start and end dates. Select different dates or
+      link_add_hours: click here to add hours.
   summary:
     index:
     date:

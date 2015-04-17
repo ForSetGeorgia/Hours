@@ -1,6 +1,5 @@
 <% title t('.title') %>
 
-<% if @timestamps.present? %>
 
   <%= form_tag timestamps_path, method: 'get' do %>
     <div class="row" id="date-pickers">
@@ -18,6 +17,7 @@
     </div>
   <% end %>
 
+<% if @timestamps.present? %>
 
   <div id="pie-chart" style="min-height: 500px; margin: 0 auto;"></div>
 
@@ -28,6 +28,10 @@
   <hr />
 
   <%= render :partial => 'timestamps/table' %>
+
+  <hr />
+
+  <%= render :partial => 'timestamps/table_notes' %>
 
 <% else %>
 

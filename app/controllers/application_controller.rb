@@ -139,17 +139,20 @@ logger.debug "////////////////////////// BROWSER = #{user_agent}"
 	
   # load data for the charts
   def load_data_for_charts(records, dates, chart_xaxis_key, chart_yaxis_key, i18n_key, is_summary=false, item_name=nil)
+    # set dates for datepicker
+    gon.start_at = params[:timestamp_start_at].to_s if params[:timestamp_start_at].present?
+    gon.end_at = params[:timestamp_end_at].to_s if params[:timestamp_end_at].present?
+    if dates.present?
+      gon.datepicker_dates = dates
+      gon.begin_at = dates.first
+      gon.last_at = dates.last
+    end
+
     if records[:records].present?
 
       @timestamps = records[:records]
 
-      if dates.present?
-        begin_at = dates.first
-        last_at = dates.last
-      end
-
       gon.chart_data = records[:chart_data]
-      gon.datepicker_dates = dates
       gon.xaxis_categories = records[:xaxis_categories]
       if is_summary
         gon.bar_chart_title = I18n.t("#{i18n_key}.bar.title", item: item_name)
@@ -170,11 +173,6 @@ logger.debug "////////////////////////// BROWSER = #{user_agent}"
       end
       gon.pie_chart_subtitle = I18n.t("#{i18n_key}.pie.subtitle", options)
 
-      # dates for date picker
-      gon.begin_at = begin_at
-      gon.last_at = last_at
-      gon.start_at = params[:timestamp_start_at].to_s if params[:timestamp_start_at].present?
-      gon.end_at = params[:timestamp_end_at].to_s if params[:timestamp_end_at].present?
     end
   end
 
