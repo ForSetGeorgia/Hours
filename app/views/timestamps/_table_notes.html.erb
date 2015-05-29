@@ -21,7 +21,7 @@
             <td><%= l timestamp.date, format: :chart_axis %></td>
             <td><%= timestamp.project.full_name %></td>
             <td><%= timestamp.duration %></td>
-            <td><%= timestamp.notes %></td>
+            <td><%= simple_format timestamp.notes %></td>
             <td>
               <% edit_url = params[:controller] == 'root' && params[:action] == 'index' ? root_path(edit_id: timestamp.id) : edit_timestamp_path(timestamp) %>
               <%= link_to t('.edit', :default => t("helpers.links.edit")),
