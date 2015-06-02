@@ -1,5 +1,8 @@
 <%- model_class = Timestamp -%>
-  <% timestamps = @timestamps.select{|x| x.notes.present?} %>
+<%- 
+#  timestamps = @timestamps.select{|x| x.notes.present?} 
+  timestamps = @timestamps 
+-%>
 
   <% if timestamps.present? %>
     <table class="table table-striped">
