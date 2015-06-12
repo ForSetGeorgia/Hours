@@ -62,7 +62,7 @@ class TimestampsController < ApplicationController
       if @timestamp.save
         format.html { redirect_to @redirect_url, notice: t('app.msgs.success_created', :obj => t('activerecord.models.timestamp')) }
       else
-        gon.timestamp_date = @timestamp.zone.to_date.to_s
+        gon.timestamp_date = @timestamp.date.to_s
         format.html { render action: "new" }
       end
     end
