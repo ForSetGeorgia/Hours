@@ -14,6 +14,7 @@
 //= require twitter/bootstrap
 //= require dataTables/jquery.dataTables
 //= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
+//= require dataTables/extras/dataTables.tableTools 
 //= require highcharts
 //= require vendor
 //= require_tree .
@@ -31,7 +32,22 @@ $(document).ready(function(){
 
   // assign datatable to all tables
   if ($('table').length > 0){
-    $('table').DataTable();
+    $('table').dataTable({
+      dom: 'T<"clear">lfrtip',
+      tableTools: {
+        "sSwfPath": "/assets/dataTables/extras/swf/copy_csv_xls_pdf.swf",
+        "aButtons": [
+          {
+            "sExtends": "csv",
+            "mColumns": [ 0,1,2,3,4 ]
+          },
+          {
+            "sExtends": "xls",
+            "mColumns": [ 0,1,2,3,4 ]
+          }
+        ]
+      }
+    });
   }
 
   // assign select2 to all selects
