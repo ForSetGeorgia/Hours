@@ -47,7 +47,7 @@ BootstrapStarter::Application.configure do
 
   # Disable delivery errors, bad email addresses will be ignored
   config.action_mailer.raise_delivery_errors = false
-	config.action_mailer.default_url_options = { :host => 'hours.jumpstart.ge' }
+	config.action_mailer.default_url_options = { :host => 'hours.forset.ge' }
 	config.action_mailer.delivery_method = :smtp
 
   # Enable threaded mode
@@ -62,7 +62,7 @@ BootstrapStarter::Application.configure do
 
 	# options for exception notification gem
 	config.middleware.use ExceptionNotifier,
-		:email_prefix => "[Jumpstart Hours App Error (#{Rails.env})] ",
-		:sender_address => ENV['APPLICATION_ERROR_FROM_EMAIL'],
-		:exception_recipients => [ENV['APPLICATION_ERROR_TO_EMAIL']]
+		:email_prefix => "[ForSet Hours App Error (#{Rails.env})] ",
+    :sender_address => [ENV['APPLICATION_ERROR_FROM_EMAIL']],
+    :exception_recipients => [ENV['APPLICATION_FEEDBACK_TO_EMAIL']]
 end

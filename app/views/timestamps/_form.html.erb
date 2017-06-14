@@ -1,11 +1,11 @@
 <%- model_class = Timestamp -%>
 
-<%= form_for @timestamp, :html => { :class => 'form-inline' } do |f| %>
-  
+<%= form_for @timestamp, :html => { :class => 'form-inline timestamp' } do |f| %>
+
   <% if @timestamp.errors.any? %>
     <div class="errorExplanation">
       <h2><%= pluralize(@timestamp.errors.count, "error") %> prohibited this timestamp from being saved:</h2>
-   
+
       <ul>
       <% @timestamp.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
@@ -18,7 +18,7 @@
     <%= f.label :date, :class => 'control-label' do %>
       <%= model_class.human_attribute_name(:date) %>
       <abbr title="required">*</abbr>
-    <% end %> 
+    <% end %>
     <div class="controls">
       <%= f.text_field :date, size: 14, autofocus: true %>
     </div>
@@ -27,39 +27,38 @@
     <%= f.label :project_id, :class => 'control-label' do %>
       <%= model_class.human_attribute_name(:project_id) %>
       <abbr title="required">*</abbr>
-    <% end %> 
+    <% end %>
     <div class="controls">
-      <%= select_tag 'timestmap_project_id', projects_grouped_for_user(@timestamp.project_id), 
+      <%= select_tag 'timestmap_project_id', projects_grouped_for_user(@timestamp.project_id),
           name: 'timestamp[project_id]', :'data-live-search' => true, :'data-size' => "7" %>
-    </div>
-  </div>
-  <div class="form-group">
-    <%= f.label :diff_level, :class => 'control-label' do %>
-      <%= model_class.human_attribute_name(:diff_level) %>
-      <abbr title="required">*</abbr>
-    <% end %> 
-    <div class="controls">
-      <%= f.select(:diff_level, Timestamp::DIFF_LEVELS, {include_blank: true}, 
-          {:'data-live-search' => true, :'data-size' => "7"}) %>
     </div>
   </div>
   <div class="form-group">
     <%= f.label :stage_id, :class => 'control-label' do %>
       <%= model_class.human_attribute_name(:stage_id) %>
       <abbr title="required">*</abbr>
-    <% end %> 
+    <% end %>
     <div class="controls">
       <%= f.collection_select(:stage_id, Stage.sorted, :id, :name, {selected: @timestamp.stage_id,include_blank: true},
-          {:'data-live-search' => true, :'data-size' => "7"} ) %>
+          {:'data-live-search' => true, :'data-size' => "8"} ) %>
     </div>
   </div>
   <div class="form-group">
     <%= f.label :duration, :class => 'control-label' do %>
       <%= model_class.human_attribute_name(:duration) %>
       <abbr title="required">*</abbr>
-    <% end %> 
+    <% end %>
     <div class="controls">
       <%= f.number_field :duration, :class => 'form-control', max: 1440, min: 10, step: 5 %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :diff_level, :class => 'control-label' do %>
+      <%= model_class.human_attribute_name(:diff_level) %>
+    <% end %>
+    <div class="controls">
+      <%= f.select(:diff_level, Timestamp::DIFF_LEVELS, {include_blank: true},
+          {:'data-live-search' => true, :'data-size' => "7"}) %>
     </div>
   </div>
   <br />

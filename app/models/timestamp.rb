@@ -11,7 +11,7 @@ class Timestamp < ActiveRecord::Base
   scope :stamps_today, -> { where('timestamps.date >= ?', Time.zone.now.beginning_of_day) }
   scope :sorted, includes(:project).order('timestamps.date desc, projects.name asc')
 
-  validates :date, :project_id, :diff_level, :stage_id, :duration, :user_id, :presence => true
+  validates :date, :project_id, :stage_id, :duration, :user_id, :presence => true
 
 
   ######################

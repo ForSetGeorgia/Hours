@@ -60,7 +60,7 @@ en:
         already_exists: 'already exists in the database.'
   mailer:
     closing: "Sincerely,"
-    signature: JumpStart Georgia
+    signature: ForSet
     unsubscribe: Click here to change your notification settings
   helpers:
     actions: Actions
@@ -165,10 +165,10 @@ en:
       confirm: Are you sure?
       new: New
     common:
-      app_name: "JumpStart's Hours"
+      app_name: "ForSet's Hours"
       added_on: "Added on: %{date}"
-      jumpstart: JumpStart Georgia
-      js_link_title: JumpStart Georgia - We communicate data better!
+      forset: ForSet
+      link_title: ForSet
     msgs:
       does_not_exist: You tried to access a page that does not exist.
       not_authorized: You are not authorized to view that page.
@@ -212,7 +212,7 @@ en:
     index:
       title: Add Hours
       header_today: "Today's Hours"
-      title_no_role: "Welcome to JumpStart's Hours application!"
+      title_no_role: "Welcome to ForSet's Hours application!"
       explanation_no_role: Please ask the application administrator to assign you the proper staff role so you can start recording your time.
   timestamps:
     index:

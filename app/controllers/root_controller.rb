@@ -21,7 +21,7 @@ class RootController < ApplicationController
       if params[:edit_id].present?
         @timestamp = Timestamp.by_user(current_user.id).find(params[:edit_id])
       end
-      @timestamp = Timestamp.new(stage_id: 4) if @timestamp.nil?
+      @timestamp = Timestamp.new(stage_id: 5) if @timestamp.nil?
       gon.timestamp_date = Time.zone.now.to_date.to_s
     end
   end

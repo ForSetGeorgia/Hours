@@ -5,9 +5,9 @@
 
  *= require formtastic
  *= require formtastic-bootstrap
- *= require jquery.ui.core
- *= require jquery.ui.theme
- *= require jquery.ui.datepicker
+ *= require jquery-ui/core
+ *= require jquery-ui/theme
+ *= require jquery-ui/datepicker
  *= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
  *= require dataTables/extras/dataTables.tableTools
  *= require_tree .
@@ -29,10 +29,22 @@
 
 /* so ie will display the correct color background */
 .navbar-fixed-top .navbar-inner, .navbar-fixed-bottom .navbar-inner {
-	filter: none; 
+	filter: none;
 }
 
-/* make bootstrap button link color stay white 
+.navbar-inverse{
+  background-color: #592fc1;
+
+  .navbar-brand, .navbar-nav > li > a{
+    color: #fff;
+  }
+
+
+}
+
+
+
+/* make bootstrap button link color stay white
 a.btn, a.btn:visited {
   color: #000 !important;
 }
@@ -88,7 +100,7 @@ div#form-ka {
 	margin: 0.5em 0;
   padding: 1em;
   background-color: #ddd;
-  
+
   .nested_form_item {
     background-color: #eee;
     padding: 0.5em 1em;
@@ -161,7 +173,7 @@ a.btn-warning, a.btn-warning:visited, a.btn-danger, a.btn-danger:visited, a.btn-
   label{
     display: block;
   }
-  select 
+  select
   {
     max-width: 72%;
   }
@@ -170,7 +182,7 @@ a.btn-warning, a.btn-warning:visited, a.btn-danger, a.btn-danger:visited, a.btn-
 .bootstrap-select.btn-group
 {
   margin:0px !important;
-  padding:0px !important;  
+  padding:0px !important;
   .btn
   {
     margin:0px;
@@ -179,7 +191,7 @@ a.btn-warning, a.btn-warning:visited, a.btn-danger, a.btn-danger:visited, a.btn-
   .dropdown-toggle
   {
      margin:0px !important;
-     padding: 0px 7px !important; 
+     padding: 0px 7px !important;
     .filter-option
     {
       padding:4px 7px;

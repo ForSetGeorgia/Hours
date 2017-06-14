@@ -165,10 +165,10 @@ ka:
       confirm: დარწმუნებული ხართ?
       new: ახალი
     common:
-      app_name: "JumpStart's Hours"
+      app_name: "ForSet's Hours"
       added_on: "დამატებულია: %{date}"
-      jumpstart: “ჯამპსტარტ ჯორჯია”
-      js_link_title: “ჯამპსტარტ ჯორჯია” - ჩვენ გაწვდით მონაცემებს უკეთ!
+      forset: ForSEt
+      link_title: ForSet
     msgs:
       does_not_exist: თქვენ ცდილობთ ისეთი გვერდის ნახვას, რომელიც არ არსებობს.
       not_authorized: თქვენ არ გაქვთ ამ გვერდის ნახვის უფლება.

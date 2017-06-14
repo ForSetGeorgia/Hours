@@ -11,6 +11,9 @@ form {
     div#timestamp_notes_input label{
       display: block;
     }
+    input[type="number"] {
+       width:144px;
+    }
   }
 }
 

@@ -8,13 +8,13 @@
 //= require i18n/translations
 //= require jquery
 //= require jquery_ujs
-//= require jquery.ui.core
-//= require jquery.ui.effect
-//= require jquery.ui.datepicker
+//= require jquery-ui/core
+//= require jquery-ui/effect
+//= require jquery-ui/datepicker
 //= require twitter/bootstrap
 //= require dataTables/jquery.dataTables
 //= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
-//= require dataTables/extras/dataTables.tableTools 
+//= require dataTables/extras/dataTables.tableTools
 //= require highcharts
 //= require vendor
 //= require_tree .
