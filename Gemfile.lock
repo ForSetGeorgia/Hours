@@ -17,6 +17,14 @@ GIT
       railties (>= 3.0)
 
 GIT
+  remote: git@github.com:spohlenz/tinymce-rails.git
+  revision: 689cd5da832eb3f605f1c7b153ec8f264ea134e5
+  branch: tinymce-3
+  specs:
+    tinymce-rails (3.5.11.1)
+      railties (>= 3.1.1)
+
+GIT
   remote: https://github.com/jilion/useragent.git
   revision: 742f29d8643f378773a933b3c0a37ce1bc52a7aa
   specs:
@@ -213,8 +221,6 @@ GEM
       ref
     thor (0.19.4)
     tilt (1.4.1)
-    tinymce-rails (3.5.11.1)
-      railties (>= 3.1.1)
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
@@ -260,7 +266,7 @@ DEPENDENCIES
   sass-rails (~> 3.2.6)
   test-unit (~> 3.0)
   therubyracer
-  tinymce-rails (~> 3.5, >= 3.5.11.1)
+  tinymce-rails (~> 3.5, >= 3.5.11.1)!
   twitter-bootstrap-rails!
   uglifier (>= 1.0.3)
   unicorn (~> 5.3)
