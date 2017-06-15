@@ -26,23 +26,26 @@ Stage.create(:id => 7, :sort_order => 7, :name => 'Post Implementation Activitie
 #####################
 puts "Loading Project Types"
 ProjectType.delete_all
-ProjectType.create(:id => 1, :name => 'Application')
-ProjectType.create(:id => 2, :name => 'Meeting')
-ProjectType.create(:id => 3, :name => 'Infographic')
-ProjectType.create(:id => 4, :name => 'Interactive')
-ProjectType.create(:id => 5, :name => 'Factograph')
-ProjectType.create(:id => 6, :name => 'Workshop')
-ProjectType.create(:id => 7, :name => 'Training')
-ProjectType.create(:id => 8, :name => 'Conference')
-ProjectType.create(:id => 9, :name => 'Comic')
-ProjectType.create(:id => 10, :name => 'Support')
-ProjectType.create(:id => 11, :name => 'Animation')
-ProjectType.create(:id => 12, :name => 'GIF')
-ProjectType.create(:id => 13, :name => 'Design')
-ProjectType.create(:id => 14, :name => 'Grant')
-ProjectType.create(:id => 15, :name => 'Event')
-ProjectType.create(:id => 16, :name => 'Managing/Developing')
-
+ProjectType.create(:id => 1, :name => 'Animation')
+ProjectType.create(:id => 2, :name => 'Event')
+ProjectType.create(:id => 3, :name => 'Factograph')
+ProjectType.create(:id => 4, :name => 'GIF')
+ProjectType.create(:id => 5, :name => 'Fundraising')
+ProjectType.create(:id => 6, :name => 'Infographic')
+ProjectType.create(:id => 7, :name => 'Interactive')
+ProjectType.create(:id => 8, :name => 'Internal Meeting')
+ProjectType.create(:id => 9, :name => 'Learning')
+ProjectType.create(:id => 10, :name => 'Managing/Developing')
+ProjectType.create(:id => 11, :name => 'Newsletter')
+ProjectType.create(:id => 12, :name => 'Outreach')
+ProjectType.create(:id => 13, :name => 'Radio Story')
+ProjectType.create(:id => 14, :name => 'StoryBuilder Story')
+ProjectType.create(:id => 15, :name => 'Support')
+ProjectType.create(:id => 16, :name => 'Teaching')
+ProjectType.create(:id => 17, :name => 'Web Application')
+ProjectType.create(:id => 18, :name => 'Website')
+ProjectType.create(:id => 19, :name => 'Other')
+ProjectType.create(:id => 20, :name => 'Design')
 
 #####################
 ## Organizations
@@ -68,11 +71,10 @@ Organization.create(id: 12, long_name: 'CENN', short_name: 'CENN')
 #####################
 puts "Loading Projects"
 Project.delete_all
-Project.create(id: 1, name: 'Website', organization_id: 1, project_type_id: 1, active: true)
-Project.create(id: 2, name: 'Business Development', organization_id: 1, project_type_id: 16, active: true)
-Project.create(id: 3, name: 'Branding', organization_id: 1, project_type_id: 13, active: true)
-Project.create(id: 4, name: 'Census Animations', organization_id: 4, project_type_id: 11, active: true)
-Project.create(id: 5, name: 'Census Static Visuals', organization_id: 4, project_type_id: 3, active: true)
+Project.create(id: 1, name: 'Website', organization_id: 1, project_type_id: 18, active: true)
+Project.create(id: 2, name: 'Business Development', organization_id: 1, project_type_id: 10, active: true)
+Project.create(id: 3, name: 'Branding', organization_id: 1, project_type_id: 20, active: true)
+Project.create(id: 4, name: 'Census Visuals', organization_id: 4, project_type_id: 1, active: true)
 
 
 #####################
