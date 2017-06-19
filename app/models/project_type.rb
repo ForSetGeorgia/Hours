@@ -1,7 +1,7 @@
 class ProjectType < ActiveRecord::Base
   attr_accessible :id, :name
 
-  has_many :projects
+  has_many :activities
 
   scope :sorted, order('name asc')
 

@@ -1,7 +1,7 @@
 class Timestamp < ActiveRecord::Base
-  attr_accessible :user_id, :project_id, :stage_id, :duration, :diff_level, :notes, :date
+  attr_accessible :user_id, :activity_id, :stage_id, :duration, :diff_level, :notes, :date
 
-  belongs_to :project
+  belongs_to :activity
   belongs_to :stage
   belongs_to :user
 
@@ -9,9 +9,9 @@ class Timestamp < ActiveRecord::Base
   SUMMARY = {user: 1, project: 2, date: 3}
 
   scope :stamps_today, -> { where('timestamps.date >= ?', Time.zone.now.beginning_of_day) }
-  scope :sorted, includes(:project).order('timestamps.date desc, projects.name asc')
+  scope :sorted, includes(:activity).order('timestamps.date desc, acitivities.name asc')
 
-  validates :date, :project_id, :stage_id, :duration, :user_id, :presence => true
+  validates :date, :activity_id, :stage_id, :duration, :user_id, :presence => true
 
 
   ######################
@@ -23,7 +23,7 @@ class Timestamp < ActiveRecord::Base
 
   # get for a project
   def self.by_project(project_id)
-    where('timestamps.project_id = ?', project_id)
+    includes(:activity).where('activities.project_id = ?', project_id)
   end
 
   # get for a date
