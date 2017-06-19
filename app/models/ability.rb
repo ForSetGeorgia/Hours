@@ -5,9 +5,9 @@ class Ability
     user ||= User.new # guest user (not logged in)
     if user.role? User::ROLES[:admin]
       can :manage, :all
-    elsif user.role? User::ROLES[:user_manager]
+    elsif user.role? User::ROLES[:site_admin]
       can :manage, User, :role != User::ROLES[:admin]
-    elsif user.role? User::ROLES[:user]
+    elsif user.role? User::ROLES[:staff]
 #      can :manage, Blog
     else
       can :read, :all

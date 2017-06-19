@@ -56,7 +56,7 @@
                   </li>
                 <% end %>
               <% end %>
-              <% if current_user.role?(User::ROLES[:admin]) %>
+              <% if current_user.role?(User::ROLES[:site_admin]) %>
                 <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                     <span class="glyphicon glyphicon-stats" aria-hidden="true"></span>
@@ -90,13 +90,13 @@
 	                <span class="caret"></span>
 			          </a>
 			          <ul class="dropdown-menu" role="menu">
-                  <% if current_user.role?(User::ROLES[:admin]) %>
+                  <% if current_user.role?(User::ROLES[:site_admin]) %>
                     <li><%= link_to t('helpers.links.menu.project'), admin_projects_path %></li>
                     <li><%= link_to t('helpers.links.menu.org'), admin_organizations_path %></li>
                     <li><%= link_to t('helpers.links.menu.group'), admin_groups_path %></li>
-  				          <li>
-			   		         <%= link_to t('helpers.links.admin'), admin_path %>
-									  </li>
+                    <% if current_user.role?(User::ROLES[:admin]) %>
+  				            <li><%= link_to t('helpers.links.admin'), admin_path %></li>
+                    <% end %>
                   <% end %>
 					        <li>
 			 		         <%= link_to t('helpers.links.sign_out'), destroy_user_session_path, :method => :delete %>

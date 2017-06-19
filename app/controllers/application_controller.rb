@@ -61,19 +61,19 @@ logger.debug "////////////////////////// BROWSER = #{user_agent}"
     # indicate that whether login should allow local and omniauth or just locale
 	  @enable_omniauth = false
 
-    # breakdown the referer into controller/action
-    # this is used so know whether to return to home page or timestamps page
-    # only continue if referrer present and is not /locale/users (the url to use when logging in)
-    if request.referrer.present?
-      path = /\/.{2}\/(.*)/.match(URI(request.referrer).path)
-      if path.nil? || (path.present? && path[1] != 'users')
-        referer = Rails.application.routes.recognize_path(request.referrer)
-        if referer.present?
-          @referer_controller = referer[:controller]
-          @referer_action = referer[:action]
-        end
-      end
-    end
+    # # breakdown the referer into controller/action
+    # # this is used so know whether to return to home page or timestamps page
+    # # only continue if referrer present and is not /locale/users (the url to use when logging in)
+    # if request.referrer.present?
+    #   path = /\/.{2}\/(.*)/.match(URI(request.referrer).path)
+    #   if path.nil? || (path.present? && path[1] != 'users')
+    #     referer = Rails.application.routes.recognize_path(request.referrer)
+    #     if referer.present?
+    #       @referer_controller = referer[:controller]
+    #       @referer_action = referer[:action]
+    #     end
+    #   end
+    # end
   end
 
 	def initialize_gon

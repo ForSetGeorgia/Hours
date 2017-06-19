@@ -13,7 +13,7 @@ class TimestampsController < ApplicationController
 
     # in app controller
     load_data_for_charts(records, dates, :projects, :dates, 'charts.user')
-    
+
     # if records[:records].present?
 
     #   @timestamps = records[:records]
@@ -30,7 +30,7 @@ class TimestampsController < ApplicationController
     #       dates: records[:counts][:dates])
     #   gon.bar_chart_xaxis = I18n.t('charts.user.bar.xaxis')
     #   gon.pie_chart_title = I18n.t('charts.user.pie.title')
-    #   gon.pie_chart_subtitle = I18n.t('charts.user.pie.subtitle', 
+    #   gon.pie_chart_subtitle = I18n.t('charts.user.pie.subtitle',
     #       start: params[:timestamp_start_at], end: params[:timestamp_end_at],
     #       hours: records[:counts][:hours],
     #       projects: records[:counts][:projects],
@@ -43,7 +43,7 @@ class TimestampsController < ApplicationController
     #   gon.end_at = params[:timestamp_end_at].to_s
     # end
   end
- 
+
   def new
     @timestamp = Timestamp.new(stage_id: 4)
     gon.timestamp_date = Time.zone.now.to_date.to_s
@@ -94,6 +94,11 @@ class TimestampsController < ApplicationController
   private
 
   def set_redirect_url
-    @redirect_url = @referer_controller.present? && @referer_controller == 'timestamps' ? timestamps_url : root_url
+    # breakdown the referer into controller/action
+    # this is used so know whether to return to home page or timestamps page
+    referer = Rails.application.routes.recognize_path(request.referrer) if request.referrer.present?
+    @redirect_url = referer.present? && referer[:controller] == 'timestamps' ? timestamps_url : root_url
+
+    # @redirect_url = @referer_controller.present? && @referer_controller == 'timestamps' ? timestamps_url : root_url
   end
 end

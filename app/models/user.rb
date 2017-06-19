@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
 
   validates :role, :presence => true
 
-  ROLES = {:user => 0, :staff => 1, :admin => 99}
+  ROLES = {:user => 0, :staff => 1, :site_admin => 75, :admin => 99}
 
   def self.no_admins
     where("role != ?", ROLES[:admin])
@@ -32,11 +32,11 @@ class User < ActiveRecord::Base
     end
     return false
   end
-  
+
   def role_name
     ROLES.keys[ROLES.values.index(self.role)].to_s
   end
-  
+
   def nickname
     read_attribute(:nickname).present? ? read_attribute(:nickname) : self.email.split('@')[0]
   end
@@ -66,7 +66,7 @@ class User < ActiveRecord::Base
       end
     end
   end
-  
+
 	# if user logged in with omniauth, password is not required
 	def password_required?
 		super && provider.blank?
