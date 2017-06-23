@@ -9,7 +9,7 @@ class Timestamp < ActiveRecord::Base
   SUMMARY = {user: 1, project: 2, date: 3}
 
   scope :stamps_today, -> { where('timestamps.date >= ?', Time.zone.now.beginning_of_day) }
-  scope :sorted, includes(:activity).order('timestamps.date desc, acitivities.name asc')
+  scope :sorted, includes(activity: :project).order('timestamps.date desc, projects.name asc, activities.name asc')
 
   validates :date, :activity_id, :stage_id, :duration, :user_id, :presence => true
 
@@ -23,7 +23,7 @@ class Timestamp < ActiveRecord::Base
 
   # get for a project
   def self.by_project(project_id)
-    includes(:activity).where('activities.project_id = ?', project_id)
+    joins(:activity).where('activities.project_id = ?', project_id)
   end
 
   # get for a date
@@ -55,7 +55,7 @@ class Timestamp < ActiveRecord::Base
 
   # get all activity for the current day
   def self.current_day_stamps
-    process_user_data_for_charts(where('timestamps.date >= ?', Time.zone.now.beginning_of_day).sorted)
+    process_user_data_for_charts(stamps_today.sorted)
   end
 
   # get all activity by day
@@ -73,6 +73,11 @@ class Timestamp < ActiveRecord::Base
     end
   end
 
+
+  ######################
+  def project
+    activity.project
+  end
 
   private
 
@@ -96,7 +101,7 @@ class Timestamp < ActiveRecord::Base
       stamps[:xaxis_categories_alt] = dates.keys.map{|x| x.to_s}
 
       # get the unique projects
-      projects = records.map{|x| x.project}.uniq.sort_by{|x| x.full_name}
+      projects = records.map{|x| x.activity.project}.uniq.sort_by{|x| x.full_name}
       # for each project, record data for each date
       total_hours = 0
       projects.each do |project|
@@ -104,10 +109,10 @@ class Timestamp < ActiveRecord::Base
         project_data = template.dup
         project_data[:name] = project.full_name
         project_data[:data] = []
-        project_data[:y] = ((records.select{|x| x.project_id == project.id}.inject(0){|sum,x| sum + x.duration }) / 60.0).round(2)
+        project_data[:y] = ((records.select{|x| x.activity.project_id == project.id}.inject(0){|sum,x| sum + x.duration }) / 60.0).round(2)
         dates.keys.each do |date|
           puts "- date = #{date}; projects on this date = #{dates[date].length}"
-          date_projects = dates[date].select{|x| x.project_id == project.id}
+          date_projects = dates[date].select{|x| x.activity.project_id == project.id}
           puts "-- date projects = #{date_projects.inspect}"
           if date_projects.present?
             puts "--- adding #{date_projects.map{|x| x.duration}}"
@@ -207,6 +212,7 @@ class Timestamp < ActiveRecord::Base
       stamps[:xaxis_categories_alt] = users.keys.sort.map{|x| x}
 
       # get the unique projects
+      projects = records.map{|x| x.activity.project}.uniq.sort_by{|x| x.full_name}
       projects = records.map{|x| x.project}.uniq.sort_by{|x| x.full_name}
       # for each project, record data for each date
       total_hours = 0
@@ -215,10 +221,10 @@ class Timestamp < ActiveRecord::Base
         project_data = template.dup
         project_data[:name] = project.full_name
         project_data[:data] = []
-        project_data[:y] = ((records.select{|x| x.project_id == project.id}.inject(0){|sum,x| sum + x.duration }) / 60.0).round(2)
+        project_data[:y] = ((records.select{|x| x.activity.project_id == project.id}.inject(0){|sum,x| sum + x.duration }) / 60.0).round(2)
         users.keys.sort.each do |user|
           puts "- user = #{user}; projects for this user = #{users[user].length}"
-          user_projects = users[user].select{|x| x.project_id == project.id}
+          user_projects = users[user].select{|x| x.activity.project_id == project.id}
           puts "-- user projects = #{user_projects.inspect}"
           if user_projects.present?
             puts "--- adding #{user_projects.map{|x| x.duration}}"

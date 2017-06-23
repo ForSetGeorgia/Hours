@@ -1,7 +1,7 @@
 <%- model_class = Timestamp -%>
-<%- 
-#  timestamps = @timestamps.select{|x| x.notes.present?} 
-  timestamps = @timestamps 
+<%-
+#  timestamps = @timestamps.select{|x| x.notes.present?}
+  timestamps = @timestamps
 -%>
 
   <% if timestamps.present? %>
@@ -11,9 +11,10 @@
           <th><%= model_class.human_attribute_name(:nickname) %></th>
           <th><%= model_class.human_attribute_name(:created_at) %></th>
           <th><%= model_class.human_attribute_name(:project_id) %></th>
+          <th><%= model_class.human_attribute_name(:activity_id) %></th>
           <th><%= model_class.human_attribute_name(:duration) %></th>
           <th><%= model_class.human_attribute_name(:notes) %></th>
-          
+
           <th><%=t '.actions', :default => t("helpers.actions") %></th>
         </tr>
       </thead>
@@ -23,6 +24,7 @@
             <td><%= timestamp.user.nickname %></td>
             <td><%= l timestamp.date, format: :chart_axis %></td>
             <td><%= timestamp.project.full_name %></td>
+            <td><%= timestamp.activity.full_name %></td>
             <td><%= timestamp.duration %></td>
             <td><%= simple_format timestamp.notes %></td>
             <td>

@@ -71,10 +71,27 @@ Organization.create(id: 12, long_name: 'CENN', short_name: 'CENN')
 #####################
 puts "Loading Projects"
 Project.delete_all
-Project.create(id: 1, name: 'Website', organization_id: 1, project_type_id: 18, active: true)
-Project.create(id: 2, name: 'Business Development', organization_id: 1, project_type_id: 10, active: true)
-Project.create(id: 3, name: 'Branding', organization_id: 1, project_type_id: 20, active: true)
-Project.create(id: 4, name: 'Census Visuals', organization_id: 4, project_type_id: 1, active: true)
+Project.create(id: 1, name: 'Branding', organization_id: 1, active: true)
+Project.create(id: 2, name: 'Census Visuals', organization_id: 4, active: true)
+Project.create(id: 3, name: 'IT Support', organization_id: 1, active: true)
+
+
+#####################
+## Activities
+#####################
+puts "Loading Activities"
+Activity.delete_all
+Activity.create(id: 1, name: 'Create Branding', project_id: 1, project_type_id: 20, active: true)
+Activity.create(id: 2, name: 'Create Social Meida Account', project_id: 1, project_type_id: 12, active: true)
+Activity.create(id: 3, name: 'Proposal', project_id: 2, project_type_id: 10, active: true)
+Activity.create(id: 4, name: 'Monograph Analysis - Youth', project_id: 2, project_type_id: 10, active: true)
+Activity.create(id: 5, name: 'Fact Concepts - Youth', project_id: 2, project_type_id: 10, active: true)
+Activity.create(id: 6, name: 'Animation Concepts - Youth', project_id: 2, project_type_id: 10, active: true)
+Activity.create(id: 7, name: 'Facts - Youth', project_id: 2, project_type_id: 3, active: true)
+Activity.create(id: 8, name: 'Animations - Youth', project_id: 2, project_type_id: 1, active: true)
+Activity.create(id: 9, name: 'Hours App', project_id: 3, project_type_id: 18, active: true)
+Activity.create(id: 10, name: 'Trello', project_id: 3, project_type_id: 10, active: true)
+Activity.create(id: 11, name: 'Computer Help', project_id: 3, project_type_id: 19, active: true)
 
 
 #####################

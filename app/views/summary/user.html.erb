@@ -5,8 +5,7 @@
       <div class="col-xs-3">
         <%= label_tag :timestamp_user_id, t('.label_user') %>
         <br />
-        <%= select_tag :timestamp_user_id, options_from_collection_for_select(@users, :id, :nickname, params[:timestamp_user_id]), 
-          :'data-live-search' => true, :'data-size' => "7" %>
+        <%= select_tag :timestamp_user_id, options_from_collection_for_select(@users, :id, :nickname, params[:timestamp_user_id]) %>
       </div>
       <div class="col-xs-3">
         <%= label_tag :timestamp_start_at, t('.label_start') %>

@@ -31,6 +31,7 @@ gem 'will_paginate', '~> 3.1', '>= 3.1.6' # add paging to long lists
 #gem "kaminari", "~> 0.15.1" # paging
 gem 'dotenv-rails', '~> 2.2', '>= 2.2.1' # environment variables
 gem 'test-unit', '~> 3.0' # need for rails c
+gem 'chosen-rails', '~> 1.5', '>= 1.5.2' # fancy select boxes
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -48,6 +49,7 @@ group :assets do
   # gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'  , branch: 'bootstrap3'
   # gem 'jquery-datatables-rails', '~> 3.3.0'
   # gem "jquery-ui-rails" , "~> 4.1.2"
+
 end
 
 

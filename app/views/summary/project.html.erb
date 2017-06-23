@@ -5,8 +5,7 @@
       <div class="col-xs-3">
         <%= label_tag :timestamp_project_id, t('.label_project') %>
         <br />
-        <%= select_tag :timestamp_project_id, options_from_collection_for_select(@projects, :id, :full_name, params[:timestamp_project_id]), 
-          :'data-live-search' => true, :'data-size' => "7" %>
+        <%= select_tag :timestamp_project_id, options_from_collection_for_select(@projects, :id, :full_name, params[:timestamp_project_id]) %>
       </div>
       <div class="col-xs-3">
         <%= label_tag :timestamp_start_at, t('.label_start') %>

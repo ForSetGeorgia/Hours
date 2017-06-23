@@ -10,6 +10,7 @@ en:
       stage: Stage
       timestamp: Hours
       group: Group
+      activity: Activity
     attributes:
       user:
         email: Email Address
@@ -31,7 +32,6 @@ en:
         short_name: Abbreviated Name
       project:
         organization_id: Organization
-        project_type_id: Project Type
         group_ids: Groups
         groups: Groups
         name: Name
@@ -47,13 +47,18 @@ en:
         name: Name
         sort_order: Sort Order
       timestamp:
-        project_id: Project
+        activity_id: Activity
         user_id: User
         diff_level: Difficulty Level
         duration: Duration (minutes)
         notes: Notes
         created_at: Date
         date: Date
+      activity:
+        project_type_id: Project Type
+        name: Name
+        active: Is Active?
+        project_id: Project
     errors:
       messages:
         required_field: "is a required field."
@@ -222,6 +227,8 @@ en:
       label_submit: Get Hours
       no_hours: You have not added any hours between the start and end dates. Select different dates or
       link_add_hours: click here to add hours.
+    form:
+      activity_placeholder: Select an activity
   summary:
     index:
     date:

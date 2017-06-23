@@ -16,6 +16,7 @@
 //= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
 //= require dataTables/extras/dataTables.tableTools
 //= require highcharts
+//= require chosen-jquery
 //= require vendor
 //= require_tree .
 
@@ -39,19 +40,19 @@ $(document).ready(function(){
         "aButtons": [
           {
             "sExtends": "csv",
-            "mColumns": [ 0,1,2,3,4 ]
+            "mColumns": [ 0,1,2,3,4,5 ]
           },
           {
             "sExtends": "xls",
-            "mColumns": [ 0,1,2,3,4 ]
+            "mColumns": [ 0,1,2,3,4,5 ]
           }
         ]
       }
     });
   }
 
-  // assign select2 to all selects
+  // assign chosen to all selects
   if ($('select').length > 0){
-    $('select').selectpicker({width: '100%'});
+    $('select').chosen();
   }
 });

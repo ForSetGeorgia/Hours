@@ -9,11 +9,21 @@ class Activity < ActiveRecord::Base
 
   ###############################
   ## ATTRIBUTES
-  attr_accessible :name
+  attr_accessible :id, :name, :project_id, :project_type_id, :active
 
 
   ###############################
   ## VALIDATIONS
   validates :name, :project_id, :project_type_id, :presence => true
+
+  ###############################
+  ## SCOPES
+  scope :is_active, where(active: true)
+
+  ###############################
+  ## METHODS
+  def full_name
+    "#{name} (#{project_type.name})"
+  end
 
 end

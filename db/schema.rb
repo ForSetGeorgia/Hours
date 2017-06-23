@@ -11,7 +11,21 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150313200320) do
+ActiveRecord::Schema.define(:version => 20170619074434) do
+
+  create_table "activities", :force => true do |t|
+    t.integer  "project_id"
+    t.integer  "project_type_id"
+    t.string   "name"
+    t.boolean  "active",          :default => true
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
+  end
+
+  add_index "activities", ["active"], :name => "index_activities_on_active"
+  add_index "activities", ["name"], :name => "index_activities_on_name"
+  add_index "activities", ["project_id"], :name => "index_activities_on_project_id"
+  add_index "activities", ["project_type_id"], :name => "index_activities_on_project_type_id"
 
   create_table "groups", :force => true do |t|
     t.string   "name"
@@ -72,13 +86,11 @@ ActiveRecord::Schema.define(:version => 20150313200320) do
     t.boolean  "active",          :default => true
     t.datetime "created_at",                        :null => false
     t.datetime "updated_at",                        :null => false
-    t.integer  "project_type_id"
   end
 
   add_index "projects", ["active"], :name => "index_projects_on_active"
   add_index "projects", ["name"], :name => "index_projects_on_name"
   add_index "projects", ["organization_id"], :name => "index_projects_on_organization_id"
-  add_index "projects", ["project_type_id"], :name => "index_projects_on_project_type_id"
 
   create_table "stages", :force => true do |t|
     t.string   "name"
@@ -90,19 +102,19 @@ ActiveRecord::Schema.define(:version => 20150313200320) do
   add_index "stages", ["sort_order", "name"], :name => "index_stages_on_sort_order_and_name"
 
   create_table "timestamps", :force => true do |t|
-    t.integer  "project_id"
     t.integer  "user_id"
     t.string   "diff_level"
     t.integer  "duration"
     t.text     "notes"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
     t.integer  "stage_id"
     t.date     "date"
+    t.integer  "activity_id"
   end
 
+  add_index "timestamps", ["activity_id"], :name => "index_timestamps_on_activity_id"
   add_index "timestamps", ["date"], :name => "index_timestamps_on_date"
-  add_index "timestamps", ["project_id"], :name => "index_timestamps_on_project_id"
   add_index "timestamps", ["stage_id"], :name => "index_timestamps_on_stage_id"
   add_index "timestamps", ["user_id"], :name => "index_timestamps_on_user_id"
 

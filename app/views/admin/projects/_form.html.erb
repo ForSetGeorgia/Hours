@@ -3,12 +3,9 @@
   <%= f.inputs do %>
     <%= f.input :name %>
     <%= f.input :organization_id, as: :select,
-          collection: Organization.sorted_short_name.map{|x| [x.short_name, x.id]},
-          input_html: {:'data-live-search' => true, :'data-size' => "7", :'data-width' => 'auto'} %>
-    <%= f.input :project_type, collection: ProjectType.sorted.map{|x| [x.name, x.id]},
-          input_html: {:'data-live-search' => true, :'data-size' => "7", :'data-width' => 'auto'} %>
-    <%= f.input :groups, collection: Group.is_active.sorted.map{|x| [x.name, x.id]}, multiple: true,
-          input_html: {:'data-live-search' => true, :'data-size' => "7", :'data-width' => 'auto'} %>
+          collection: Organization.sorted_short_name.map{|x| [x.short_name, x.id]} %>
+    <%= f.input :project_type, collection: ProjectType.sorted.map{|x| [x.name, x.id]} %>
+    <%= f.input :groups, collection: Group.is_active.sorted.map{|x| [x.name, x.id]}, multiple: true %>
     <%= f.input :active, as: :radio %>
   <% end %>
 
