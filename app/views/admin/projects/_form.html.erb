@@ -1,12 +1,42 @@
-<%= semantic_form_for [:admin, @project] do |f| %>
+<%- model_class = Project -%>
+<%- model_class_a = Activity -%>
+<%= semantic_nested_form_for [:admin, @project] do |f| %>
+  <%= f.error_messages %>
 
   <%= f.inputs do %>
     <%= f.input :name %>
     <%= f.input :organization_id, as: :select,
           collection: Organization.sorted_short_name.map{|x| [x.short_name, x.id]} %>
-    <%= f.input :project_type, collection: ProjectType.sorted.map{|x| [x.name, x.id]} %>
     <%= f.input :groups, collection: Group.is_active.sorted.map{|x| [x.name, x.id]}, multiple: true %>
     <%= f.input :active, as: :radio %>
+
+    <h2><%= model_class.human_attribute_name(:activities) %></h2>
+    <table class="table table-striped no-datatable">
+      <thead>
+        <tr>
+          <th>
+            <%= model_class_a.human_attribute_name(:name) %>
+          </th>
+          <th>
+            <%= model_class_a.human_attribute_name(:project_type_id) %>
+          </th>
+          <th><%=t '.actions', :default => t("helpers.actions") %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= f.fields_for :activities, :wrapper => false %>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="3">
+            <%= f.link_to_add t(".add_activity"), :activities,
+            :data => { :target => "table tbody" },
+            :class => "btn btn-mini btn-primary" %>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+
   <% end %>
 
 

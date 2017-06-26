@@ -25,6 +25,12 @@ GIT
       railties (>= 3.1.1)
 
 GIT
+  remote: https://github.com/davidray/nested_form.git
+  revision: bdafaba93f2d4d101011acfc39edef2b25afe448
+  specs:
+    nested_form (0.3.2)
+
+GIT
   remote: https://github.com/jilion/useragent.git
   revision: 742f29d8643f378773a933b3c0a37ce1bc52a7aa
   specs:
@@ -262,6 +268,7 @@ DEPENDENCIES
   json
   less-rails (~> 2.6.0)
   mysql2 (~> 0.3.21)
+  nested_form (~> 0.3.2)!
   omniauth
   omniauth-facebook
   psych (= 2.0.13)

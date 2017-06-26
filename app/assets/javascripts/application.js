@@ -17,6 +17,7 @@
 //= require dataTables/extras/dataTables.tableTools
 //= require highcharts
 //= require chosen-jquery
+//= require jquery_nested_form
 //= require vendor
 //= require_tree .
 
@@ -32,7 +33,7 @@ $(document).ready(function(){
 		.on('click.dropdown touchstart.dropdown.data-api', '.dropdown form', function (e) { e.stopPropagation() });
 
   // assign datatable to all tables
-  if ($('table').length > 0){
+  if ($('table:not(.no-datatable)').length > 0){
     $('table').dataTable({
       dom: 'T<"clear">lfrtip',
       tableTools: {

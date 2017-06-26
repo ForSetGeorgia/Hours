@@ -36,6 +36,7 @@ ka:
         groups: Groups
         name: Name
         active: Is Active?
+        activities: Activites
       group:
         name: Name
         active: Is Active?
@@ -205,6 +206,11 @@ ka:
         title: ახალი მომხმარებელი
       show:
         title: მომხმარებლის დეტალები
+    projects:
+      form:
+        add_activity: Add Activity
+      activity_fields:
+        remove_activity: Delete Activity
   devise:
     mailer:
       reset_password_instructions:

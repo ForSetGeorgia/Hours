@@ -1,9 +1,11 @@
 class Project < ActiveRecord::Base
-  attr_accessible :id, :name, :organization_id, :active, :group_ids
+  attr_accessible :id, :name, :organization_id, :active, :group_ids, :activities_attributes
 
   belongs_to :organization
   has_and_belongs_to_many :groups
   has_many :activities, dependent: :destroy
+
+  accepts_nested_attributes_for :activities, :reject_if => :all_blank, allow_destroy: true
 
   scope :is_active, where(active: true)
   scope :sorted, order('name asc')
@@ -25,6 +27,11 @@ class Project < ActiveRecord::Base
   # return array of active group names
   def active_group_names
     self.groups.select{|x| x.active == true}.map{|x| x.name}.sort
+  end
+
+  # return array of activities
+  def activity_names
+    self.activities.select{|x| x.active == true}.map{|x| x.full_name}.sort
   end
 
 

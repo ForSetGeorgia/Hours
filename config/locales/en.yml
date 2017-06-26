@@ -36,6 +36,7 @@ en:
         groups: Groups
         name: Name
         active: Is Active?
+        activities: Activites
       group:
         name: Name
         active: Is Active?
@@ -205,6 +206,11 @@ en:
         title: New User
       show:
         title: User Details
+    projects:
+      form:
+        add_activity: Add Activity
+      activity_fields:
+        remove_activity: Delete Activity
   devise:
     mailer:
       reset_password_instructions:
