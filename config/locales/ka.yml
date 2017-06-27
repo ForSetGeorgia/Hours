@@ -37,6 +37,7 @@ ka:
         name: Name
         active: Is Active?
         activities: Activites
+        manager_id: Manager
       group:
         name: Name
         active: Is Active?

@@ -1,7 +1,8 @@
 class Project < ActiveRecord::Base
-  attr_accessible :id, :name, :organization_id, :active, :group_ids, :activities_attributes
+  attr_accessible :id, :name, :organization_id, :active, :group_ids, :activities_attributes, :manager_id
 
   belongs_to :organization
+  belongs_to :manager, class_name: 'User'
   has_and_belongs_to_many :groups
   has_many :activities, dependent: :destroy
 

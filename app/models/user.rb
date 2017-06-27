@@ -78,4 +78,8 @@ class User < ActiveRecord::Base
     order('email asc')
   end
 
+  def self.managers
+    where('role >= ?', ROLES[:site_admin])
+  end
+
 end

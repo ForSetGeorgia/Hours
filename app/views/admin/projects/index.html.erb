@@ -14,6 +14,7 @@
     <tr>
       <th><%= model_class.human_attribute_name(:organization_id) %></th>
       <th><%= model_class.human_attribute_name(:name) %></th>
+      <th><%= model_class.human_attribute_name(:manager_id) %></th>
       <th><%= model_class.human_attribute_name(:activities) %></th>
       <th><%= model_class.human_attribute_name(:group_ids) %></th>
       <th><%= model_class.human_attribute_name(:active) %></th>
@@ -25,6 +26,7 @@
       <tr>
         <td><%= project.organization.short_name %></td>
         <td><%= project.name %></td>
+        <td><%= project.manager.nickname if project.manager_id.present? %></td>
         <td>
           <ul>
             <%= project.activity_names.map{|x| "<li>#{x}</li>"}.join.html_safe %>

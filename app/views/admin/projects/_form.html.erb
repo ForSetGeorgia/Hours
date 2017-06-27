@@ -5,6 +5,8 @@
 
   <%= f.inputs do %>
     <%= f.input :name %>
+    <%= f.input :manager_id, as: :select,
+          collection: User.managers.sorted.map{|x| [x.nickname, x.id]} %>
     <%= f.input :organization_id, as: :select,
           collection: Organization.sorted_short_name.map{|x| [x.short_name, x.id]} %>
     <%= f.input :groups, collection: Group.is_active.sorted.map{|x| [x.name, x.id]}, multiple: true %>
