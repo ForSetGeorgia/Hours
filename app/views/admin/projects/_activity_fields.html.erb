@@ -8,6 +8,9 @@
     <%= f.input :project_type, collection: ProjectType.sorted.map{|x| [x.name, x.id]}, label: false %>
   </td>
   <td>
+    <%= f.input :notes, as: :text, input_html: {rows: 2}, label: false %>
+  </td>
+  <td>
     <%= f.link_to_remove t(".remove_activity"), :class => "btn btn-mini btn-danger", :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => t("app.common.are_you_sure"))) %>
   </td>
 </tr>

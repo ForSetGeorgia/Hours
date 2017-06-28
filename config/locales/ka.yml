@@ -38,6 +38,7 @@ ka:
         active: Is Active?
         activities: Activites
         manager_id: Manager
+        notes: Notes
       group:
         name: Name
         active: Is Active?
@@ -56,11 +57,13 @@ ka:
         notes: Notes
         created_at: Date
         date: Date
+        project: Project
       activity:
         project_type_id: Activity Type
         name: Name
         active: Is Active?
         project_id: Project
+        notes: Notes
     errors:
       messages:
         required_field: "სავალდებულო ველი"
@@ -236,6 +239,11 @@ ka:
       link_add_hours: click here to add hours.
     form:
       activity_placeholder: Select an activity
+      modal:
+        title: Project/Activity Notes
+        no_notes: No projects or activities have any notes at this time.
+        close: Close
+        button_text: View Project/Activty Notes
   summary:
     index:
     date:

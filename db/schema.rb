@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20170627140338) do
+ActiveRecord::Schema.define(:version => 20170628071625) do
 
   create_table "activities", :force => true do |t|
     t.integer  "project_id"
@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(:version => 20170627140338) do
     t.boolean  "active",          :default => true
     t.datetime "created_at",                        :null => false
     t.datetime "updated_at",                        :null => false
+    t.text     "notes"
   end
 
   add_index "activities", ["active"], :name => "index_activities_on_active"
@@ -87,6 +88,7 @@ ActiveRecord::Schema.define(:version => 20170627140338) do
     t.datetime "created_at",                        :null => false
     t.datetime "updated_at",                        :null => false
     t.integer  "manager_id"
+    t.text     "notes"
   end
 
   add_index "projects", ["active"], :name => "index_projects_on_active"

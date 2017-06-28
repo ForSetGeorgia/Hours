@@ -96,8 +96,8 @@ class TimestampsController < ApplicationController
   def set_redirect_url
     # breakdown the referer into controller/action
     # this is used so know whether to return to home page or timestamps page
-    referer = Rails.application.routes.recognize_path(request.referrer) if request.referrer.present?
-    @redirect_url = referer.present? && referer[:controller] == 'timestamps' ? timestamps_url : root_url
+    # referer = Rails.application.routes.recognize_path(request.referrer) if request.referrer.present?
+    @redirect_url = request.referrer.present? && request.referrer.index('/timestamps').present? ? timestamps_url : root_url
 
     # @redirect_url = @referer_controller.present? && @referer_controller == 'timestamps' ? timestamps_url : root_url
   end

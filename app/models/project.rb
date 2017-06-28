@@ -1,5 +1,5 @@
 class Project < ActiveRecord::Base
-  attr_accessible :id, :name, :organization_id, :active, :group_ids, :activities_attributes, :manager_id
+  attr_accessible :id, :name, :organization_id, :active, :group_ids, :activities_attributes, :manager_id, :notes
 
   belongs_to :organization
   belongs_to :manager, class_name: 'User'
@@ -13,6 +13,9 @@ class Project < ActiveRecord::Base
   scope :sorted_organization, includes(:organization).order('organizations.short_name asc, projects.name asc')
   scope :with_activities, includes(:activities)
   scope :sorted_organization_activities, includes(:organization, :activities).order('organizations.short_name asc, projects.name asc, activities.name asc')
+  def self.with_notes
+    with_activities.where("projects.notes is not null OR activities.notes is not null")
+  end
 
   validates :name, :organization_id, :presence => true
 

@@ -9,7 +9,7 @@ class Activity < ActiveRecord::Base
 
   ###############################
   ## ATTRIBUTES
-  attr_accessible :id, :name, :project_type_id, :active
+  attr_accessible :id, :name, :project_type_id, :active, :notes
 
 
   ###############################
