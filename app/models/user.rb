@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me, :role,
                   :provider, :uid, :nickname, :avatar
+  attr_accessor :send_notification
 
   has_many :timestamps, dependent: :destroy
 
@@ -80,6 +81,19 @@ class User < ActiveRecord::Base
 
   def self.managers
     where('role >= ?', ROLES[:site_admin])
+  end
+
+  def self.staff
+    where('role >= ?', ROLES[:staff])
+  end
+
+  def self.needs_notifications
+    user_ids = Timestamp.has_records_today
+    if user_ids.present?
+      staff.where(["id not in (?)", user_ids])
+    else
+      staff
+    end
   end
 
 end

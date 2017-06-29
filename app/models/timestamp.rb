@@ -51,6 +51,11 @@ class Timestamp < ActiveRecord::Base
     where(['timestamps.date between ? and ?', 1.week.ago.in_time_zone.to_date, Time.now.in_time_zone.to_date])
   end
 
+  # get the list of user ids that have records today
+  def self.has_records_today
+    where("DATE(created_at) = '#{Time.now.to_date}'").pluck(:user_id).uniq
+  end
+
   ######################
 
   # get all activity for the current day

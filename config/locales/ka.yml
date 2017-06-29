@@ -265,3 +265,13 @@ ka:
       label_end: End Date
       label_submit: Get Hours
       no_hours: "No hours have been submitted for '%{user}' between %{start} and %{end}."
+  mailer:
+    closing: "Sincerely,"
+    signature: The ForSet Tech Team
+    notification:
+      new_user:
+        subject: "ForSet Hours has a new user!"
+        message: "A new user has joined the ForSet Hours app. Please login and assign the user the correct role."
+      reminder:
+        subject: "Reminder - ForSet Hours"
+        message: "Just a friendly reminder to fill in your hours in the ForSet Hours app."
