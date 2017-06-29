@@ -20,7 +20,8 @@ class Project < ActiveRecord::Base
   validates :name, :organization_id, :presence => true
 
   def full_name
-    "#{organization.short_name}: #{name}"
+    mgr = manager.present? ? " (#{manager.nickname})" : ""
+    "#{organization.short_name}: #{name}#{mgr}"
   end
 
   # return array of group names
