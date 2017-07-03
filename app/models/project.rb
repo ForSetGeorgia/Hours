@@ -39,6 +39,10 @@ class Project < ActiveRecord::Base
     self.activities.select{|x| x.active == true}.map{|x| x.full_name}.sort
   end
 
+  # get the name of the manager
+  def manager_name
+    manager.nickname if manager.present?
+  end
 
   #############
 

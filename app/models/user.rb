@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
   attr_accessor :send_notification
 
   has_many :timestamps, dependent: :destroy
+  has_many :projects, foreign_key: :manager_id, dependent: :nullify
 
   validates :role, :presence => true
 
