@@ -20,43 +20,10 @@ class SummaryController < ApplicationController
 
     records = Timestamp.by_user(params[:timestamp_user_id]).all_stamps(start_at: params[:timestamp_start_at], end_at: params[:timestamp_end_at])
     dates = Timestamp.by_user(params[:timestamp_user_id]).dates
-    
+
     # in app controller
     load_data_for_charts(records, dates, :projects, :dates, 'charts.summary.user', true, @user.nickname)
 
-    # if records[:records].present?
-
-    #   if dates.present?
-    #     begin_at = dates.first
-    #     last_at = dates.last
-    #   end
-
-    #   @timestamps = records[:records]
-
-    #   # for chart
-    #   gon.chart_data = records[:projects]
-    #   gon.datepicker_dates = dates
-    #   gon.dates = records[:dates_formatted]
-    #   gon.bar_chart_title = I18n.t('charts.summary.user.bar.title', user: @user.nickname)
-    #   gon.bar_chart_subtitle = I18n.t('charts.summary.user.bar.subtitle',
-    #       start: params[:timestamp_start_at], end: params[:timestamp_end_at],
-    #       hours: records[:counts][:hours],
-    #       projects: records[:counts][:projects],
-    #       dates: records[:counts][:dates])
-    #   gon.bar_chart_xaxis = I18n.t('charts.summary.user.bar.xaxis')
-    #   gon.pie_chart_title = I18n.t('charts.summary.user.pie.title', user: @user.nickname)
-    #   gon.pie_chart_subtitle = I18n.t('charts.summary.user.pie.subtitle', 
-    #       start: params[:timestamp_start_at], end: params[:timestamp_end_at],
-    #       hours: records[:counts][:hours],
-    #       projects: records[:counts][:projects],
-    #       dates: records[:counts][:dates])
-
-    #   # dates for date picker
-    #   gon.begin_at = begin_at
-    #   gon.last_at = last_at
-    #   gon.start_at = params[:timestamp_start_at].to_s
-    #   gon.end_at = params[:timestamp_end_at].to_s
-    # end
   end
 
   def project
@@ -71,43 +38,10 @@ class SummaryController < ApplicationController
 
     records = Timestamp.by_project(params[:timestamp_project_id]).all_stamps(start_at: params[:timestamp_start_at], end_at: params[:timestamp_end_at], type: Timestamp::SUMMARY[:project])
     dates = Timestamp.by_project(params[:timestamp_project_id]).dates
-    
+
     # in app controller
     load_data_for_charts(records, dates, :users, :dates, 'charts.summary.project', true, @project.full_name)
 
-    # if records[:records].present?
-
-    #   if dates.present?
-    #     begin_at = dates.first
-    #     last_at = dates.last
-    #   end
-
-    #   @timestamps = records[:records]
-
-    #   # for chart
-    #   gon.chart_data = records[:users]
-    #   gon.datepicker_dates = dates
-    #   gon.dates = records[:dates_formatted]
-    #   gon.bar_chart_title = I18n.t('charts.summary.project.bar.title', project: @project.full_name)
-    #   gon.bar_chart_subtitle = I18n.t('charts.summary.project.bar.subtitle',
-    #       start: params[:timestamp_start_at], end: params[:timestamp_end_at],
-    #       hours: records[:counts][:hours],
-    #       users: records[:counts][:users],
-    #       dates: records[:counts][:dates])
-    #   gon.bar_chart_xaxis = I18n.t('charts.summary.project.bar.xaxis')
-    #   gon.pie_chart_title = I18n.t('charts.summary.project.pie.title', project: @project.full_name)
-    #   gon.pie_chart_subtitle = I18n.t('charts.summary.project.pie.subtitle', 
-    #       start: params[:timestamp_start_at], end: params[:timestamp_end_at],
-    #       hours: records[:counts][:hours],
-    #       users: records[:counts][:users],
-    #       dates: records[:counts][:dates])
-
-    #   # dates for date picker
-    #   gon.begin_at = begin_at
-    #   gon.last_at = last_at
-    #   gon.start_at = params[:timestamp_start_at].to_s
-    #   gon.end_at = params[:timestamp_end_at].to_s
-    # end
   end
 
   def date
@@ -128,39 +62,9 @@ class SummaryController < ApplicationController
     end
 
     records = Timestamp.by_date(params[:timestamp_date]).all_stamps(type: Timestamp::SUMMARY[:date])
-    
+
     # in app controller
     load_data_for_charts(records, dates, :projects, :users, 'charts.summary.date', true, @date_formatted)
-
-
-    # if records[:records].present?
-
-    #   @timestamps = records[:records]
-
-    #   gon.chart_data = records[:chart_data]
-    #   gon.datepicker_dates = dates
-    #   gon.xaxis_categories = records[:xaxis_categories]
-    #   gon.bar_chart_title = I18n.t("charts.summary.date.bar.title", item: @date_formatted)
-    #   gon.bar_chart_subtitle = I18n.t("charts.summary.date.bar.subtitle",
-    #       date: params[:timestamp_date],
-    #       hours: records[:counts][:hours],
-    #       items: records[:counts][:projects],
-    #       users: records[:counts][:users])
-    #   gon.bar_chart_xaxis = I18n.t("charts.summary.date.bar.xaxis")
-    #   gon.pie_chart_title = I18n.t("charts.summary.date.pie.title", item: @date_formatted)
-    #   gon.pie_chart_subtitle = I18n.t("charts.summary.date.pie.subtitle", 
-    #       date: params[:timestamp_date],
-    #       hours: records[:counts][:hours],
-    #       items: records[:counts][:projects],
-    #       users: records[:counts][:users])
-
-    #   # dates for date picker
-    #   gon.begin_at = begin_at
-    #   gon.last_at = last_at
-    #   gon.timestamp_summary_date = date
-    # end
-
-
 
   end
 

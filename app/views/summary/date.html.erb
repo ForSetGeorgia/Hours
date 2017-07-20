@@ -15,19 +15,40 @@
 <% if @timestamps.present? %>
 
 
-  <div id="pie-chart" style="min-height: 500px; margin: 0 auto;"></div>
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs nav-tabs-mod" role="tablist">
+    <li role="presentation" class="active"><a href="#projects" data-id="projects" aria-controls="projects" role="tab" data-toggle="tab"><%= t('tabs.project') %></a></li>
+    <li role="presentation"><a href="#activities" data-id="activities" aria-controls="activities" role="tab" data-toggle="tab"><%= t('tabs.activity') %></a></li>
+    <li role="presentation"><a href="#table" data-id="table" aria-controls="table" role="tab" data-toggle="tab"><%= t('tabs.table') %></a></li>
+  </ul>
 
-  <hr />
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane fade in active tab-pane-mod" id="projects">
+      <div class="pie-chart" id="projects-pie-chart" style="min-height: 500px; margin: 0 auto;"></div>
 
-  <div id="bar-chart" style="min-height: 500px; margin: 0 auto;"></div>
+      <hr />
 
-  <hr />
+      <div class="bar-chart" id="projects-bar-chart" style="min-height: 500px; margin: 0 auto;"></div>
 
-  <%#= render :partial => 'timestamps/table' %>
+    </div>
 
-  <!-- <hr /> -->
+    <div role="tabpanel" class="tab-pane fade tab-pane-mod" id="activities">
+      <div class="pie-chart" id="activities-pie-chart" style="min-height: 500px; margin: 0 auto;"></div>
 
-  <%= render :partial => 'timestamps/table_notes' %>
+      <hr />
+
+      <div class="bar-chart" id="activities-bar-chart" style="min-height: 500px; margin: 0 auto;"></div>
+
+    </div>
+
+    <div role="tabpanel" class="tab-pane fade tab-pane-mod" id="table">
+
+      <%= render :partial => 'timestamps/table_notes' %>
+
+    </div>
+  </div>
+
 
 <% else %>
 

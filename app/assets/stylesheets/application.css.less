@@ -207,3 +207,30 @@ a.btn-warning, a.btn-warning:visited, a.btn-danger, a.btn-danger:visited, a.btn-
 .dropdown-menu .bootstrap-select-searchbox input{
   padding: 0px !important;
 }
+
+/* mod the tab panes so highcharts and tables load to appropriate width */
+ .tab-content > .tab-pane {
+    &.tab-pane-mod{
+      position: fixed;
+      top: 0px;
+      left: 9999999px;
+      width: 100%;
+      max-width: 1140px;
+      display: block;
+      padding: 20px;
+      border-left: 1px solid #dddddd;
+
+      &.active{
+        position: static;
+        display: block;
+      }
+    }
+ }
+
+.nav-tabs.nav-tabs-mod > li.active > a, .nav-tabs.nav-tabs-mod > li.active > a:hover, .nav-tabs.nav-tabs-mod > li.active > a:focus {
+    color: #000;
+    background-color: #dddddd;
+    border: 1px solid #dddddd;
+    border-bottom-color: transparent;
+    cursor: default;
+}

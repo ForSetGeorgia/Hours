@@ -26,4 +26,8 @@ class Activity < ActiveRecord::Base
     "#{name} (#{project_type.name})"
   end
 
+  def full_name_with_project
+    "#{project.full_name} - #{full_name}"
+  end
+
 end

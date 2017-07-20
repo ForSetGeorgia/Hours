@@ -54,6 +54,6 @@ $(document).ready(function(){
 
   // assign chosen to all selects
   if ($('select').length > 0){
-    $('select').chosen();
+    $('select').chosen({width: '100%'});
   }
 });

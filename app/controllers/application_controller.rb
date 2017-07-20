@@ -144,7 +144,7 @@ logger.debug "////////////////////////// BROWSER = #{user_agent}"
 
 
   # load data for the charts
-  def load_data_for_charts(records, dates, chart_xaxis_key, chart_yaxis_key, i18n_key, is_summary=false, item_name=nil)
+  def load_data_for_charts(records, dates, options1_key, chart_yaxis_key, i18n_key, is_summary=false, item_name=nil, is_today=false)
     # set dates for datepicker
     gon.start_at = params[:timestamp_start_at].to_s if params[:timestamp_start_at].present?
     gon.end_at = params[:timestamp_end_at].to_s if params[:timestamp_end_at].present?
@@ -154,30 +154,43 @@ logger.debug "////////////////////////// BROWSER = #{user_agent}"
       gon.last_at = dates.last
     end
 
+    # set i18n key name
+    i18n_title_key = is_today == true ? '_today' : ''
+
     if records[:records].present?
 
       @timestamps = records[:records]
 
-      gon.chart_data = records[:chart_data]
+      gon.chart_data = [records[options1_key][:chart_data], records[:activities][:chart_data]]
       gon.xaxis_categories = records[:xaxis_categories]
       if is_summary
-        gon.bar_chart_title = I18n.t("#{i18n_key}.bar.title", item: item_name)
+        gon.bar_chart_title = [I18n.t("#{i18n_key}.bar.title#{i18n_title_key}", item: item_name), I18n.t("#{i18n_key}.bar.title#{i18n_title_key}", item: item_name)]
       else
-        gon.bar_chart_title = I18n.t("#{i18n_key}.bar.title")
+        gon.bar_chart_title = [I18n.t("#{i18n_key}.bar.title#{i18n_title_key}"), I18n.t("#{i18n_key}.bar.title#{i18n_title_key}")]
       end
-      options = {start: params[:timestamp_start_at],
+      options1 = {start: params[:timestamp_start_at],
           hours: records[:counts][:hours],
-          xaxis: records[:counts][chart_xaxis_key],
-          yaxis: records[:counts][chart_yaxis_key]}
-      options[:end] = params[:timestamp_end_at] if i18n_key != 'charts.summary.date'
-      gon.bar_chart_subtitle = I18n.t("#{i18n_key}.bar.subtitle", options)
+          xaxis: records[:counts][options1_key],
+          yaxis: records[:counts][chart_yaxis_key],
+          label: i18n_key == 'charts.summary.project' ? I18n.t('charts.labels.people') : I18n.t('charts.labels.projects')
+      }
+      options2 = {start: params[:timestamp_start_at],
+          hours: records[:counts][:hours],
+          xaxis: records[:counts][:activities],
+          yaxis: records[:counts][chart_yaxis_key],
+          label: i18n_key == 'charts.summary.project' ? I18n.t('charts.labels.people') : I18n.t('charts.labels.activities')
+      }
+      options1[:end] = params[:timestamp_end_at] if i18n_key != 'charts.summary.date'
+      options2[:end] = params[:timestamp_end_at] if i18n_key != 'charts.summary.date'
+
+      gon.bar_chart_subtitle = [I18n.t("#{i18n_key}.bar.subtitle#{i18n_title_key}", options1), I18n.t("#{i18n_key}.bar.subtitle#{i18n_title_key}", options2)]
       gon.bar_chart_xaxis = I18n.t("#{i18n_key}.bar.xaxis")
       if is_summary
-        gon.pie_chart_title = I18n.t("#{i18n_key}.pie.title", item: item_name)
+        gon.pie_chart_title = [I18n.t("#{i18n_key}.pie.title", options1.merge({item: item_name})), I18n.t("#{i18n_key}.pie.title", options2.merge({item: item_name}))]
       else
-        gon.pie_chart_title = I18n.t("#{i18n_key}.pie.title")
+        gon.pie_chart_title = [I18n.t("#{i18n_key}.pie.title", options1), I18n.t("#{i18n_key}.pie.title", options2)]
       end
-      gon.pie_chart_subtitle = I18n.t("#{i18n_key}.pie.subtitle", options)
+      gon.pie_chart_subtitle = [I18n.t("#{i18n_key}.pie.subtitle", options1), I18n.t("#{i18n_key}.pie.subtitle", options2)]
 
     end
   end

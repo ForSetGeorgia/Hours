@@ -7,16 +7,20 @@ class RootController < ApplicationController
   def index
     if user_signed_in? && current_user.role?(User::ROLES[:staff])
       records = current_user.timestamps.current_day_stamps
-      @timestamps = records[:records]
 
-      # for daily chart
-      gon.chart_data = records[:chart_data]
-      gon.xaxis_categories = records[:xaxis_categories]
-      gon.bar_chart_title = I18n.t('charts.user.bar.title_today')
-      gon.bar_chart_subtitle = I18n.t('charts.user.bar.subtitle_today',
-          hours: records[:counts][:hours],
-          projects: records[:counts][:projects])
-      gon.bar_chart_xaxis = I18n.t('charts.user.bar.xaxis')
+      load_data_for_charts(records, nil, :projects, :dates, 'charts.user', false, nil, true)
+
+
+      # @timestamps = records[:records]
+
+      # # for daily chart
+      # gon.chart_data = records[:chart_data]
+      # gon.xaxis_categories = records[:xaxis_categories]
+      # gon.bar_chart_title = I18n.t('charts.user.bar.title_today')
+      # gon.bar_chart_subtitle = I18n.t('charts.user.bar.subtitle_today',
+      #     hours: records[:counts][:hours],
+      #     projects: records[:counts][:projects])
+      # gon.bar_chart_xaxis = I18n.t('charts.user.bar.xaxis')
 
       if params[:edit_id].present?
         @timestamp = Timestamp.by_user(current_user.id).find(params[:edit_id])
