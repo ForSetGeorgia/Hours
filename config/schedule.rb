@@ -19,7 +19,7 @@
 
 # Learn more: http://github.com/javan/whenever
 
-every 1.day, :at => "6:00pm" do
+every 1.day, :at => "2:00pm" do
   rake "reminder:send"
 end
 
