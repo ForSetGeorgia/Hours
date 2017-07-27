@@ -58,6 +58,7 @@ en:
         created_at: Date
         date: Date
         project: Project
+        all_day: All Day
       activity:
         project_type_id: Activity Type
         name: Name

@@ -1,12 +1,12 @@
 $(function() {
   // when start/end date changes, set the max/min date of the opposite date
-  function customRange(dates) { 
-    if (this.id == 'timestamp_start_at') { 
-      $('input#timestamp_end_at').datepicker('option', 'minDate', dates || null); 
-    } 
-    else { 
-      $('input#timestamp_start_at').datepicker('option', 'maxDate', dates || null); 
-    } 
+  function customRange(dates) {
+    if (this.id == 'timestamp_start_at') {
+      $('input#timestamp_end_at').datepicker('option', 'minDate', dates || null);
+    }
+    else {
+      $('input#timestamp_start_at').datepicker('option', 'maxDate', dates || null);
+    }
   }
 
   // make only days with timestamps active
@@ -19,7 +19,7 @@ $(function() {
       }
     }
     return [false, ''];
-   } 
+   }
 
   // used on timestamp index page
   if (gon.timestamp_date){
@@ -111,4 +111,9 @@ $(function() {
       $('input#timestamp_end_at').datepicker('option', 'minDate', start);
     }
   }
+
+  // when all day selected, enter 7 hours into the duration box
+  $('.btn-all-day').click(function(){
+    $('input#timestamp_duration').val(420);
+  });
 })
