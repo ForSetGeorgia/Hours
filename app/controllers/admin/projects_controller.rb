@@ -56,4 +56,24 @@ class Admin::ProjectsController < ApplicationController
       format.html { redirect_to admin_projects_url }
     end
   end
+
+  def migrate
+    @errors = nil
+    if request.post?
+      if params[:from_activity_id] == params[:to_activity_id]
+        @errors = I18n.t('app.msgs.cannot_merge_same')
+      else
+        # move all timestamps to new activity
+        count = Timestamp.where(activity_id: params[:from_activity_id]).update_all(activity_id: params[:to_activity_id])
+
+        if params[:delete_from_activity] == "1"
+          Activity.where(id: params[:from_activity_id]).destroy_all
+        end
+
+        flash[:notice] = I18n.t('app.msgs.success_merge', count: count)
+      end
+    end
+
+  end
+
 end

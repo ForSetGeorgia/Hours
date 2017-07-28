@@ -5,6 +5,9 @@
     <%= link_to t('.new', :default => t("helpers.links.new")),
       new_admin_project_path,
       :class => 'btn btn-primary' %>
+    <%= link_to t("helpers.links.migrate"),
+      migrate_admin_projects_path,
+      :class => 'btn btn-primary' %>
       <%= link_to t('helpers.links.admin'), admin_path, :class => 'btn btn-info' %>
   </h1>
 </div>

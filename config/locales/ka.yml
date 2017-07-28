@@ -86,6 +86,7 @@ ka:
       cancel: გაუქმება
       reset: საწყის კონფიგურაციაზე დაბრუნება
       view: ნახვა
+      migrate: Migrate Activity
       sign_in_facebook: Facebook-ით შესვლა
       forgot_password: დაგავიწყდათ პაროლი?
       change_password: პაროლის შეცვლა
@@ -191,6 +192,8 @@ ka:
       not_authorized: თქვენ არ გაქვთ ამ გვერდის ნახვის უფლება.
       success_created: "%{obj} შექმნილია."
       success_updated: "%{obj} განახლებულია."
+      cannot_merge_same: The two activities you selected are the same. Please try again.
+      success_merge: "%{count} hour records were moved to the new activity."
   layouts:
     application:
       toggle: ნავიგაციის ჩართვა/გამორთვა
@@ -222,6 +225,16 @@ ka:
         add_activity: Add Activity
       activity_fields:
         remove_activity: Delete Activity
+      migrate:
+        title: Migrate Activity Time
+        explanation: |
+          You can move all hours recorded under one activity to another.
+
+          You can also delete the activity if it is no longer needed.
+        activity_placeholder: Select an activity
+        from_activity: From
+        to_activity: To
+        delete_activity: Delete From Activity
   devise:
     mailer:
       reset_password_instructions:

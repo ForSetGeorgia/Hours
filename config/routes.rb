@@ -12,7 +12,12 @@ BootstrapStarter::Application.routes.draw do
 
 		namespace :admin do
       resources :organizations
-      resources :projects
+      resources :projects do
+        collection do
+          get 'migrate'
+          post 'migrate'
+        end
+      end
       resources :groups
       resources :stages
       resources :project_types

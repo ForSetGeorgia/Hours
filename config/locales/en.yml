@@ -86,6 +86,7 @@ en:
       cancel: Cancel
       reset: Reset
       view: View
+      migrate: Migrate Activity
       sign_in_facebook: Sign in with Facebook
       forgot_password: Forgot Password?
       change_password: Change Your Password
@@ -196,6 +197,8 @@ en:
       not_authorized: You are not authorized to view that page.
       success_created: "%{obj} was successfully created."
       success_updated: "%{obj} was successfully updated."
+      cannot_merge_same: The two activities you selected are the same. Please try again.
+      success_merge: "%{count} hour records were moved to the new activity."
   layouts:
     application:
       toggle: Toggle navigation
@@ -227,6 +230,16 @@ en:
         add_activity: Add Activity
       activity_fields:
         remove_activity: Delete Activity
+      migrate:
+        title: Migrate Activity Time
+        explanation: |
+          You can move all hours recorded under one activity to another.
+
+          You can also delete the activity if it is no longer needed.
+        activity_placeholder: Select an activity
+        from_activity: From
+        to_activity: To
+        delete_activity: Delete From Activity
   devise:
     mailer:
       reset_password_instructions:
