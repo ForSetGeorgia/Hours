@@ -1,6 +1,12 @@
 <%- model_class = Project -%>
 <div class="page-header">
-  <h1><%=t '.title' %></h1>
+  <h1>
+    <%=t '.title' %>
+    <%= link_to model_class.model_name.human.pluralize.titleize,
+      admin_projects_path,
+      :class => 'btn btn-primary' %>
+      <%= link_to t('helpers.links.admin'), admin_path, :class => 'btn btn-info' %>
+  </h1>
 </div>
 
 <p>

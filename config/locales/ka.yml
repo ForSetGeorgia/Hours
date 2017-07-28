@@ -226,7 +226,7 @@ ka:
       activity_fields:
         remove_activity: Delete Activity
       migrate:
-        title: Migrate Activity Time
+        title: Projects - Migrate Activity Time
         explanation: |
           You can move all hours recorded under one activity to another.
 
