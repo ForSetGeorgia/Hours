@@ -18,8 +18,9 @@
 # end
 
 # Learn more: http://github.com/javan/whenever
+set :output, "log/cron.log"
 
-every 1.day, :at => "2:15pm" do
+every 1.day, :at => "2:10pm" do
   rake "reminder:send"
 end
 
