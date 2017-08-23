@@ -68,6 +68,10 @@ class Timestamp < ActiveRecord::Base
     query = sorted
     query = query.where('timestamps.date >= ?', options[:start_at]) if options[:start_at].present?
     query = query.where('timestamps.date <= ?', Date.parse(options[:end_at])+1.day) if options[:end_at].present?
+    if options[:active].present? && options[:active]
+      query = query.joins(:activity).where('activities.project_id in (select id from projects where active = ?)', true)
+       Rails.logger.debug("----------1234----------------------------------test #{query.to_sql}")
+    end
 
     if options[:type] == Timestamp::SUMMARY[:project]
       process_project_data_for_charts(query)

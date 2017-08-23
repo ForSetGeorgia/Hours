@@ -7,6 +7,12 @@
         <%= text_field_tag :timestamp_date, params[:timestamp_date], size: 14 %>
       </div>
       <div class="col-xs-3">
+        <% flag = params[:active_projects] %>
+        <input type="hidden" name="active_projects" value="<%= flag %>" id="active_projects_value"/>
+        <input type="checkbox" value="<%= flag %>"<%= " checked=#{flag}" if flag %> id="active_projects_checkbox"/>
+        <%= label_tag :active_projects_checkbox, t('.label_active_projects') %>
+      </div>
+      <div class="col-xs-3">
         <%= submit_tag t('.label_submit'), class: 'btn btn-default btn-sm btn-success' %>
       </div>
     </div>

@@ -21,7 +21,7 @@
       <th><%= model_class.human_attribute_name(:notes) %></th>
       <th><%= model_class.human_attribute_name(:activities) %></th>
       <th><%= model_class.human_attribute_name(:group_ids) %></th>
-      <th><%= model_class.human_attribute_name(:active) %></th>
+      <th data-filter="only-active"><%= model_class.human_attribute_name(:active) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>

@@ -9,6 +9,7 @@ class Project < ActiveRecord::Base
   accepts_nested_attributes_for :activities, :reject_if => :all_blank, allow_destroy: true
 
   scope :is_active, where(active: true)
+  scope :only_active, where(active: true)
   scope :sorted, order('name asc')
   scope :sorted_organization, includes(:organization).order('organizations.short_name asc, projects.name asc')
   scope :with_activities, includes(:activities)

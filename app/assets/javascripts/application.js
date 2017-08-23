@@ -35,7 +35,7 @@ $(document).ready(function(){
   // assign datatable to all tables
   if ($('table:not(.no-datatable)').length > 0){
     $('table').dataTable({
-      dom: 'T<"clear">lfrtip',
+      dom: '<"dataTables_row"lT><"dataTables_row"<"dataTables_filters">f>rtip',
       tableTools: {
         "sSwfPath": "/assets/dataTables/extras/swf/copy_csv_xls_pdf.swf",
         "aButtons": [
@@ -50,10 +50,29 @@ $(document).ready(function(){
         ]
       }
     });
+    if ($('table:not(.no-datatable) thead th[data-filter="only-active"]').length > 0) {
+      $('.dataTables_filters').html('<input type="checkbox" id="dataTablesFilterOnlyActive"/><label for="dataTablesFilterOnlyActive">' + gon.label_active_project + '</label>')
+      var dt = $('table').DataTable();
+      $('#dataTablesFilterOnlyActive').change(function () {
+        dt
+          .columns('[data-filter="only-active"]')
+          .search(this.checked ? 'true' : '')
+          .draw()
+      })
+      $('#dataTablesFilterOnlyActive').attr('checked', 'checked').trigger('change');
+    }
+
   }
 
   // assign chosen to all selects
   if ($('select').length > 0){
     $('select').chosen({width: '100%'});
+  }
+
+  if($("#active_projects_checkbox").length > 0) {
+    $("#active_projects_checkbox").change(function() {
+      $("#active_projects_value").val(this.checked);
+      console.log('here', )
+    })
   }
 });

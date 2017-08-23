@@ -234,3 +234,21 @@ a.btn-warning, a.btn-warning:visited, a.btn-danger, a.btn-danger:visited, a.btn-
     border-bottom-color: transparent;
     cursor: default;
 }
+
+.dataTables_row {
+  display: flex;
+  flex-directin: row;
+  flex-wrap: wrap;
+}
+.dataTables_row > div:first-of-type {
+  flex: 1;
+}
+
+input[type="checkbox"] + label {
+  vertical-align: middle;
+  margin-left: 4px;
+}
+
+.dataTable tbody tr td:last-of-type {
+  white-space: nowrap;
+}
