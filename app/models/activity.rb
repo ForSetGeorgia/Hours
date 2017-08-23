@@ -14,7 +14,7 @@ class Activity < ActiveRecord::Base
 
   ###############################
   ## VALIDATIONS
-  validates :name, :project_id, :project_type_id, :presence => true
+  validates :name, :project_type_id, :presence => true
 
   ###############################
   ## SCOPES
