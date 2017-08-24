@@ -30,7 +30,7 @@
     <% end %>
     <div class="controls">
       <%= select_tag 'timestmap_activity_id', projects_with_grouped_activities(@timestamp.activity_id),
-          name: 'timestamp[activity_id]', :'data-placeholder' => t('.activity_placeholder')  %>
+          name: 'timestamp[activity_id]', :'data-placeholder' => t('.activity_placeholder'), :'data-your-id' => current_user.id  %>
     </div>
   </div>
   <div class="form-group">
@@ -72,7 +72,16 @@
       <%= f.select(:diff_level, Timestamp::DIFF_LEVELS, {include_blank: true}) %>
     </div>
   </div>
-
+  <% if current_user.can_manage? %>
+    <div class="form-group">
+      <%= f.label :assignee, :class => 'control-label' do %>
+        <%= model_class.human_attribute_name(:assignee) %>
+      <% end %>
+      <div class="controls">
+        <%= f.select(:assignee, current_user.others_list.map{|m| m.push({disabled: true })}, {include_blank: true}, { multiple: 'multiple', class: 'assignee-selector', 'data-placeholder': t('.assignee_placeholder')})%>
+      </div>
+    </div>
+  <% end %>
   <br />
   <div class="form-group">
     <%= f.label :notes, :class => 'control-label' %>

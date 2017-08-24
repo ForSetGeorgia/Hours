@@ -60,6 +60,7 @@ ka:
         project: Project
         all_day: All Day
         active: Is Active?
+        assignee: Assignee
       activity:
         project_type_id: Activity Type
         name: Name
@@ -188,6 +189,7 @@ ka:
       added_on: "დამატებულია: %{date}"
       forset: ForSEt
       link_title: ForSet
+      all: All
     msgs:
       does_not_exist: თქვენ ცდილობთ ისეთი გვერდის ნახვას, რომელიც არ არსებობს.
       not_authorized: თქვენ არ გაქვთ ამ გვერდის ნახვის უფლება.
@@ -261,6 +263,7 @@ ka:
       link_add_hours: click here to add hours.
     form:
       activity_placeholder: Select an activity
+      assignee_placeholder: Select Manageable Activity First
       modal:
         title: Project/Activity Notes
         no_notes: No projects or activities have any notes at this time.

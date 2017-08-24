@@ -17,6 +17,17 @@ class User < ActiveRecord::Base
 
   ROLES = {:user => 0, :staff => 1, :site_admin => 75, :admin => 99}
 
+  def others
+    User.where('role >= ? and id != ?', ROLES[:staff], self.id)
+      .order('email asc, nickname asc')
+  end
+
+  def others_list
+    others
+      .map{|m| [m.nickname.capitalize, m.id]}
+      .unshift([I18n.t('app.common.all'), 0])
+  end
+
   def self.no_admins
     where("role != ?", ROLES[:admin])
   end
@@ -33,6 +44,10 @@ class User < ActiveRecord::Base
       return base_role <= self.role
     end
     return false
+  end
+
+  def can_manage?
+    role?(ROLES[:site_admin])
   end
 
   def role_name

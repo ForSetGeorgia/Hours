@@ -55,11 +55,28 @@ class TimestampsController < ApplicationController
   end
 
   def create
+    users = []
+    if params[:timestamp][:assignee].present?
+      assignee = params[:timestamp].delete(:assignee).delete_if {|r| r.empty? }
+      if assignee.index('0')
+        users = current_user.others
+      else
+        users = current_user.others.find(assignee)
+      end
+    end
+
     @timestamp = Timestamp.new(params[:timestamp])
     @timestamp.user_id = current_user.id
 
     respond_to do |format|
       if @timestamp.save
+        if users.present?
+          Timestamp.transaction do
+            users.each {|user|
+              Timestamp.create(params[:timestamp].merge({user_id: user.id}))
+            }
+          end
+        end
         format.html { redirect_to @redirect_url, notice: t('app.msgs.success_created', :obj => t('activerecord.models.timestamp')) }
       else
         gon.timestamp_date = @timestamp.date.to_s
@@ -69,10 +86,27 @@ class TimestampsController < ApplicationController
   end
 
   def update
+    users = []
+    if params[:timestamp][:assignee].present?
+      assignee = params[:timestamp].delete(:assignee).delete_if {|r| r.empty? }
+      if assignee.index('0')
+        users = current_user.others
+      else
+        users = current_user.others.find(assignee)
+      end
+    end
+
     @timestamp = Timestamp.find(params[:id])
 
     respond_to do |format|
       if @timestamp.update_attributes(params[:timestamp])
+        if users.present?
+          Timestamp.transaction do
+            users.each {|user|
+              Timestamp.create(params[:timestamp].merge({user_id: user.id}))
+            }
+          end
+        end
         format.html { redirect_to @redirect_url, notice: t('app.msgs.success_updated', :obj => t('activerecord.models.timestamp')) }
       else
         gon.timestamp_date = @timestamp.date.to_s

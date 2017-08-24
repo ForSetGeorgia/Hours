@@ -36,7 +36,7 @@ module ProjectsHelper
 
     if projects.present?
       projects.each do |project|
-        html << "<optgroup label='#{project.full_name}' title='#{project.notes}'>"
+        html << "<optgroup label='#{project.full_name}' title='#{project.notes}' data-manager='#{project.manager_id}'>"
         html << project.activities.map{|x|
           "<option value='#{x.id}' title='#{x.notes}' #{x.id == activity_id ? 'selected="selected"' : ''}>#{x.full_name}</option>"
         }.join

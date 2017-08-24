@@ -1,6 +1,6 @@
 class Timestamp < ActiveRecord::Base
-  attr_accessible :user_id, :activity_id, :stage_id, :duration, :diff_level, :notes, :date
-
+  attr_accessible :user_id, :activity_id, :stage_id, :duration, :diff_level, :notes, :date, :assignee
+  attr_accessor :assignee
   belongs_to :activity
   belongs_to :stage
   belongs_to :user

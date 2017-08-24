@@ -66,13 +66,60 @@ $(document).ready(function(){
 
   // assign chosen to all selects
   if ($('select').length > 0){
-    $('select').chosen({width: '100%'});
+    $('select').chosen({width: '100%', display_disabled_options: false, display_selected_options: false});
+    if ($('.assignee-selector').length > 0){
+      $('.assignee-selector').on('change', function (evt, params) {
+        var state = true // true - selected , false - deselected
+        var id = null
+        if (params.hasOwnProperty('selected')) {
+          id = params.selected;
+        } else if (params.hasOwnProperty('deselected')) {
+          state = false;
+          id = params.deselected;
+        }
+        if(id === '0') {
+          $('.assignee-selector option:not([value="0"])').attr('disabled', state);
+          $('.assignee-selector').trigger("chosen:updated");
+        }
+      })
+    }
+    if ($('#timestmap_activity_id').length > 0){
+      var your_id = $('#timestmap_activity_id').attr('data-your-id');
+
+      $('#timestmap_activity_id').on('change', function (evt, params) {
+        // console.log('test2')
+        // console.log(params)
+        var state = true // true - selected , false - deselected
+        var id = null
+        if (params.hasOwnProperty('selected')) {
+          id = params.selected;
+        } else if (params.hasOwnProperty('deselected')) {
+          state = false;
+          id = params.deselected;
+        }
+
+        var manager_id = $('#timestmap_activity_id option[value="' + id + '"]').parent().attr('data-manager');
+
+        // console.log(manager_id, your_id, manager_id === your_id)
+        $('.assignee-selector option:selected').removeAttr('selected');
+        $('.assignee-selector option').attr('disabled', manager_id !== your_id);
+        $('.assignee-selector').trigger("chosen:updated");
+      })
+      // console.log('test')
+      var activity_id = +$('#timestmap_activity_id').val();
+      if(activity_id > 0) {
+        var manager_id = $('#timestmap_activity_id option[value="' + activity_id + '"]').parent().attr('data-manager');
+        $('.assignee-selector option').attr('disabled', manager_id !== your_id);
+        $('.assignee-selector').trigger("chosen:updated");
+      }
+    }
   }
 
   if($("#active_projects_checkbox").length > 0) {
     $("#active_projects_checkbox").change(function() {
       $("#active_projects_value").val(this.checked);
-      console.log('here', )
     })
   }
+
+
 });
