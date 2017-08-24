@@ -5,7 +5,17 @@
       <div class="col-xs-3">
         <%= label_tag :timestamp_project_id, t('.label_project') %>
         <br />
-        <%= select_tag :timestamp_project_id, options_from_collection_for_select(@projects, :id, :full_name, params[:timestamp_project_id]) %>
+        <%= select_tag :timestamp_project_id, options_for_select(
+          @projects.map{|pr| [pr.full_name, pr.id, { 'data-active': pr.active }.merge(
+            @default_active_projects_value && !pr.active ? {disabled: true} : {})]},
+          params[:timestamp_project_id])
+        %>
+      </div>
+      <div class="col-xs-3">
+        <% flag = @default_active_projects_value %>
+        <%= label_tag :active_projects_checkbox_inline, t('.label_active_projects') %>
+        <br />
+        <input type="checkbox" value="<%= flag %>"<%= " checked=#{flag}" if flag %> id="active_projects_checkbox_inline"/>
       </div>
       <div class="col-xs-2">
         <%= label_tag :timestamp_start_at, t('.label_start') %>
@@ -16,13 +26,6 @@
         <%= label_tag :timestamp_end_at, t('.label_end') %>
         <br />
         <%= text_field_tag :timestamp_end_at, params[:timestamp_end_at], size: 14 %>
-      </div>
-      <div class="col-xs-3">
-        <% flag = params[:active_projects] %>
-        <%= label_tag :active_projects_checkbox, t('.label_active_projects') %>
-        <br />
-        <input type="hidden" name="active_projects" value="<%= flag %>" id="active_projects_value"/>
-        <input type="checkbox" value="<%= flag %>"<%= " checked=#{flag}" if flag %> id="active_projects_checkbox"/>
       </div>
       <div class="col-xs-2">
         <br />

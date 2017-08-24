@@ -42,13 +42,7 @@ class SummaryController < ApplicationController
     params[:timestamp_project_id] ||= @projects.first.id
     @project = @projects.select{|x| x.id.to_s == params[:timestamp_project_id].to_s}.first
 
-    if params[:active_projects].present?
-      params[:active_projects] = params[:active_projects] == 'true'
-    else
-      params[:active_projects] = @default_active_projects_value
-    end
-
-    records = Timestamp.by_project(params[:timestamp_project_id]).all_stamps(start_at: params[:timestamp_start_at], end_at: params[:timestamp_end_at], type: Timestamp::SUMMARY[:project], active: params[:active_projects])
+    records = Timestamp.by_project(params[:timestamp_project_id]).all_stamps(start_at: params[:timestamp_start_at], end_at: params[:timestamp_end_at], type: Timestamp::SUMMARY[:project])
     dates = Timestamp.by_project(params[:timestamp_project_id]).dates
 
     # in app controller

@@ -69,10 +69,16 @@ $(document).ready(function(){
     $('select').chosen({width: '100%'});
   }
 
-  if($("#active_projects_checkbox").length > 0) {
-    $("#active_projects_checkbox").change(function() {
-      $("#active_projects_value").val(this.checked);
-      console.log('here', )
+  if($('#active_projects_checkbox').length > 0) {
+    $('#active_projects_checkbox').change(function() {
+      $('#active_projects_value').val(this.checked);
     })
   }
+  if($('#active_projects_checkbox_inline').length > 0) {
+    $('#active_projects_checkbox_inline').change(function() {
+      $('#timestamp_project_id option[data-active=false]').attr('disabled', this.checked);
+      $('#timestamp_project_id').trigger("chosen:updated");
+    })
+  }
+
 });

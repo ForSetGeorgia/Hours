@@ -70,7 +70,6 @@ class Timestamp < ActiveRecord::Base
     query = query.where('timestamps.date <= ?', Date.parse(options[:end_at])+1.day) if options[:end_at].present?
     if options[:active].present? && options[:active]
       query = query.joins(:activity).where('activities.project_id in (select id from projects where active = ?)', true)
-       Rails.logger.debug("----------1234----------------------------------test #{query.to_sql}")
     end
 
     if options[:type] == Timestamp::SUMMARY[:project]
