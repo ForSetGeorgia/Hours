@@ -83,6 +83,7 @@ $(document).ready(function(){
         }
       })
     }
+    /*
     if ($('#timestmap_activity_id').length > 0){
       var your_id = $('#timestmap_activity_id').attr('data-your-id');
 
@@ -113,6 +114,7 @@ $(document).ready(function(){
         $('.assignee-selector').trigger("chosen:updated");
       }
     }
+    */
   }
 
   if($("#active_projects_checkbox").length > 0) {

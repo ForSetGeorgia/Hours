@@ -36,9 +36,21 @@ module ProjectsHelper
 
     if projects.present?
       projects.each do |project|
-        html << "<optgroup label='#{project.full_name}' title='#{project.notes}' data-manager='#{project.manager_id}'>"
+
+        # get project full name, without db calls
+        manager = @manager_list.select{|s| s.id == project.manager_id}.first
+        mgr = manager.present? ? " (#{manager.nickname})" : ""
+        organization = @organization_list.select{|s| s.id == project.organization_id}.first
+        project_full_name = "#{organization.short_name}: #{project.name}#{mgr}"
+
+        html << "<optgroup label='#{project_full_name}' title='#{project.notes}'>"
         html << project.activities.map{|x|
-          "<option value='#{x.id}' title='#{x.notes}' #{x.id == activity_id ? 'selected="selected"' : ''}>#{x.full_name}</option>"
+
+          # get activity full name, without db calls
+          project_type = @project_type_list.select{|s| s.id == x.project_type_id }.first
+          activity_full_name = "#{x.name} (#{project_type.name})"
+
+          "<option value='#{x.id}' title='#{x.notes}' #{x.id == activity_id ? 'selected="selected"' : ''}>#{activity_full_name}</option>"
         }.join
         html << "</optgroup>"
       end

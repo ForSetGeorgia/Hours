@@ -1,5 +1,5 @@
 class Timestamp < ActiveRecord::Base
-  attr_accessible :user_id, :activity_id, :stage_id, :duration, :diff_level, :notes, :date, :assignee
+  attr_accessible :user_id, :activity_id, :stage_id, :duration, :diff_level, :notes, :date, :assignee, :parent_id
   attr_accessor :assignee
   belongs_to :activity
   belongs_to :stage
@@ -23,7 +23,9 @@ class Timestamp < ActiveRecord::Base
 
   # get for a project
   def self.by_project(project_id)
+     Rails.logger.debug("--------------------------------------------by_project")
     joins(:activity).where('activities.project_id = ?', project_id)
+     Rails.logger.debug("--------------------------------------------by_project end")
   end
 
   # get for a date
@@ -58,6 +60,22 @@ class Timestamp < ActiveRecord::Base
 
   ######################
 
+  def children
+    Timestamp.where('parent_id = ?', self.id)
+  end
+
+  def parent
+    Timestamp.where('id = ?', self.parent_id).first
+  end
+
+  def parent?
+    Timestamp.where('parent_id = ?', self.id).first.present?
+  end
+
+  def has_parent?
+    self.parent_id.present?
+  end
+
   # get all activity for the current day
   def self.current_day_stamps
     process_user_data_for_charts(stamps_today.sorted)
@@ -65,12 +83,12 @@ class Timestamp < ActiveRecord::Base
 
   # get all activity by day
   def self.all_stamps(options={})
+     Rails.logger.debug("-------------------------------------------all_stamps")
     query = sorted
     query = query.where('timestamps.date >= ?', options[:start_at]) if options[:start_at].present?
     query = query.where('timestamps.date <= ?', Date.parse(options[:end_at])+1.day) if options[:end_at].present?
     if options[:active].present? && options[:active]
       query = query.joins(:activity).where('activities.project_id in (select id from projects where active = ?)', true)
-       Rails.logger.debug("----------1234----------------------------------test #{query.to_sql}")
     end
 
     if options[:type] == Timestamp::SUMMARY[:project]
@@ -80,6 +98,7 @@ class Timestamp < ActiveRecord::Base
     else
       process_user_data_for_charts(query)
     end
+    Rails.logger.debug("-------------------------------------------all_stamps end")
   end
 
 

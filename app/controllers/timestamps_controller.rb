@@ -51,13 +51,14 @@ class TimestampsController < ApplicationController
 
   def edit
     @timestamp = Timestamp.find(params[:id])
+    @preselected_others = @timestamp.children.pluck(:user_id)
     gon.timestamp_date = @timestamp.date.to_s
   end
 
   def create
     users = []
     if params[:timestamp][:assignee].present?
-      assignee = params[:timestamp].delete(:assignee).delete_if {|r| r.empty? }
+      assignee = params[:timestamp][:assignee].delete_if {|r| r.empty? } #delete(:assignee).
       if assignee.index('0')
         users = current_user.others
       else
@@ -73,13 +74,14 @@ class TimestampsController < ApplicationController
         if users.present?
           Timestamp.transaction do
             users.each {|user|
-              Timestamp.create(params[:timestamp].merge({user_id: user.id}))
+              Timestamp.create(params[:timestamp].merge({user_id: user.id, parent_id: @timestamp.id }))
             }
           end
         end
         format.html { redirect_to @redirect_url, notice: t('app.msgs.success_created', :obj => t('activerecord.models.timestamp')) }
       else
         gon.timestamp_date = @timestamp.date.to_s
+        @preselected_others = users.map(&:id)
         format.html { render action: "new" }
       end
     end
@@ -103,13 +105,16 @@ class TimestampsController < ApplicationController
         if users.present?
           Timestamp.transaction do
             users.each {|user|
-              Timestamp.create(params[:timestamp].merge({user_id: user.id}))
+              t = Timestamp.where({user_id: user.id, parent_id: @timestamp.id}).first
+              pars = params[:timestamp].merge({user_id: user.id, parent_id: @timestamp.id})
+              t.present? ? t.update_attributes(pars) : t.create(pars)
             }
           end
         end
         format.html { redirect_to @redirect_url, notice: t('app.msgs.success_updated', :obj => t('activerecord.models.timestamp')) }
       else
         gon.timestamp_date = @timestamp.date.to_s
+        @preselected_others = users.map(&:id)
         format.html { render action: "edit" }
       end
     end
