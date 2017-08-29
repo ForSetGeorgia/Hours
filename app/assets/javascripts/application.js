@@ -19,7 +19,7 @@
 //= require chosen-jquery
 //= require jquery_nested_form
 //= require vendor
-//= require_tree .
+//= require_directory .
 
 $(document).ready(function(){
 	// set focus to first text box on page
