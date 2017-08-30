@@ -10,11 +10,12 @@ $(function() {
   }
 
   // make only days with timestamps active
+  console.log(gon.datepicker_dates)
+  function padZero(n) { return n < 10 ? '0' + n : n; }
   function highlightDays(date) {
-    var clone_date = new Date(date.getTime());
-    clone_date.setHours(clone_date.getHours()+4);
     if (gon.datepicker_dates){
-      if ($.inArray(date.toISOString().slice(0,10), gon.datepicker_dates) > -1){
+      var fdate = [date.getFullYear(), padZero(date.getMonth()+1), padZero(date.getDate())].join('-')
+      if ($.inArray(fdate, gon.datepicker_dates) > -1){
         return [true, 'datepicker-highlight'];
       }
     }
