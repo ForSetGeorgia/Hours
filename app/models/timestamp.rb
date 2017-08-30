@@ -23,9 +23,7 @@ class Timestamp < ActiveRecord::Base
 
   # get for a project
   def self.by_project(project_id)
-     Rails.logger.debug("--------------------------------------------by_project")
     joins(:activity).where('activities.project_id = ?', project_id)
-     Rails.logger.debug("--------------------------------------------by_project end")
   end
 
   # get for a date
@@ -59,7 +57,6 @@ class Timestamp < ActiveRecord::Base
   end
 
   ######################
-
   def children
     Timestamp.where('parent_id = ?', self.id)
   end
@@ -68,13 +65,21 @@ class Timestamp < ActiveRecord::Base
     Timestamp.where('id = ?', self.parent_id).first
   end
 
-  def parent?
-    Timestamp.where('parent_id = ?', self.id).first.present?
+  def created_by
+    has_parent? ? self.parent.user.nickname : self.user.nickname
   end
 
   def has_parent?
     self.parent_id.present?
   end
+
+  # def parent?
+  #   Timestamp.where('parent_id = ?', self.id).first.present?
+  # end
+
+  # def child?
+  #   self.parent_id.present?
+  # end
 
   # get all activity for the current day
   def self.current_day_stamps
@@ -83,7 +88,6 @@ class Timestamp < ActiveRecord::Base
 
   # get all activity by day
   def self.all_stamps(options={})
-     Rails.logger.debug("-------------------------------------------all_stamps")
     query = sorted
     query = query.where('timestamps.date >= ?', options[:start_at]) if options[:start_at].present?
     query = query.where('timestamps.date <= ?', Date.parse(options[:end_at])+1.day) if options[:end_at].present?
@@ -98,7 +102,6 @@ class Timestamp < ActiveRecord::Base
     else
       process_user_data_for_charts(query)
     end
-    Rails.logger.debug("-------------------------------------------all_stamps end")
   end
 
 

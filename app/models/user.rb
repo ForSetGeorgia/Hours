@@ -55,7 +55,8 @@ class User < ActiveRecord::Base
   end
 
   def nickname
-    read_attribute(:nickname).present? ? read_attribute(:nickname) : self.email.split('@')[0]
+    n = read_attribute(:nickname)
+    n.present? ? n : self.email.split('@')[0].capitalize
   end
 
 

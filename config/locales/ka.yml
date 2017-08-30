@@ -61,6 +61,7 @@ ka:
         all_day: All Day
         active: Is Active?
         assignee: Assignee
+        created_by: Added By
       activity:
         project_type_id: Activity Type
         name: Name

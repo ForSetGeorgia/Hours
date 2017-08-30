@@ -97,19 +97,20 @@ class TimestampsController < ApplicationController
         users = current_user.others.find(assignee)
       end
     end
-
     @timestamp = Timestamp.find(params[:id])
-
+    users_ids = users.map{|m| m.id}
+    current_users = @timestamp.children.pluck(:user_id).delete_if {|r| users_ids.index(r) }
     respond_to do |format|
       if @timestamp.update_attributes(params[:timestamp])
-        if users.present?
-          Timestamp.transaction do
+        Timestamp.transaction do
+          if users.present?
             users.each {|user|
               t = Timestamp.where({user_id: user.id, parent_id: @timestamp.id}).first
               pars = params[:timestamp].merge({user_id: user.id, parent_id: @timestamp.id})
-              t.present? ? t.update_attributes(pars) : t.create(pars)
+              t.present? ? t.update_attributes(pars) : Timestamp.create(pars)
             }
           end
+          Timestamp.where({user_id: current_users, parent_id: @timestamp.id}).destroy_all if current_users.present?
         end
         format.html { redirect_to @redirect_url, notice: t('app.msgs.success_updated', :obj => t('activerecord.models.timestamp')) }
       else
@@ -121,8 +122,11 @@ class TimestampsController < ApplicationController
   end
 
   def destroy
-    @timestamp = Timestamp.find(params[:id])
-    @timestamp.destroy
+    Timestamp.transaction do
+      @timestamp = Timestamp.find(params[:id])
+      @timestamp.children.destroy_all
+      @timestamp.destroy
+    end
 
     respond_to do |format|
       format.html { redirect_to @redirect_url }

@@ -90,16 +90,6 @@
       </div>
     </div>
   <% end %>
-  <% if @timestamp.has_parent? %>
-    <div class="form-group">
-      <%= f.label :added_by, :class => 'control-label' do %>
-        <%= model_class.human_attribute_name(:added_by) %>
-      <% end %>
-      <div class="controls">
-        <%= @timestamp.parent.user.nickname %>
-      </div>
-    </div>
-  <% end %>
   <br />
   <div class="form-group">
     <%= f.label :notes, :class => 'control-label' %>
