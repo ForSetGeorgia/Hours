@@ -60,7 +60,7 @@ en:
         project: Project
         all_day: All Day
         active: Is Active?
-        assignee: Assignee
+        assignee: Add To
         created_by: Added By
       activity:
         project_type_id: Activity Type
