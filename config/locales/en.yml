@@ -60,6 +60,8 @@ en:
         project: Project
         all_day: All Day
         active: Is Active?
+        assignee: Add To
+        created_by: Added By
       activity:
         project_type_id: Activity Type
         name: Name
@@ -193,6 +195,7 @@ en:
       added_on: "Added on: %{date}"
       forset: ForSet
       link_title: ForSet
+      all: All
     msgs:
       does_not_exist: You tried to access a page that does not exist.
       not_authorized: You are not authorized to view that page.
@@ -267,6 +270,7 @@ en:
       link_add_hours: click here to add hours.
     form:
       activity_placeholder: Select an activity
+      assignee_placeholder: Select Manageable Activity First
       modal:
         title: Project/Activity Notes
         no_notes: No projects or activities have any notes at this time.

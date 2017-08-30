@@ -1,6 +1,6 @@
 class Timestamp < ActiveRecord::Base
-  attr_accessible :user_id, :activity_id, :stage_id, :duration, :diff_level, :notes, :date
-
+  attr_accessible :user_id, :activity_id, :stage_id, :duration, :diff_level, :notes, :date, :assignee, :parent_id
+  attr_accessor :assignee
   belongs_to :activity
   belongs_to :stage
   belongs_to :user
@@ -57,6 +57,29 @@ class Timestamp < ActiveRecord::Base
   end
 
   ######################
+  def children
+    Timestamp.where('parent_id = ?', self.id)
+  end
+
+  def parent
+    Timestamp.where('id = ?', self.parent_id).first
+  end
+
+  def created_by
+    has_parent? ? self.parent.user.nickname : self.user.nickname
+  end
+
+  def has_parent?
+    self.parent_id.present?
+  end
+
+  # def parent?
+  #   Timestamp.where('parent_id = ?', self.id).first.present?
+  # end
+
+  # def child?
+  #   self.parent_id.present?
+  # end
 
   # get all activity for the current day
   def self.current_day_stamps

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20170628071625) do
+ActiveRecord::Schema.define(:version => 20170829125808) do
 
   create_table "activities", :force => true do |t|
     t.integer  "project_id"
@@ -115,6 +115,7 @@ ActiveRecord::Schema.define(:version => 20170628071625) do
     t.integer  "stage_id"
     t.date     "date"
     t.integer  "activity_id"
+    t.integer  "parent_id"
   end
 
   add_index "timestamps", ["activity_id"], :name => "index_timestamps_on_activity_id"

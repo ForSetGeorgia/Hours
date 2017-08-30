@@ -1,4 +1,11 @@
-<%- model_class = Timestamp -%>
+<%-
+  model_class = Timestamp
+
+  # used to populate select list for project and info for notes table, due alot db requests updated to this version
+  @manager_list = User.managers
+  @organization_list = Organization.all
+  @project_type_list = ProjectType.all
+-%>
 
 <%= form_for @timestamp, :html => { :class => 'form-inline timestamp' } do |f| %>
 
@@ -30,7 +37,7 @@
     <% end %>
     <div class="controls">
       <%= select_tag 'timestmap_activity_id', projects_with_grouped_activities(@timestamp.activity_id),
-          name: 'timestamp[activity_id]', :'data-placeholder' => t('.activity_placeholder')  %>
+          name: 'timestamp[activity_id]', :'data-placeholder' => t('.activity_placeholder') %>
     </div>
   </div>
   <div class="form-group">
@@ -72,7 +79,17 @@
       <%= f.select(:diff_level, Timestamp::DIFF_LEVELS, {include_blank: true}) %>
     </div>
   </div>
-
+  <% if current_user.can_manage? %>
+    <div class="form-group">
+      <%= f.label :assignee, :class => 'control-label' do %>
+        <%= model_class.human_attribute_name(:assignee) %>
+      <% end %>
+      <div class="controls">
+        <% @preselected_others = @timestamp.children.pluck(:user_id) %>
+        <%= f.select(:assignee, current_user.others_list.map{|m| m.push( @preselected_others.index(m[1]).present? ? {selected: true } : {})}, {include_blank: true}, { multiple: 'multiple', class: 'assignee-selector', 'data-placeholder': t('.assignee_placeholder')})%>
+      </div>
+    </div>
+  <% end %>
   <br />
   <div class="form-group">
     <%= f.label :notes, :class => 'control-label' %>
@@ -105,17 +122,28 @@
               </tr>
             </thead>
             <tbody>
-              <% @notes.each do |project| %>
+              <% @notes.each do |project|
+
+                # get project full name, without db calls
+                manager = @manager_list.select{|s| s.id == project.manager_id}.first
+                mgr = manager.present? ? " (#{manager.nickname})" : ""
+                organization = @organization_list.select{|s| s.id == project.organization_id}.first
+                project_full_name = "#{organization.short_name}: #{project.name}#{mgr}"
+              %>
                 <tr>
-                  <td><%= project.full_name %></td>
+                  <td><%= project_full_name %></td>
                   <td></td>
                   <td><%= project.notes %></td>
                 </tr>
                 <% if project.activities.present? %>
-                  <% project.activities.each do |activity| %>
+                  <% project.activities.each do |activity|
+                    # get activity full name, without db calls
+                    project_type = @project_type_list.select{|s| s.id == activity.project_type_id }.first
+                    activity_full_name = "#{activity.name} (#{project_type.name})"
+                  %>
                     <tr>
-                      <td><%= project.full_name %></td>
-                      <td><%= activity.full_name %></td>
+                      <td><%= project_full_name %></td>
+                      <td><%= activity_full_name %></td>
                       <td><%= activity.notes %></td>
                     </tr>
                   <% end %>
