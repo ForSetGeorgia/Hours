@@ -91,3 +91,89 @@ footer {
   padding: 10px;
 }
 
+
+form {
+  input, select, input.form-control, .btn {
+    width: auto;
+    height: 40px;
+    padding: 0 10px;
+    border: 1px solid #c5c5c5;
+    border-radius: 0;
+    font-size: 18px;
+  }
+  &.form-inline textarea.form-control {
+    width: 100% !important;
+  }
+  .btn {
+    border: 0;
+    padding: 6px 10px;
+  }
+}
+
+.chosen-single, .chosen-choices {
+  // width: auto !important;
+  padding: 6px 10px !important;
+  height: 40px !important;
+  border: 1px solid #c5c5c5 !important;
+  border-radius: 0 !important;
+  font-size: 18px;
+  background: none !important;
+}
+.chosen-container-active .chosen-choices {
+  box-shadow: none;
+}
+.chosen-container-single .chosen-single div {
+  top: 7px;
+  height: 18px;
+}
+.chosen-container {
+  // width: auto !important;
+}
+// .chosen-single span {
+
+// }
+
+
+.form-row {
+  display: flex;
+  flex-direction: row;
+  // flex-wrap: wrap;
+  .form-column {
+    flex: 1;
+    &:first-of-type {
+      border-right: 1px dashed #c5c5c5;
+      // margin-right: 20px;
+    }
+  }
+}
+.form-inline .form-row .form-group {
+  margin:0 0 20px 0;
+}
+
+abbr[title], abbr[data-original-title] {
+  cursor: help;
+  border-bottom: 0;
+  text-decoration: none;
+  color: #ec6767;
+}
+.form-group {
+  width: 100%;
+  padding: 0 20px;
+}
+.form-group .form-label {
+  padding-left: 2px;
+}
+.form-group .controls {
+  display: flex;
+  justify-content: space-between;
+}
+.form-group .controls .form-control {
+  // flex: 1;
+}
+.form-group .controls button {
+  margin-left: 20px;
+  float: right;
+}
+#timestamp_diff_level_chosen, #timestamp_assignee_chosen, #timestamp_stage_id_chosen {
+  width: auto !important;
+}
