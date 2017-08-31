@@ -51,7 +51,7 @@ en:
         sort_order: Sort Order
       timestamp:
         activity_id: Activity
-        user_id: User
+        user_id: Staff
         diff_level: Difficulty Level
         duration: Duration (minutes)
         notes: Notes
@@ -270,12 +270,13 @@ en:
       link_add_hours: click here to add hours.
     form:
       activity_placeholder: Select an activity
-      assignee_placeholder: Select Manageable Activity First
+      assignee_placeholder: Add this time to other staff
       modal:
         title: Project/Activity Notes
         no_notes: No projects or activities have any notes at this time.
         close: Close
-        button_text: View Project/Activty Notes
+        button_text: Notes
+        button_text_title: View Project/Activty Notes
   summary:
     index:
     date:
