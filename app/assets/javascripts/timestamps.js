@@ -1,20 +1,23 @@
 $(function() {
+  var $start_at = $('input#timestamp_start_at')
+  var $end_at = $('input#timestamp_end_at')
+
   // when start/end date changes, set the max/min date of the opposite date
   function customRange(dates) {
     if (this.id == 'timestamp_start_at') {
-      $('input#timestamp_end_at').datepicker('option', 'minDate', dates || null);
+      $end_at.datepicker('option', 'minDate', dates || null);
     }
     else {
-      $('input#timestamp_start_at').datepicker('option', 'maxDate', dates || null);
+      $start_at.datepicker('option', 'maxDate', dates || null);
     }
   }
-
   // make only days with timestamps active
+  console.log(gon.datepicker_dates)
+  function padZero(n) { return n < 10 ? '0' + n : n; }
   function highlightDays(date) {
-    var clone_date = new Date(date.getTime());
-    clone_date.setHours(clone_date.getHours()+4);
     if (gon.datepicker_dates){
-      if ($.inArray(date.toISOString().slice(0,10), gon.datepicker_dates) > -1){
+      var fdate = [date.getFullYear(), padZero(date.getMonth()+1), padZero(date.getDate())].join('-')
+      if ($.inArray(fdate, gon.datepicker_dates) > -1){
         return [true, 'datepicker-highlight'];
       }
     }
@@ -48,68 +51,89 @@ $(function() {
       var date = new Date(gon.timestamp_summary_date);
       $("input#timestamp_date").datepicker("setDate", date);
       if (gon.last_at !== undefined && gon.last_at.length > 0){
-        $('input#timestamp_start_at').datepicker('option', 'maxDate', new Date(gon.last_at));
+        $start_at.datepicker('option', 'maxDate', new Date(gon.last_at));
       }
       if (gon.begin_at !== undefined && gon.begin_at.length > 0){
-        $('input#timestamp_end_at').datepicker('option', 'minDate', new Date(gon.begin_at));
+        $end_at.datepicker('option', 'minDate', new Date(gon.begin_at));
       }
     }
   }
 
   // used in summary user/project page
   if (gon.start_at && gon.end_at){
+
+
     // start gathered at
-    $("input#timestamp_start_at").datepicker({
+    $start_at.datepicker({
       dateFormat: 'yy-mm-dd',
       onSelect: customRange,
       beforeShowDay: highlightDays
     });
-    if (gon.start_at !== undefined && gon.start_at.length > 0)
-    {
-      $("input#timestamp_start_at").datepicker("setDate", new Date(gon.start_at));
-    }
-    if (gon.begin_at !== undefined && gon.begin_at.length > 0)
-    {
-      $('input#timestamp_start_at').datepicker('option', 'minDate', new Date(gon.begin_at));
-    }
-    if (gon.end_at !== undefined && gon.end_at.length > 0)
-    {
-      var end = new Date(gon.end_at);
-      if (gon.last_at !== undefined && gon.last_at.length > 0){
-        var last = new Date(gon.last_at);
-        if (last < end){
-          end = last;
-        }
-      }
-      $('input#timestamp_start_at').datepicker('option', 'maxDate', end);
-    }
+
+    $start_at.datepicker('option', {
+      minDate: new Date(gon.begin_at),
+      maxDate: new Date(gon.last_at)
+    });
+
+    var sdate = gon.start_at >= gon.begin_at && gon.start_at <= gon.last_at ? gon.start_at : gon.begin_at
+    $start_at.datepicker('setDate', new Date(sdate))
+
+
+
+    // if (gon.start_at !== undefined && gon.start_at.length > 0)
+    // {
+    //   $start_at.datepicker("setDate", new Date(gon.start_at));
+    // }
+    // if (gon.begin_at !== undefined && gon.begin_at.length > 0)
+    // {
+    //   $start_at.datepicker('option', 'minDate', new Date(gon.begin_at));
+    // }
+    // if (gon.end_at !== undefined && gon.end_at.length > 0)
+    // {
+    //   var end = new Date(gon.end_at);
+    //   if (gon.last_at !== undefined && gon.last_at.length > 0){
+    //     var last = new Date(gon.last_at);
+    //     if (last < end){
+    //       end = last;
+    //     }
+    //   }
+    //   $start_at.datepicker('option', 'maxDate', end);
+    // }
 
     // end gathered at
-    $("input#timestamp_end_at").datepicker({
+    $end_at.datepicker({
       dateFormat: 'yy-mm-dd',
       onSelect: customRange,
       beforeShowDay: highlightDays
     });
-    if (gon.end_at !== undefined && gon.end_at.length > 0)
-    {
-      $("input#timestamp_end_at").datepicker("setDate", new Date(gon.end_at));
-      $('input#timestamp_end_at').datepicker('option', 'maxDate', new Date(gon.end_at));
-    }
-    if (gon.last_at !== undefined && gon.last_at.length > 0)
-    {
-      $('input#timestamp_end_at').datepicker('option', 'maxDate', new Date(gon.last_at));
-    }
-    if (gon.start_at !== undefined && gon.start_at.length > 0)
-    {
-      var start = new Date(gon.start_at);
-      if (gon.begin_at !== undefined && gon.begin_at.length > 0){
-        var begin = new Date(gon.begin_at);
-        if (start < begin){
-          start = begin;
-        }
-      }
-      $('input#timestamp_end_at').datepicker('option', 'minDate', start);
-    }
+    $end_at.datepicker('option', {
+      minDate: new Date(gon.begin_at),
+      maxDate: new Date(gon.last_at)
+    });
+    // console.log(gon.start_at, gon.begin_at, gon.last_at, gon.end_at )
+    sdate = gon.end_at >= gon.begin_at && gon.end_at <= gon.last_at ? gon.end_at : gon.last_at
+    $end_at.datepicker('setDate', new Date(sdate))
+
+    // if (gon.end_at !== undefined && gon.end_at.length > 0)
+    // {
+    //   $end_at.datepicker("setDate", new Date(gon.end_at));
+    //   $end_at.datepicker('option', 'maxDate', new Date(gon.end_at));
+    // }
+    // if (gon.last_at !== undefined && gon.last_at.length > 0)
+    // {
+    //   $end_at.datepicker('option', 'maxDate', new Date(gon.last_at));
+    // }
+    // if (gon.start_at !== undefined && gon.start_at.length > 0)
+    // {
+    //   var start = new Date(gon.start_at);
+    //   if (gon.begin_at !== undefined && gon.begin_at.length > 0){
+    //     var begin = new Date(gon.begin_at);
+    //     if (start < begin){
+    //       start = begin;
+    //     }
+    //   }
+    //   $end_at.datepicker('option', 'minDate', start);
+    // }
   }
 
   // when all day selected, enter 7 hours into the duration box
