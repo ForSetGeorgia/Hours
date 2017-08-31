@@ -1,4 +1,12 @@
-<%- model_class = Project -%>
+<%-
+  model_class = Project
+
+  # used to populate select list for project and info for notes table, due alot db requests updated to this version
+  @manager_list = User.managers
+  @organization_list = Organization.all
+  @project_type_list = ProjectType.all
+-%>
+
 <div class="page-header">
   <h1>
     <%=t '.title' %>
