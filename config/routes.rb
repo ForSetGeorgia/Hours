@@ -31,6 +31,8 @@ BootstrapStarter::Application.routes.draw do
     match '/summary', :to => 'summary#index', :as => :summary, :via => :get
     match '/summary/user', :to => 'summary#user', :as => :summary_user, :via => :get
     match '/summary/project', :to => 'summary#project', :as => :summary_project, :via => :get
+    match '/summary/project_date_map/:id', :to => 'summary#project_date_map', :as => :summary_project_date_map, :via => :get, format: :json
+    match '/summary/user_date_map/:id', :to => 'summary#user_date_map', :as => :summary_user_date_map, :via => :get, format: :json
     match '/summary/date', :to => 'summary#date', :as => :summary_date, :via => :get
 
 		root :to => 'root#index'

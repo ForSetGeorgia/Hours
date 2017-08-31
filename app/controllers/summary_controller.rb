@@ -29,7 +29,13 @@ class SummaryController < ApplicationController
 
     # in app controller
     load_data_for_charts(records, dates, :projects, :dates, 'charts.summary.user', true, @user.nickname)
+    gon.date_map_url = summary_user_date_map_path(id: '__id__')
+    gon.date_map_trigger_id = 'timestamp_user_id'
+  end
 
+  def user_date_map
+    id = params[:id]
+    render json: id.present? ? Timestamp.by_user(id).dates : []
   end
 
   def project
@@ -47,7 +53,13 @@ class SummaryController < ApplicationController
 
     # in app controller
     load_data_for_charts(records, dates, :users, :dates, 'charts.summary.project', true, @project.full_name)
+    gon.date_map_url = summary_project_date_map_path(id: '__id__')
+    gon.date_map_trigger_id = 'timestamp_project_id'
+  end
 
+  def project_date_map
+    id = params[:id]
+    render json: id.present? ? Timestamp.by_project(id).dates : []
   end
 
   def date
