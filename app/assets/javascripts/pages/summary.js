@@ -23,13 +23,11 @@ $(document).ready(function(){
       gon.datepicker_dates = dates
       if (dates.length) {
         gon.datepicker_dates = dates
-        // console.log(dates)
         gon.begin_at = dates[0]
         if(dates.length > 1) {
           gon.last_at = dates[dates.length-1]
         } else {
-          //var now = new Date(Date.now())
-          gon.last_at = dates[0] // [now.getFullYear(), padZero(now.getMonth()+1), padZero(now.getDate())].join('-')
+          gon.last_at = dates[0]
         }
         refresh_datepickers()
       }
@@ -37,7 +35,6 @@ $(document).ready(function(){
    });
   }
   function refresh_datepickers () {
-    // console.log(gon.begin_at,gon.last_at)
     $start_at.datepicker('option', {
       minDate: new Date(gon.begin_at),
       maxDate: new Date(gon.last_at)

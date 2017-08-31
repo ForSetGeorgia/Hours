@@ -12,7 +12,6 @@ $(function() {
     }
   }
   // make only days with timestamps active
-  console.log(gon.datepicker_dates)
   function padZero(n) { return n < 10 ? '0' + n : n; }
   function highlightDays(date) {
     if (gon.datepicker_dates){
@@ -110,7 +109,6 @@ $(function() {
       minDate: new Date(gon.begin_at),
       maxDate: new Date(gon.last_at)
     });
-    // console.log(gon.start_at, gon.begin_at, gon.last_at, gon.end_at )
     sdate = gon.end_at >= gon.begin_at && gon.end_at <= gon.last_at ? gon.end_at : gon.last_at
     $end_at.datepicker('setDate', new Date(sdate))
 
