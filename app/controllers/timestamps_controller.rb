@@ -47,12 +47,14 @@ class TimestampsController < ApplicationController
   def new
     @timestamp = Timestamp.new(stage_id: 4)
     gon.timestamp_date = Time.zone.now.to_date.to_s
+    gon.todays_date = Time.now.to_date.to_s
   end
 
   def edit
     @timestamp = Timestamp.find(params[:id])
     @preselected_others = @timestamp.children.pluck(:user_id)
     gon.timestamp_date = @timestamp.date.to_s
+    gon.todays_date = Time.now.to_date.to_s
   end
 
   def create
@@ -81,6 +83,7 @@ class TimestampsController < ApplicationController
         format.html { redirect_to @redirect_url, notice: t('app.msgs.success_created', :obj => t('activerecord.models.timestamp')) }
       else
         gon.timestamp_date = @timestamp.date.to_s
+        gon.todays_date = Time.now.to_date.to_s
         @preselected_others = users.map(&:id)
         format.html { render action: "new" }
       end
@@ -115,6 +118,7 @@ class TimestampsController < ApplicationController
         format.html { redirect_to @redirect_url, notice: t('app.msgs.success_updated', :obj => t('activerecord.models.timestamp')) }
       else
         gon.timestamp_date = @timestamp.date.to_s
+        gon.todays_date = Time.now.to_date.to_s
         @preselected_others = users.map(&:id)
         format.html { render action: "edit" }
       end

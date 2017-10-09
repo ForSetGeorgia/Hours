@@ -33,8 +33,8 @@ $(function() {
     {
       var date = new Date(gon.timestamp_date);
       $("input#timestamp_date").datepicker("setDate", date);
-      $('input#timestamp_date').datepicker('option', 'maxDate', date);
-      var minDate = new Date(new Date().setDate(date.getDate()-7));
+      $('input#timestamp_date').datepicker('option', 'maxDate', new Date());
+      var minDate = new Date(date.setDate(date.getDate()-7));
       $('input#timestamp_date').datepicker('option', 'minDate', minDate);
     }
   }
