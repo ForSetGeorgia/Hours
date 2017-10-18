@@ -1,6 +1,7 @@
 $(function() {
   var $start_at = $('input#timestamp_start_at')
   var $end_at = $('input#timestamp_end_at')
+  var minDateRange = 14; // number of days before the set date the user can go back and change
 
   // when start/end date changes, set the max/min date of the opposite date
   function customRange(dates) {
@@ -34,7 +35,7 @@ $(function() {
       var date = new Date(gon.timestamp_date);
       $("input#timestamp_date").datepicker("setDate", date);
       $('input#timestamp_date').datepicker('option', 'maxDate', new Date());
-      var minDate = new Date(date.setDate(date.getDate()-7));
+      var minDate = new Date(date.setDate(date.getDate()-minDateRange));
       $('input#timestamp_date').datepicker('option', 'minDate', minDate);
     }
   }
