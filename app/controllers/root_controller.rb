@@ -3,9 +3,12 @@ class RootController < ApplicationController
   before_filter(except: [:index]) do |controller_instance|
     controller_instance.send(:valid_role?, User::ROLES[:staff])
   end
+  before_filter(except: [:index]) do |controller_instance|
+    controller_instance.send(:is_active_user?)
+  end
 
   def index
-    if user_signed_in? && current_user.role?(User::ROLES[:staff])
+    if user_signed_in? && current_user.role?(User::ROLES[:staff]) && current_user.active?
       records = current_user.timestamps.current_day_stamps
 
       load_data_for_charts(records, nil, :projects, :dates, 'charts.user', false, nil, true)

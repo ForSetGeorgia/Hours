@@ -3,6 +3,9 @@ class Admin::GroupsController < ApplicationController
   before_filter do |controller_instance|
     controller_instance.send(:valid_role?, User::ROLES[:site_admin])
   end
+  before_filter do |controller_instance|
+    controller_instance.send(:is_active_user?)
+  end
 
   def index
     @groups = Group.sorted

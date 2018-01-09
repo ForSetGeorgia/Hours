@@ -3,6 +3,9 @@ class SummaryController < ApplicationController
   before_filter do |controller_instance|
     controller_instance.send(:valid_role?, User::ROLES[:staff])
   end
+  before_filter do |controller_instance|
+    controller_instance.send(:is_active_user?)
+  end
 
   def index
 

@@ -3,6 +3,9 @@ class Admin::OrganizationsController < ApplicationController
   before_filter do |controller_instance|
     controller_instance.send(:valid_role?, User::ROLES[:site_admin])
   end
+  before_filter do |controller_instance|
+    controller_instance.send(:is_active_user?)
+  end
 
   def index
     @organizations = Organization.sorted_long_name

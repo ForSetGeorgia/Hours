@@ -3,6 +3,9 @@ class Admin::UsersController < ApplicationController
   before_filter do |controller_instance|
     controller_instance.send(:valid_role?, User::ROLES[:admin])
   end
+  before_filter do |controller_instance|
+    controller_instance.send(:is_active_user?)
+  end
 
   # GET /admin/users
   # GET /admin/users.json

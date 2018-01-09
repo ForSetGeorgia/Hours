@@ -3,6 +3,9 @@ class TimestampsController < ApplicationController
   before_filter do |controller_instance|
     controller_instance.send(:valid_role?, User::ROLES[:staff])
   end
+  before_filter do |controller_instance|
+    controller_instance.send(:is_active_user?)
+  end
   before_filter :set_redirect_url
 
   def index

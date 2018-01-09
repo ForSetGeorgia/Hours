@@ -3,7 +3,10 @@ class Admin::PagesController < ApplicationController
   before_filter do |controller_instance|
     controller_instance.send(:valid_role?, User::ROLES[:admin])
   end
-  
+  before_filter do |controller_instance|
+    controller_instance.send(:is_active_user?)
+  end
+
   # GET /pages
   # GET /pages.json
   def index

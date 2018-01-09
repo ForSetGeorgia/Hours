@@ -95,6 +95,11 @@ logger.debug "////////////////////////// BROWSER = #{user_agent}"
     redirect_to root_path, :notice => t('app.msgs.not_authorized') if !current_user || !current_user.role?(role)
   end
 
+  def is_active_user?
+    redirect_to root_path, :notice => t('app.msgs.not_authorized') if !current_user || !current_user.active?
+  end
+
+
 	# store the current path so after login, can go back
 	# only record the path if this is not an ajax call and not a users page (sign in, sign up, etc)
 	def store_location
