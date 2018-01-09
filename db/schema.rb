@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20170829125808) do
+ActiveRecord::Schema.define(:version => 20180109060139) do
 
   create_table "activities", :force => true do |t|
     t.integer  "project_id"
@@ -124,9 +124,9 @@ ActiveRecord::Schema.define(:version => 20170829125808) do
   add_index "timestamps", ["user_id"], :name => "index_timestamps_on_user_id"
 
   create_table "users", :force => true do |t|
-    t.string   "email",                  :default => "", :null => false
-    t.string   "encrypted_password",     :default => "", :null => false
-    t.integer  "role",                   :default => 0,  :null => false
+    t.string   "email",                  :default => "",   :null => false
+    t.string   "encrypted_password",     :default => "",   :null => false
+    t.integer  "role",                   :default => 0,    :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -139,10 +139,12 @@ ActiveRecord::Schema.define(:version => 20170829125808) do
     t.string   "uid"
     t.string   "nickname"
     t.string   "avatar"
-    t.datetime "created_at",                             :null => false
-    t.datetime "updated_at",                             :null => false
+    t.datetime "created_at",                               :null => false
+    t.datetime "updated_at",                               :null => false
+    t.boolean  "active",                 :default => true
   end
 
+  add_index "users", ["active"], :name => "index_users_on_active"
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["provider", "uid"], :name => "idx_users_provider"
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true

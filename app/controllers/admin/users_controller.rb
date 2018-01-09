@@ -9,6 +9,7 @@ class Admin::UsersController < ApplicationController
   def index
     @users = User.sorted
 
+    gon.label_active = t('admin.users.index.label_active')
     respond_to do |format|
       format.html # index.html.erb
     end

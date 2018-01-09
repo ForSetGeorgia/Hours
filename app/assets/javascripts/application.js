@@ -51,12 +51,12 @@ $(document).ready(function(){
       }
     });
     if ($('table:not(.no-datatable) thead th[data-filter="only-active"]').length > 0) {
-      $('.dataTables_filters').html('<input type="checkbox" id="dataTablesFilterOnlyActive"/><label for="dataTablesFilterOnlyActive">' + gon.label_active_project + '</label>')
+      $('.dataTables_filters').html('<input type="checkbox" id="dataTablesFilterOnlyActive"/><label for="dataTablesFilterOnlyActive">' + gon.label_active + '</label>')
       var dt = $('table').DataTable();
       $('#dataTablesFilterOnlyActive').change(function () {
         dt
           .columns('[data-filter="only-active"]')
-          .search(this.checked ? 'true' : '')
+          .search(this.checked ? 'yes' : '')
           .draw()
       })
       $('#dataTablesFilterOnlyActive').attr('checked', 'checked').trigger('change');

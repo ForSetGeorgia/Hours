@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me, :role,
-                  :provider, :uid, :nickname, :avatar
+                  :provider, :uid, :nickname, :avatar, :active
   attr_accessor :send_notification
 
   has_many :timestamps, dependent: :destroy
@@ -111,6 +111,10 @@ class User < ActiveRecord::Base
     else
       staff
     end
+  end
+
+  def self.is_active
+    where(active: true)
   end
 
 end

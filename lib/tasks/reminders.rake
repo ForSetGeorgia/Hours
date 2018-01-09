@@ -4,7 +4,7 @@ namespace :reminder do
   task :send => :environment do
     # only continue if today is work day
     if Time.now.to_date.cwday < 6
-      users = User.all
+      users = User.is_active
       if users.present?
         message = Message.new
         message.bcc = users.map(&:email)

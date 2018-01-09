@@ -27,7 +27,7 @@
             <%= group.active_project_names.map{|x| "<li>#{x}</li>"}.join.html_safe %>
           </ul>
         </td>
-        <td><%= group.active %></td>
+        <td><%= format_boolean_flag(group.active) %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_admin_group_path(group), :class => 'btn btn-default btn-xs' %>

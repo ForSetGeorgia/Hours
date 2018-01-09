@@ -22,6 +22,7 @@ en:
         sign_in_count: Number of Times Logged In
         created_at: Date Created
         current_sign_in_at: Date Last Logged In
+        active: Is Active?
       page:
         name: Unique name for content (do not change!)
       page_translation:
@@ -196,6 +197,8 @@ en:
       forset: ForSet
       link_title: ForSet
       all: All
+      'no': 'No'
+      'yes': 'Yes'
     msgs:
       does_not_exist: You tried to access a page that does not exist.
       not_authorized: You are not authorized to view that page.
@@ -225,13 +228,14 @@ en:
         title: Editing User
       index:
         title: Users
+        label_active: Active Users Only
       new:
         title: New User
       show:
         title: User Details
     projects:
       index:
-        label_active_projects: Active Projects Only
+        label_active: Active Projects Only
       form:
         add_activity: Add Activity
       activity_fields:

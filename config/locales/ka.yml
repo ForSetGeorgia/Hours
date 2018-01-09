@@ -22,6 +22,7 @@ ka:
         sign_in_count: "შემოსვლის რაოდენობა"
         created_at: "შექმნის თარიღი"
         current_sign_in_at: "ბოლო შემოსვლის თარიღი"
+        active: Is Active?
       page:
         name: კონტენტის უნიკალური სახელი (არ შეცვალოთ!)
       page_translation:
@@ -191,6 +192,8 @@ ka:
       forset: ForSEt
       link_title: ForSet
       all: All
+      'no': არა
+      'yes': დიახ
     msgs:
       does_not_exist: თქვენ ცდილობთ ისეთი გვერდის ნახვას, რომელიც არ არსებობს.
       not_authorized: თქვენ არ გაქვთ ამ გვერდის ნახვის უფლება.
@@ -220,11 +223,14 @@ ka:
         title: ცვლილებების შეტანა მომხმარებლის გვერდზე
       index:
         title: მომხმარებლები
+        label_active: Active Users Only
       new:
         title: ახალი მომხმარებელი
       show:
         title: მომხმარებლის დეტალები
     projects:
+      index:
+        label_active: Active Projects Only
       form:
         add_activity: Add Activity
       activity_fields:

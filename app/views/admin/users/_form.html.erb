@@ -10,6 +10,7 @@
 		<% else %>
 			<%= f.hidden_field :role , :value => User::ROLES[:user] %>
 		<% end %>
+    <%= f.input :active, as: :radio  %>
 
 	<% end %>
 

@@ -15,6 +15,7 @@
       <th><%= model_class.human_attribute_name(:nickname) %></th>
       <th><%= model_class.human_attribute_name(:email) %></th>
       <th><%= model_class.human_attribute_name(:role) %></th>
+      <th data-filter="only-active"><%= model_class.human_attribute_name(:active) %></th>
       <th><%= model_class.human_attribute_name(:created_at) %></th>
       <th><%= model_class.human_attribute_name(:current_sign_in_at) %></th>
       <th><%= model_class.human_attribute_name(:sign_in_count) %></th>
@@ -32,6 +33,9 @@
         </td>
         <td>
           <%= user.role_name.humanize %>
+        </td>
+        <td>
+          <%= format_boolean_flag(user.active) %>
         </td>
         <td>
           <%= I18n.l(user.created_at, :format => :file) %>

@@ -7,7 +7,7 @@ class Admin::ProjectsController < ApplicationController
   def index
     @projects = Project.sorted
 
-    gon.label_active_project = t('admin.projects.index.label_active_projects')
+    gon.label_active = t('admin.projects.index.label_active')
     respond_to do |format|
       format.html
     end

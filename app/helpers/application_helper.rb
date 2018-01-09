@@ -27,7 +27,7 @@ module ApplicationHelper
   def current_url
     "#{request.protocol}#{request.host_with_port}#{request.fullpath}"
   end
-  
+
 	def full_url(path)
 		"#{request.protocol}#{request.host_with_port}#{path}"
 	end
@@ -35,7 +35,7 @@ module ApplicationHelper
 	# put the default locale first and then sort the remaining locales
 	def create_sorted_locales
     x = I18n.available_locales.dup
-    
+
     # sort
     x.sort!{|x,y| x <=> y}
 
@@ -64,6 +64,17 @@ module ApplicationHelper
 	  end
     return trans
 	end
+
+  # format the true/false value into yes/no with box
+  def format_boolean_flag(flag, small=false)
+    css_small = small == true ? 'boolean-flag-xs' : ''
+    if flag == true
+      return "<div class='boolean-flag boolean-flag-true #{css_small}'>#{t('app.common.yes')}</div>".html_safe
+    else
+      return "<div class='boolean-flag boolean-flag-false #{css_small}'>#{t('app.common.no')}</div>".html_safe
+    end
+  end
+
 
 
 	# Based on https://gist.github.com/1182136
