@@ -12,9 +12,6 @@
 //= require jquery-ui/effect
 //= require jquery-ui/datepicker
 //= require twitter/bootstrap
-//= require dataTables/jquery.dataTables
-//= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
-//= require dataTables/extras/dataTables.tableTools
 //= require highcharts
 //= require chosen-jquery
 //= require jquery_nested_form
@@ -34,22 +31,13 @@ $(document).ready(function(){
 
   // assign datatable to all tables
   if ($('table:not(.no-datatable)').length > 0){
-    $('table').dataTable({
-      dom: '<"dataTables_row"lT><"dataTables_row"<"dataTables_filters">f>rtip',
-      tableTools: {
-        "sSwfPath": "/assets/dataTables/extras/swf/copy_csv_xls_pdf.swf",
-        "aButtons": [
-          {
-            "sExtends": "csv",
-            "mColumns": [ 0,1,2,3,4,5 ]
-          },
-          {
-            "sExtends": "xls",
-            "mColumns": [ 0,1,2,3,4,5 ]
-          }
-        ]
-      }
+    $('table').DataTable({
+      dom: '<"dataTables_row"iB><"dataTables_row"l<"dataTables_filters">f>rtp',
+      buttons: [
+        'csv', 'excel'
+      ]
     });
+
     if ($('table:not(.no-datatable) thead th[data-filter="only-active"]').length > 0) {
       $('.dataTables_filters').html('<input type="checkbox" id="dataTablesFilterOnlyActive"/><label for="dataTablesFilterOnlyActive">' + gon.label_active + '</label>')
       var dt = $('table').DataTable();
