@@ -283,6 +283,7 @@ ka:
       title: "Hours by Date: %{date}"
       label_date: Date
       label_active_projects: Active Projects Only
+      label_active_users: Active Users Only
       label_submit: Get Hours
       no_hours: "No hours have been submitted for '%{date}'"
     project:
@@ -290,7 +291,8 @@ ka:
       label_project: Project
       label_start: Start Date
       label_end: End Date
-      label_active_projects: Active Projects Only
+      label_active_projects: Active Only
+      label_active_users: Active Users Only
       label_submit: Get Hours
       no_hours: "No hours have been submitted for '%{project}' between %{start} and %{end}."
     user:
@@ -299,6 +301,7 @@ ka:
       label_start: Start Date
       label_end: End Date
       label_active_projects: Active Projects Only
+      label_active_users: Active Only
       label_submit: Get Hours
       no_hours: "No hours have been submitted for '%{user}' between %{start} and %{end}."
   mailer:

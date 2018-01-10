@@ -122,11 +122,24 @@ $(document).ready(function(){
       $('#active_projects_value').val(this.checked);
     })
   }
-  if($('#active_projects_checkbox_inline').length > 0) {
-    $('#active_projects_checkbox_inline').change(function() {
+  if($('#active_projects_checkbox_filter').length > 0) {
+    $('#active_projects_checkbox_filter').change(function() {
       $('#timestamp_project_id option[data-active=false]').attr('disabled', this.checked);
       $('#timestamp_project_id').trigger("chosen:updated");
     })
   }
+
+  if($('#active_users_checkbox').length > 0) {
+    $('#active_users_checkbox').change(function() {
+      $('#active_users_value').val(this.checked);
+    })
+  }
+  if($('#active_users_checkbox_filter').length > 0) {
+    $('#active_users_checkbox_filter').change(function() {
+      $('#timestamp_user_id option[data-active=false]').attr('disabled', this.checked);
+      $('#timestamp_user_id').trigger("chosen:updated");
+    })
+  }
+
 
 });

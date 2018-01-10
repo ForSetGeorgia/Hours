@@ -27,7 +27,11 @@ class SummaryController < ApplicationController
       params[:active_projects] = @default_active_projects_value
     end
 
-    records = Timestamp.by_user(params[:timestamp_user_id]).all_stamps(start_at: params[:timestamp_start_at], end_at: params[:timestamp_end_at], active: params[:active_projects])
+    params[:active_users] = @default_active_users_value
+
+    records = Timestamp.by_user(params[:timestamp_user_id]).all_stamps(start_at: params[:timestamp_start_at],
+                                                                       end_at: params[:timestamp_end_at],
+                                                                       active_project: params[:active_projects])
     dates = Timestamp.by_user(params[:timestamp_user_id]).dates
 
     # in app controller
@@ -51,7 +55,18 @@ class SummaryController < ApplicationController
     params[:timestamp_project_id] ||= @projects.first.id
     @project = @projects.select{|x| x.id.to_s == params[:timestamp_project_id].to_s}.first
 
-    records = Timestamp.by_project(params[:timestamp_project_id]).all_stamps(start_at: params[:timestamp_start_at], end_at: params[:timestamp_end_at], type: Timestamp::SUMMARY[:project])
+    params[:active_projects] = @default_active_projects_value
+
+    if params[:active_users].present?
+      params[:active_users] = params[:active_users] == 'true'
+    else
+      params[:active_users] = @default_active_users_value
+    end
+
+    records = Timestamp.by_project(params[:timestamp_project_id]).all_stamps(start_at: params[:timestamp_start_at],
+                                                                              end_at: params[:timestamp_end_at],
+                                                                              type: Timestamp::SUMMARY[:project],
+                                                                              active_user: params[:active_users])
     dates = Timestamp.by_project(params[:timestamp_project_id]).dates
 
     # in app controller
@@ -88,7 +103,15 @@ class SummaryController < ApplicationController
       params[:active_projects] = @default_active_projects_value
     end
 
-    records = Timestamp.by_date(params[:timestamp_date]).all_stamps(type: Timestamp::SUMMARY[:date], active: params[:active_projects])
+    if params[:active_users].present?
+      params[:active_users] = params[:active_users] == 'true'
+    else
+      params[:active_users] = @default_active_users_value
+    end
+
+    records = Timestamp.by_date(params[:timestamp_date]).all_stamps(type: Timestamp::SUMMARY[:date],
+                                                                    active_project: params[:active_projects],
+                                                                    active_user: params[:active_users])
 
     # in app controller
     load_data_for_charts(records, dates, :projects, :users, 'charts.summary.date', true, @date_formatted)

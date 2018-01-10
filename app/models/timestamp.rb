@@ -91,8 +91,12 @@ class Timestamp < ActiveRecord::Base
     query = sorted
     query = query.where('timestamps.date >= ?', options[:start_at]) if options[:start_at].present?
     query = query.where('timestamps.date <= ?', Date.parse(options[:end_at])+1.day) if options[:end_at].present?
-    if options[:active].present? && options[:active]
+    if options[:active_project].present? && options[:active_project]
       query = query.joins(:activity).where('activities.project_id in (select id from projects where active = ?)', true)
+    end
+
+    if options[:active_user].present? && options[:active_user]
+      query = query.where('timestamps.user_id in (select id from users where active = ?)', true)
     end
 
     if options[:type] == Timestamp::SUMMARY[:project]

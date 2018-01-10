@@ -61,6 +61,7 @@ logger.debug "////////////////////////// BROWSER = #{user_agent}"
     # indicate that whether login should allow local and omniauth or just locale
 	  @enable_omniauth = false
     @default_active_projects_value = true
+    @default_active_users_value = true
     # # breakdown the referer into controller/action
     # # this is used so know whether to return to home page or timestamps page
     # # only continue if referrer present and is not /locale/users (the url to use when logging in)
