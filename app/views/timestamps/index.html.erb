@@ -3,7 +3,7 @@
 
   <%= form_tag timestamps_path, method: 'get' do %>
     <div class="row" id="date-pickers">
-      <div class="col-xs-3">
+      <div class="col-xs-4">
         <%= label_tag :timestamp_start_at, t('.label_start') %>
         <%= text_field_tag :timestamp_start_at, params[:timestamp_start_at], size: 14 %>
       </div>
