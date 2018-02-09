@@ -34,6 +34,7 @@ gem 'test-unit', '~> 3.0' # need for rails c
 gem 'chosen-rails', '~> 1.5', '>= 1.5.2' # fancy select boxes
 gem "active_attr", "~> 0.8.5" # to create tabless models; using for contact form
 gem "whenever", "~> 0.9.4", require: false # easily schedule cron jobs
+gem 'test-unit', '~> 3.0' # for rails c on server
 
 # Gems used only for assets and not required
 # in production environments by default.
