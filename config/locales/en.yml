@@ -320,4 +320,10 @@ en:
         message: "Just a friendly reminder to fill in your hours in the ForSet Hours app."
       new_shared_hours:
         subject: "ForSet Hours - time has been added for you!"
-        message: "Time for the activity '%{activity}' has been assigned to you by %{parent_user}. You do not need to add this time yourself now."
+        message: |
+          Time for the following activity has been assigned to you:
+
+          Date: %{date}
+          Activity: %{activity}
+          Duration: %{duration} minutes
+          Added by: %{parent_user}

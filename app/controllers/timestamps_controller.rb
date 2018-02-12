@@ -88,7 +88,9 @@ class TimestampsController < ApplicationController
           message.subject = I18n.t("mailer.notification.new_shared_hours.subject")
           message.message = I18n.t("mailer.notification.new_shared_hours.message",
               parent_user: current_user.nickname,
-              activity: @timestamp.activity.full_name_with_project)
+              activity: @timestamp.activity.full_name_with_project,
+              date: I18n.l(@timestamp.date),
+              duration: @timestamp.duration)
           message.bcc = users.map(&:email)
           NotificationMailer.new_shared_hours(message).deliver
 
