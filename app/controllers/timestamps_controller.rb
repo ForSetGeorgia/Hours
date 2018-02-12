@@ -82,6 +82,16 @@ class TimestampsController < ApplicationController
               Timestamp.create(params[:timestamp].merge({user_id: user.id, parent_id: @timestamp.id }))
             }
           end
+
+          # notifiy users that time was added for them
+          message = Message.new
+          message.subject = I18n.t("mailer.notification.new_shared_hours.subject")
+          message.message = I18n.t("mailer.notification.new_shared_hours.message",
+              parent_user: current_user.nickname,
+              activity: @timestamp.activity.full_name_with_project)
+          message.bcc = users.map(&:email)
+          NotificationMailer.new_shared_hours(message).deliver
+
         end
         format.html { redirect_to @redirect_url, notice: t('app.msgs.success_created', :obj => t('activerecord.models.timestamp')) }
       else

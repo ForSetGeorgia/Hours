@@ -7,6 +7,11 @@ class NotificationMailer < ActionMailer::Base
     mail(:to => ENV['APPLICATION_FEEDBACK_TO_EMAIL'], :subject => message.subject)
   end
 
+  def new_shared_hours(message)
+    @message = message
+    mail(:bcc => message.bcc, :subject => message.subject)
+  end
+
   def reminder(message)
     @message = message
     mail(:bcc => message.bcc, :subject => message.subject)
